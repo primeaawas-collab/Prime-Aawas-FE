@@ -1,0 +1,59 @@
+<div class="login-bg">
+    <div class="container-fluid min-vh-100 d-flex flex-column justify-content-center align-items-center">
+
+        <!-- Company Name -->
+        <div class="brand-logo text-center mb-4">
+            <h1 class="brand-name">PRIME AAWAS</h1>
+            <p class="brand-tagline">OWN. MANAGE. RELAX.</p>
+        </div>
+
+        <!-- Glass card -->
+        <!-- About Section -->
+        <div style="display: flex;">
+            <section class="about-section mt-5 px-3 text-center">
+             
+                <p class="about-description">
+                    Prime Aawas is a modern, user-friendly housing management platform designed to empower landlords
+                    and society administrators with full control over tenant-related operations.
+                </p>
+                <ul class="about-list text-start mx-auto">
+                    <li>Manage tenant data and flat/unit details</li>
+                    <li>Automate billing and rent tracking</li>
+                    <li>Handle grievances and service requests</li>
+                    <li>Broadcast announcements to residents</li>
+                    <li>View real-time insights and reports</li>
+                    <li>Manage secure access for users</li>
+                </ul>
+            </section>
+
+            <div class="card glass-card p-4 w-100 " style="max-width: 400px;">
+                <h3 class="text-center mb-4">Login</h3>
+
+                <form>
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Email address</label>
+                        <input type="email" class="form-control" id="email" placeholder="Enter your email" />
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="password" class="form-label">Password</label>
+                        <input type="password" class="form-control" id="password" placeholder="Enter your password" />
+                    </div>
+
+                    <button type="submit" class="btn btn-dark w-100">Login</button>
+
+                    <div class="text-center mt-3">
+                        <p>
+                            Don't have an account?
+                            <a routerLink="/auth/signup">Sign up</a>
+                        </p>
+                    </div>
+                    <footer class="app-footer  text-center">
+                        <small>© PRIME AAWAS — All rights reserved.</small>
+                    </footer>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
