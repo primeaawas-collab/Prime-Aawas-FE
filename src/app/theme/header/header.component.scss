@@ -1,0 +1,40 @@
+.app-header {
+  background: linear-gradient(to top, #b8d5f0, #ffffff);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.18);
+  color: #4a5a6a;
+  font-family: 'Segoe UI', sans-serif;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+
+  .logo-text {
+    h4 {
+      font-weight: 700;
+      letter-spacing: 1px;
+    }
+
+    .tagline {
+      font-size: 0.7rem;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: #666;
+    }
+  }
+
+  nav {
+    .nav-link {
+      color: #4a5a6a;
+      text-decoration: none;
+      font-weight: 500;
+      margin-left: 1rem;
+
+      &:hover {
+        color: #000;
+        text-decoration: underline;
+      }
+    }
+  }
+}

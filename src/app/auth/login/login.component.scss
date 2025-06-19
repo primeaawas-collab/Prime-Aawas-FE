@@ -1,70 +1,77 @@
 .login-bg {
-    min-height: 100vh;
-    background: linear-gradient(to top, #5e87ad, #ffffff); // beige to white
-    background-size: cover;
-    position: relative;
-    overflow: hidden;
-  
-    &::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      backdrop-filter: blur(8px); // 🔥 BLUR effect
-      -webkit-backdrop-filter: blur(8px);
-      z-index: 0;
-    }
-  
-    > .container-fluid {
-      position: relative;
-      z-index: 1;
-    }
-  }
-  
-  .brand-title {
-    font-family: 'Segoe UI', sans-serif;
-    font-size: 2.5rem;
-    letter-spacing: 2px;
-    font-weight: bold;
-    color: #000000; // ✅ Dark grey
-  }
-  
-  
-  .glass-card {
-    background: rgb(255 255 255 / 48%); // translucent
-    border-radius: 12px;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.18);
+  min-height: 100vh;
+  background: linear-gradient(to top, #5e87ad, #ffffff); // beige to white
+  background-size: cover;
+  position: relative;
+  overflow: hidden;
 
-    will-change: backdrop-filter;
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    backdrop-filter: blur(8px); // 🔥 BLUR effect
+    -webkit-backdrop-filter: blur(8px);
+    z-index: 0;
+  }
+
+  > .container-fluid {
+    position: relative;
+    z-index: 1;
+  }
+}
+
+.brand-title {
+  font-family: 'Segoe UI', sans-serif;
+  font-size: 40px; // 2.5rem
+  letter-spacing: 2px;
+  font-weight: bold;
+  color: #000000; // ✅ Dark grey
+}
+
+.glass-card {
+  background: rgb(255 255 255 / 48%); // translucent
+  border-radius: 12px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  will-change: backdrop-filter;
   transform: translateZ(0);
+}
+
+.brand-logo {
+  font-family: 'Segoe UI', sans-serif;
+  color: #4a5a6a; // 🟦 Blue-grey
+
+  .brand-name {
+    font-size: 35.2px; // 2.2rem
+    font-weight: 700;
+    letter-spacing: 1px;
+    margin: 0;
+    text-transform: uppercase;
   }
-  .brand-logo {
-    font-family: 'Segoe UI', sans-serif;
-    color: #4a5a6a; // 🟦 Blue-grey
-  
-    .brand-name {
-      font-size: 2.2rem;
-      font-weight: 700;
-      letter-spacing: 1px;
-      margin: 0;
-      text-transform: uppercase;
-    }
-  
-    .brand-tagline {
-      font-size: 0.85rem;
-      font-weight: 500;
-      letter-spacing: 0.3rem;
-      text-transform: uppercase;
-      margin: 0;
-      color: #4a5a6a;
-    }
+
+  .brand-tagline {
+    font-size: 16px; // 0.85rem
+    font-weight: 500;
+    letter-spacing: 4.8px; // 0.3rem
+    text-transform: uppercase;
+    margin: 0;
+    color: #4a5a6a;
   }
+   .brand-tagline-paragraph {
+    font-size: 12px; // 0.85rem
+    font-weight: 500;
+    text-transform: uppercase;
+    margin: 0;
+    color: #4a5a6a;
+  }
+}
+
 .app-footer {
-  font-size: 0.85rem;
+  font-size: 13.6px; // 0.85rem
   color: #666;
-  padding: 1rem 0;
+  padding: 16px 0; // 1rem 0
   width: 100%;
   text-align: center;
 
@@ -72,43 +79,43 @@
     letter-spacing: 0.5px;
   }
 }
+
 .about-section {
-    max-width: 600px;
-    color: #333;
-    background: rgba(255, 255, 255, 0.25);
-    backdrop-filter: blur(6px);
-    -webkit-backdrop-filter: blur(6px);
-    border-radius: 12px;
-    padding: 2rem 1.5rem;
-    margin: 0 auto;
-    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.1);
-    font-family: 'Open Sans', sans-serif;
-  }
-  
-  .about-title {
-    font-weight: 700;
-    font-size: 1.4rem;
+  max-width: 600px;
+  color: #333;
+  background: rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  border-radius: 12px;
+  padding: 32px 24px; // 2rem 1.5rem
+  margin: 0 auto;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.1);
+  font-family: 'Open Sans', sans-serif;
+}
+
+.about-title {
+  font-weight: 700;
+  font-size: 22.4px; // 1.4rem
+  color: #4a5a6a;
+  text-transform: uppercase;
+}
+
+.about-description {
+  font-size: 16px; // 1rem
+  margin-bottom: 16px; // 1rem
+  line-height: 1.6;
+}
+
+.about-list {
+  list-style: none;
+  padding-left: 0;
+  font-size: 15.2px; // 0.95rem
+  line-height: 1.8;
+  color: #333;
+
+  li::before {
+    content: "• ";
     color: #4a5a6a;
-    text-transform: uppercase;
+    font-weight: bold;
   }
-  
-  .about-description {
-    font-size: 1rem;
-    margin-bottom: 1rem;
-    line-height: 1.6;
-  }
-  
-  .about-list {
-    list-style: none;
-    padding-left: 0;
-    font-size: 0.95rem;
-    line-height: 1.8;
-    color: #333;
-  
-    li::before {
-      content: "• ";
-      color: #4a5a6a;
-      font-weight: bold;
-    }
-  }
-  
+}
