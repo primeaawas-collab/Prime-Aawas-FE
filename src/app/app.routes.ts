@@ -1,36 +1,24 @@
-import { Routes } from '@angular/router';
+import { PAGES_ROUTES } from './pages/pages.routes';
 import { WrapperComponent } from './theme/wrapper/wrapper.component';
-import { HomeComponent } from './pages/home/home.component';
+import { Routes } from '@angular/router';
+
 
 export const routes: Routes = [
-  
-   {
-    path: '',
-    redirectTo: 'auth',
-    pathMatch: 'full',
-  },
   {
     path: 'auth',
     loadChildren: () =>
       import('./auth/routes').then((m) => m.AUTH_ROUTES),
   },
   {
-    path:'',
-    component:WrapperComponent,
-    canActivate:[],
-    children:[
-      
-       {
+    path: '',
+    component: WrapperComponent,
+    children: [
+      {
         path: '',
         redirectTo: 'home',
         pathMatch: 'full'
       },
-      {
-        path: 'home',
-        component: HomeComponent
-      },
-      
+      ...PAGES_ROUTES
     ]
   }
- 
 ];

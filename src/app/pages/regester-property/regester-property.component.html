@@ -1,8 +1,9 @@
-<div class="container-fluid py-5">
+<div class="container-fluid py-1">
   <div class="row justify-content-center align-items-stretch card-layout-wrapper">
 
     <!-- LEFT PANEL (INFO) -->
-    <div class="col-lg-4 left-panel text-white d-flex flex-column justify-content-center align-items-center text-center p-4">
+    <div
+      class="col-lg-4 left-panel text-white d-flex flex-column justify-content-center align-items-center text-center p-4">
       <img src="https://cdn-icons-png.flaticon.com/512/194/194938.png" class="avatar mb-3" alt="avatar" />
       <h4 class="mb-2">Let’s get you set up</h4>
       <p class="text-light small">
@@ -40,20 +41,30 @@
             </div>
 
             <div class="col-12">
-              <label>Full Address</label>
-              <textarea class="form-control" formControlName="address" rows="2"></textarea>
+              <label>Address Line</label>
+              <input type="text" class="form-control" formControlName="addressLine" />
             </div>
+
+            <div class="col-md-4">
+              <label>PIN Code</label>
+              <input type="text" class="form-control" formControlName="pinCode" maxlength="6" />
+            </div>
+
+            <div class="col-md-4">
+              <label>District</label>
+              <input type="text" class="form-control" formControlName="district" />
+            </div>
+
+            <div class="col-md-4">
+              <label>State</label>
+              <input type="text" class="form-control" formControlName="state" />
+            </div>
+
 
             <div class="col-md-6">
               <label>Number of Flats</label>
-              <input
-                type="number"
-                class="form-control"
-                formControlName="numberOfFlats"
-                min="1"
-                max="10"
-                placeholder="e.g. 4"
-              />
+              <input type="number" class="form-control" formControlName="numberOfFlats" min="1" max="10"
+                placeholder="e.g. 4" />
             </div>
           </div>
 
@@ -61,11 +72,8 @@
             <h6>Flat Details</h6>
 
             <div formArrayName="flats">
-              <div
-                *ngFor="let flat of flats.controls; let i = index"
-                [formGroupName]="i"
-                class="flat-box p-3 mb-3 rounded border bg-light"
-              >
+              <div *ngFor="let flat of flats.controls; let i = index" [formGroupName]="i"
+                class="flat-box p-3 mb-3 rounded border bg-light">
                 <strong>Flat {{ i + 1 }}</strong>
                 <div class="row g-3 mt-2">
                   <div class="col-md-3">

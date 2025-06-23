@@ -1,58 +1,46 @@
 <div class="login-bg">
-    <div class="container-fluid min-vh-100 d-flex flex-column justify-content-center align-items-center">
+  <div class="container-fluid min-vh-100 d-flex flex-column justify-content-center align-items-center">
 
-        <!-- Company Name -->
-        <div class="brand-logo text-center mb-4">
-            <h1 class="brand-name">PRIME AAWAS</h1>
-            <p class="brand-tagline">OWN. MANAGE. RELAX.</p>
-            <p class="brand-tagline-paragraph">Prime Aawas is a modern, user-friendly housing management platform
-                designed to empower landlords
-                and society administrators with full control over tenant-related operations.</p>
-        </div>
-
-        <!-- Glass card -->
-        <!-- About Section -->
-       
-
-
-            <div class="card glass-card p-4 w-100 " style="max-width: 400px;">
-                <h3 class="text-center mb-4">Login</h3>
-
-               <form (ngSubmit)="onSubmit()" #loginForm="ngForm">
-  <div class="mb-3">
-    <label for="email" class="form-label">Email address</label>
-    <input
-      type="email"
-      class="form-control"
-      id="email"
-      name="email"
-      [(ngModel)]="email"
-      placeholder="Enter your email"
-      required
-    />
-  </div>
-
-  <div class="mb-3">
-    <label for="password" class="form-label">Password</label>
-    <input
-      type="password"
-      class="form-control"
-      id="password"
-      name="password"
-      [(ngModel)]="password"
-      placeholder="Enter your password"
-      required
-    />
-  </div>
-
-  <div *ngIf="errorMessage" class="text-danger mb-2 text-center">
-    {{ errorMessage }}
-  </div>
-
-  <button type="submit" class="btn btn-dark w-100">Login</button>
-</form>
-
-            </div>
-          
-        </div>
+    <!-- Company Name -->
+    <div class="brand-logo text-center mb-4">
+      <h1 class="brand-name">PRIME AAWAS</h1>
+      <p class="brand-tagline">OWN. MANAGE. RELAX.</p>
+      <p class="brand-tagline-paragraph">Prime Aawas is a modern, user-friendly housing management platform
+        designed to empower landlords
+        and society administrators with full control over tenant-related operations.</p>
     </div>
+
+    <!-- Glass card -->
+    <!-- About Section -->
+
+
+
+    <div class="card glass-card p-4 w-100 " style="max-width: 400px;">
+      <h3 class="text-center mb-4">Login</h3>
+
+      <form (ngSubmit)="onSubmit()" #loginForm="ngForm">
+        <div class="mb-3">
+          <label for="email" class="form-label">Email address</label>
+          <input type="email" class="form-control" id="email" name="email" [(ngModel)]="email"
+            placeholder="Enter your email" required />
+        </div>
+
+        <div class="mb-3">
+          <label for="password" class="form-label">Password</label>
+          <input type="password" class="form-control" id="password" name="password" [(ngModel)]="password"
+            placeholder="Enter your password" required />
+        </div>
+
+        <div *ngIf="errorMessage" class="text-danger mb-2 text-center">
+          {{ errorMessage }}
+        </div>
+
+        <button type="submit" class="btn btn-dark w-100">Login</button>
+       
+        <button type="submit" class="btn btn-dark w-100 mt-2">Sign-Up</button>
+      </form>
+
+    </div>
+
+  </div>
+</div>

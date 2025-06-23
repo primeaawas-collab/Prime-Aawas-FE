@@ -1,1 +1,29 @@
-<p>regester-tenant works!</p>
+<div class="tenant-table-wrapper">
+  <h4 class="mb-3">Tenant Overview</h4>
+
+  <div class="d-flex flex-wrap gap-3 mb-3 align-items-center">
+    <input type="text" placeholder="🔍 Search name, flat..." class="form-control tenant-search" />
+    <button class="btn btn-primary" (click)="openAddTenant()">➕ Add New Tenant</button>
+  </div>
+
+  <div class="table-responsive">
+    <table class="table tenant-table">
+      <thead>
+        <tr>
+          <th>Name ⬍</th>
+          <th>Phone ⬍</th>
+          <th>Flat ⬍</th>
+          <th>Monthly Rent ⬍</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let tenant of tenants" (click)="openEditTenant(tenant)" style="cursor: pointer;">
+          <td>{{ tenant.name }}</td>
+          <td>{{ tenant.phone }}</td>
+          <td>{{ tenant.flatAssigned }}</td>
+          <td>₹{{ tenant.rentAmount }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
