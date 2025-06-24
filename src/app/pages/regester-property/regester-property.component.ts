@@ -67,7 +67,6 @@ export class RegesterPropertyComponent implements OnInit {
           type: ['', Validators.required],
           serialNumber: ['', Validators.required],
           furnishing: ['', Validators.required],
-          parking: ['', Validators.required],
           monthlyRent: ['', [Validators.required, Validators.min(0)]],
         })
       );

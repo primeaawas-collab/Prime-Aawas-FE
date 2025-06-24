@@ -42,10 +42,35 @@
       <label>Address</label>
       <textarea rows="2" formControlName="address" class="form-control"></textarea>
     </div>
+
+    <!-- ✅ Services Opt-In Section -->
+    <div class="mt-4" *ngIf="availableServices" [formGroup]="optedServicesGroup">
+      <label class="mb-2 fw-semibold d-block">Services Opted In</label>
+
+      <div class="form-check" *ngIf="availableServices?.parking?.available">
+        <input class="form-check-input" type="checkbox" formControlName="parking" />
+        <label class="form-check-label">Parking</label>
+      </div>
+
+      <div class="form-check" *ngIf="availableServices?.wifi?.available">
+        <input class="form-check-input" type="checkbox" formControlName="wifi" />
+        <label class="form-check-label">Wifi</label>
+      </div>
+
+      <div class="form-check" *ngIf="availableServices?.maintenance?.available">
+        <input class="form-check-input" type="checkbox" formControlName="maintenance" />
+        <label class="form-check-label">Maintenance</label>
+      </div>
+
+      <div class="form-check" *ngIf="availableServices?.water?.available">
+        <input class="form-check-input" type="checkbox" formControlName="water" />
+        <label class="form-check-label">Water</label>
+      </div>
+    </div>
   </form>
 </div>
 
 <div mat-dialog-actions class="dialog-actions">
-  <button class="btn btn-primary" (click)="cancel()">Cancel</button>
+  <button class="btn btn-outline-secondary" (click)="cancel()">Cancel</button>
   <button class="btn btn-primary" (click)="submit()">Save</button>
 </div>

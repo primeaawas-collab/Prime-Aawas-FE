@@ -2,7 +2,9 @@ import { Routes } from '@angular/router';
 import { HomeComponent } from './home/home.component';
 import { RegesterPropertyComponent } from './regester-property/regester-property.component';
 import { RegesterTenantComponent } from './regester-tenant/regester-tenant.component';
-import { TenanantDetailsComponent } from './tenanant-details/tenanant-details.component';
+
+import { BillingCostComponent } from './billing-cost/billing-cost.component';
+import { OwnerProvidedServiceComponent } from './owner-provided-service/owner-provided-service.component';
 
 export const PAGES_ROUTES: Routes = [
   {
@@ -17,8 +19,13 @@ export const PAGES_ROUTES: Routes = [
     path: 'register-tenant',
     component: RegesterTenantComponent
   },
-  {
-    path: 'tenant-details',
-    component: TenanantDetailsComponent
-  }
+   {
+    path: 'billing-cost',
+    component: BillingCostComponent
+  },
+    {
+    path: 'service-section',
+    component: OwnerProvidedServiceComponent
+  },
+  
 ];

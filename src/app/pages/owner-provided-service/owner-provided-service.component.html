@@ -1,0 +1,76 @@
+<div class="card p-4 service-config-form">
+  <h5 class="mb-4">⚙️ Property Services Configuration</h5>
+
+  <form [formGroup]="configForm" class="d-flex flex-column gap-4">
+
+    <!-- ✅ PARKING -->
+    <div class="service-box" [formGroup]="parkingGroup">
+      <label class="form-check-label mb-2">
+        <input type="checkbox" class="form-check-input me-2" formControlName="available" />
+        Parking Provided
+      </label>
+
+      <div *ngIf="parkingGroup.get('available')?.value" class="d-flex flex-column gap-2">
+        <div>
+          <label>Car Parking Charge (₹)</label>
+          <input type="number" class="form-control" formControlName="carCharge" />
+        </div>
+        <div>
+          <label>Bike Parking Charge (₹)</label>
+          <input type="number" class="form-control" formControlName="bikeCharge" />
+        </div>
+      </div>
+    </div>
+
+    <!-- ✅ WIFI -->
+    <div class="service-box" [formGroup]="wifiGroup">
+      <label class="form-check-label mb-2">
+        <input type="checkbox" class="form-check-input me-2" formControlName="available" />
+        Wifi Provided
+      </label>
+
+      <div *ngIf="wifiGroup.get('available')?.value">
+        <label>Wifi Charge (₹)</label>
+        <input type="number" class="form-control" formControlName="charge" />
+      </div>
+    </div>
+
+    <!-- ✅ MAINTENANCE -->
+    <div class="service-box" [formGroup]="maintenanceGroup">
+      <label class="form-check-label mb-2">
+        <input type="checkbox" class="form-check-input me-2" formControlName="available" />
+        Maintenance Provided
+      </label>
+
+      <div *ngIf="maintenanceGroup.get('available')?.value">
+        <label>Maintenance Charge (₹)</label>
+        <input type="number" class="form-control" formControlName="charge" />
+      </div>
+    </div>
+
+    <!-- ✅ WATER -->
+    <div class="service-box" [formGroup]="waterGroup">
+      <label class="form-check-label mb-2">
+        <input type="checkbox" class="form-check-input me-2" formControlName="available" />
+        Water Provided
+      </label>
+
+      <div *ngIf="waterGroup.get('available')?.value">
+        <label>Water Charge (₹)</label>
+        <input type="number" class="form-control" formControlName="charge" />
+      </div>
+    </div>
+
+    <!-- ✅ ELECTRICITY RATE -->
+    <div class="service-box">
+      <label>Electricity Rate (₹ / unit)</label>
+      <input type="number" class="form-control" formControlName="electricityRate" />
+    </div>
+
+    <!-- Save Button -->
+    <div class="text-end mt-3">
+      <button type="button" class="btn btn-primary" (click)="save()">💾 Save Configuration</button>
+    </div>
+
+  </form>
+</div>
