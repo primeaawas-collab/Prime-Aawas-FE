@@ -1,69 +1,133 @@
 .tenant-table-wrapper {
-  max-width: 1000px;
-  margin: 2rem auto;
   padding: 1rem;
 
   h4 {
     font-weight: 600;
-    font-size: 1.3rem;
+    font-size: 1.4rem;
   }
 
-  .tenant-search {
-    min-width: 250px;
-    flex: 1;
-  }
-
-  .table-responsive {
+  .modern-tenant-table {
     width: 100%;
-    overflow-x: auto;
-  }
+    border-collapse: collapse;
 
-.tenant-table {
-  width: 100%;
-  border-collapse: collapse;
-  min-width: 600px;
-  text-align: center; // ✅ Center all content
+    thead {
+      background-color: #f8f9fa;
 
-  thead {
-    background-color: #f1f1f1;
+      th {
+        padding: 12px;
+        font-weight: 600;
+        font-size: 0.9rem;
+        text-align: center;
+      }
+    }
 
-    th {
+    tbody td {
       padding: 12px;
-      font-weight: 600;
-      font-size: 0.95rem;
-      border-bottom: 1px solid #ccc;
+      font-size: 0.9rem;
+      text-align: center;
+      vertical-align: middle;
+    }
+
+    .badge {
+      font-size: 0.75rem;
+      padding: 0.25em 0.5em;
+      border-radius: 0.35rem;
+    }
+
+    button.btn-sm {
+      padding: 0.25rem 0.5rem;
+      font-size: 0.8rem;
     }
   }
 
-  tbody {
-    tr {
-      cursor: pointer;
-      transition: background 0.2s ease-in-out;
+  @media (max-width: 768px) {
+    .hide-on-mobile {
+      display: none !important;
+    }
 
-      &:hover {
-        background-color: #f5f5f5;
+    .modern-tenant-table thead th {
+      font-size: 0.8rem;
+    }
+
+    .modern-tenant-table tbody td {
+      font-size: 0.85rem;
+      padding: 8px;
+    }
+  }
+  
+}
+
+.tenant-table-wrapper {
+  padding: 1rem;
+
+  .modern-tenant-table {
+    width: 100%;
+    border-collapse: collapse;
+
+    thead {
+      background-color: #e3f2fd; // Light blue
+      border: 1px solid #90caf9;
+
+      th {
+        padding: 12px;
+        font-weight: 700;
+        font-size: 0.95rem;
+        text-align: center;
+        border-right: 1px solid #bbdefb;
+
+        &:last-child {
+          border-right: none;
+        }
+      }
+    }
+
+    tbody {
+      tr:nth-child(odd) {
+        background-color: #fafafa;
+      }
+
+      tr:nth-child(even) {
+        background-color: #f0f4f8;
       }
 
       td {
         padding: 12px;
-        font-size: 0.95rem;
-        border-bottom: 1px solid #eee;
+        font-size: 0.9rem;
+        text-align: center;
+        vertical-align: middle;
+        border-bottom: 1px solid #e0e0e0;
+      }
+
+      tr:hover {
+        background-color: #e3f2fd;
       }
     }
+
+    .badge {
+      font-size: 0.75rem;
+      padding: 0.25em 0.5em;
+      border-radius: 0.35rem;
+    }
+
+    button.btn-sm {
+      padding: 0.25rem 0.5rem;
+      font-size: 0.8rem;
+    }
   }
 
   @media (max-width: 768px) {
-    th, td {
+    .hide-on-mobile {
+      display: none !important;
+    }
+
+    .modern-tenant-table thead th {
+      font-size: 0.8rem;
+    }
+
+    .modern-tenant-table tbody td {
       font-size: 0.85rem;
-      padding: 10px;
+      padding: 8px;
     }
   }
 }
 
-
-  @media (max-width: 768px) {
-    .tenant-search {
-      flex: 100%;
-    }
-  }
-}

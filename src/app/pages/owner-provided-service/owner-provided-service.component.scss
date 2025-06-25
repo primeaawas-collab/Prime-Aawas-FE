@@ -3,20 +3,16 @@
   border-radius: 8px;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
 
-  .service-box {
-    padding: 1rem;
-    border: 1px solid #dee2e6;
-    border-radius: 6px;
-    background-color: #f8f9fa;
-  }
-
   label {
     font-weight: 500;
-    margin-bottom: 0.4rem;
   }
 
   input {
     font-size: 0.95rem;
+  }
+
+  tr:hover {
+    background-color: #e9f5ff;
   }
 
   @media (max-width: 576px) {

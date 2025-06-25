@@ -24,7 +24,10 @@
               <label>Property Name</label>
               <input type="text" class="form-control" formControlName="propertyName" />
             </div>
-
+            <div class="col-md-6">
+              <label>Owner Name</label>
+              <input type="text" class="form-control" [value]="ownerName" disabled />
+            </div>
             <div class="col-md-6">
               <label>Owner Phone Number</label>
               <input type="tel" class="form-control" formControlName="ownerPhone" />
@@ -35,10 +38,6 @@
               <input type="email" class="form-control" [value]="ownerEmail" disabled />
             </div>
 
-            <div class="col-md-6">
-              <label>Electricity Bill Per Unit</label>
-              <input type="number" class="form-control" formControlName="electricityUnitRate" />
-            </div>
 
             <div class="col-12">
               <label>Address Line</label>
@@ -101,13 +100,13 @@
                     </select>
                   </div>
 
-              
+
 
                   <div class="col-md-3 mt-2">
                     <label>Monthly Rent (₹)</label>
                     <input type="number" class="form-control" formControlName="monthlyRent" />
                   </div>
-                  
+
                 </div>
               </div>
             </div>

@@ -1,76 +1,72 @@
-<h2 mat-dialog-title class="dialog-title">
-  {{ data?.mode === 'edit' ? 'Edit Tenant' : 'Add New Tenant' }}
+<h2 mat-dialog-title>
+  {{ data.mode === 'edit' ? 'Edit Tenant' : 'Register Tenant' }}
 </h2>
 
-<div mat-dialog-content class="dialog-content">
-  <form [formGroup]="tenantForm" class="tenant-form">
-    <div class="form-grid">
-      <div>
-        <label>Name</label>
-        <input formControlName="name" class="form-control" />
-      </div>
-      <div>
-        <label>Email</label>
-        <input formControlName="email" class="form-control" />
-      </div>
-      <div>
-        <label>Phone</label>
-        <input formControlName="phone" class="form-control" />
-      </div>
-      <div>
-        <label>Flat Assigned</label>
-        <select formControlName="flatAssigned" class="form-select">
-          <option value="">-- Select --</option>
-          <option *ngFor="let flat of flatOptions" [value]="flat">{{ flat }}</option>
-        </select>
-      </div>
-      <div>
-        <label>Rent Start Date</label>
-        <input type="date" formControlName="rentStartDate" class="form-control" />
-      </div>
-      <div>
-        <label>Rent Amount</label>
-        <input type="number" formControlName="rentAmount" class="form-control" />
-      </div>
-      <div>
-        <label>Overdue Amount</label>
-        <input type="number" formControlName="overdueAmount" class="form-control" />
-      </div>
+<mat-dialog-content [formGroup]="tenantForm" class="d-flex flex-column gap-3">
+
+  <mat-form-field appearance="outline">
+    <mat-label>Name</mat-label>
+    <input matInput formControlName="name" />
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Email</mat-label>
+    <input matInput formControlName="email" />
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Phone</mat-label>
+    <input matInput formControlName="phone" />
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Emergency Phone</mat-label>
+    <input matInput formControlName="emergencyPhone" />
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Flat Assigned</mat-label>
+    <input matInput formControlName="flatAssigned" />
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Flat Rent (₹)</mat-label>
+    <input matInput formControlName="rentAmount" type="number" class="text-end" />
+  </mat-form-field>
+
+  <div class="services-section d-flex flex-wrap gap-2">
+    <label>Services Availed:</label>
+    <div formGroupName="services">
+      <mat-checkbox *ngFor="let service of availableServices" [formControlName]="service">
+        {{ service }}
+      </mat-checkbox>
     </div>
+  </div>
 
-    <div class="mt-3">
-      <label>Address</label>
-      <textarea rows="2" formControlName="address" class="form-control"></textarea>
-    </div>
+  <mat-form-field appearance="outline">
+    <mat-label>Total Rent (₹)</mat-label>
+    <input matInput formControlName="totalRent"  class="text-end" />
+  </mat-form-field>
 
-    <!-- ✅ Services Opt-In Section -->
-    <div class="mt-4" *ngIf="availableServices" [formGroup]="optedServicesGroup">
-      <label class="mb-2 fw-semibold d-block">Services Opted In</label>
+  <mat-form-field appearance="outline">
+    <mat-label>Rent Start Date</mat-label>
+    <input matInput formControlName="rentStartDate" [matDatepicker]="picker" />
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+  </mat-form-field>
 
-      <div class="form-check" *ngIf="availableServices?.parking?.available">
-        <input class="form-check-input" type="checkbox" formControlName="parking" />
-        <label class="form-check-label">Parking</label>
-      </div>
+  <mat-form-field appearance="outline">
+    <mat-label>Overdue Amount (₹)</mat-label>
+    <input matInput formControlName="overdueAmount" type="number" class="text-end" />
+  </mat-form-field>
 
-      <div class="form-check" *ngIf="availableServices?.wifi?.available">
-        <input class="form-check-input" type="checkbox" formControlName="wifi" />
-        <label class="form-check-label">Wifi</label>
-      </div>
+  <mat-form-field appearance="outline">
+    <mat-label>Security Deposit (₹)</mat-label>
+    <input matInput formControlName="securityDeposit" type="number" class="text-end" />
+  </mat-form-field>
+</mat-dialog-content>
 
-      <div class="form-check" *ngIf="availableServices?.maintenance?.available">
-        <input class="form-check-input" type="checkbox" formControlName="maintenance" />
-        <label class="form-check-label">Maintenance</label>
-      </div>
-
-      <div class="form-check" *ngIf="availableServices?.water?.available">
-        <input class="form-check-input" type="checkbox" formControlName="water" />
-        <label class="form-check-label">Water</label>
-      </div>
-    </div>
-  </form>
-</div>
-
-<div mat-dialog-actions class="dialog-actions">
-  <button class="btn btn-outline-secondary" (click)="cancel()">Cancel</button>
-  <button class="btn btn-primary" (click)="submit()">Save</button>
-</div>
+<mat-dialog-actions align="end">
+  <button mat-button (click)="cancel()">Cancel</button>
+  <button mat-raised-button color="primary" (click)="submit()">Save</button>
+</mat-dialog-actions>

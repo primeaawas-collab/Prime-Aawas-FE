@@ -20,22 +20,22 @@ import { CommonModule } from '@angular/common';
 export class RegesterPropertyComponent implements OnInit {
   propertyForm!: FormGroup;
   ownerEmail = 'prime@123';
-
+ownerName = 'Mr. Prime'; // new auto-populated name
   constructor(private fb: FormBuilder, private http: HttpClient) {}
 
   ngOnInit(): void {
     this.propertyForm = this.fb.group({
-      propertyName: ['', Validators.required],
-      addressLine: ['', Validators.required],
-      pinCode: ['', [Validators.required, Validators.pattern('^[0-9]{6}$')]],
-      district: [{ value: '', disabled: true }],
-      state: [{ value: '', disabled: true }],
-      ownerEmail: [{ value: this.ownerEmail, disabled: true }],
-      ownerPhone: ['', [Validators.required, Validators.pattern('[0-9]{10}')]],
-      electricityUnitRate: ['', Validators.required],
-      numberOfFlats: ['', [Validators.required, Validators.min(1), Validators.max(10)]],
-      flats: this.fb.array([]),
-    });
+    propertyName: ['', Validators.required],
+    ownerName: [{ value: this.ownerName, disabled: true }], // NEW
+    addressLine: ['', Validators.required],
+    pinCode: ['', [Validators.required, Validators.pattern('^[0-9]{6}$')]],
+    district: [{ value: '', disabled: true }],
+    state: [{ value: '', disabled: true }],
+    ownerEmail: [{ value: this.ownerEmail, disabled: true }],
+    ownerPhone: [{ value: '9876543210', disabled: true }], // Optional: dummy data
+    numberOfFlats: ['', [Validators.required, Validators.min(1), Validators.max(10)]],
+    flats: this.fb.array([]),
+  });
 
     this.propertyForm.get('numberOfFlats')?.valueChanges.subscribe((count) => {
       const parsed = parseInt(count, 10);

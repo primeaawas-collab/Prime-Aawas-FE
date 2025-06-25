@@ -1,27 +1,49 @@
 <div class="tenant-table-wrapper">
-  <h4 class="mb-3">Tenant Overview</h4>
+  <div class="d-flex flex-wrap justify-content-between align-items-center mb-3">
+    <!-- Left side: Heading -->
+    <h4 class="mb-0">Tenant Overview</h4>
 
-  <div class="d-flex flex-wrap gap-3 mb-3 align-items-center">
-    <input type="text" placeholder="🔍 Search name, flat..." class="form-control tenant-search" />
+    <!-- Right side: Add button -->
     <button class="btn btn-primary" (click)="openAddTenant()">➕ Add New Tenant</button>
   </div>
 
-  <div class="table-responsive">
-    <table class="table tenant-table">
+  <div class="table-responsive card shadow-sm p-3">
+    <table class="table modern-tenant-table">
       <thead>
         <tr>
-          <th>Name ⬍</th>
-          <th>Phone ⬍</th>
-          <th>Flat ⬍</th>
-          <th>Monthly Rent ⬍</th>
+          <th>Name</th>
+          <th class="hide-on-mobile">Phone</th>
+          <th class="hide-on-mobile">Flat</th>
+          <th class="hide-on-mobile">Services</th>
+          <th>Total Rent</th>
+          <th class="hide-on-mobile">Start Date</th>
+          <th class="hide-on-mobile">Overdue</th>
+          <th class="hide-on-mobile">Deposit</th>
+          <th class="text-end">Actions</th>
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let tenant of tenants" (click)="openEditTenant(tenant)" style="cursor: pointer;">
-          <td>{{ tenant.name }}</td>
-          <td>{{ tenant.phone }}</td>
-          <td>{{ tenant.flatAssigned }}</td>
-          <td>₹{{ tenant.rentAmount }}</td>
+        <tr *ngFor="let tenant of tenants">
+          <td>
+            <strong>{{ tenant.name }}</strong>
+            <div class="text-muted d-block d-md-none small">{{ tenant.phone }}</div>
+          </td>
+
+          <td class="hide-on-mobile">{{ tenant.phone }}</td>
+          <td class="hide-on-mobile">{{ tenant.flatAssigned }}</td>
+          <td class="hide-on-mobile">
+            <span class="badge bg-info text-dark me-1" *ngFor="let service of getSelectedServices(tenant.services)">
+              {{ service }}
+            </span>
+          </td>
+          <td><strong>₹{{ tenant.totalRent }}</strong></td>
+          <td class="hide-on-mobile">{{ tenant.rentStartDate }}</td>
+          <td class="hide-on-mobile text-danger">₹{{ tenant.overdueAmount }}</td>
+          <td class="hide-on-mobile">₹{{ tenant.securityDeposit }}</td>
+          <td class="text-end">
+            <button class="btn btn-sm btn-outline-primary me-1" (click)="openEditTenant(tenant)">✏️</button>
+            <button class="btn btn-sm btn-outline-danger" (click)="deleteTenant(tenant)">🗑️</button>
+          </td>
         </tr>
       </tbody>
     </table>

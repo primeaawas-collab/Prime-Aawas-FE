@@ -63,9 +63,25 @@
 
 
 // Background color classes
-.bg-skill-1 { background-color: #4b4efc; }
-.bg-skill-2 { background-color: #2ebdf5; }
-.bg-skill-3 { background-color: #003e49; }
-.bg-skill-5 { background-color: #d4a235; }
-.bg-skill-4 { background-color: #28a745; }
+// Background gradient classes 🌈
+.bg-skill-1 {
+  background: linear-gradient(135deg, #4b4efc, #6c70ff);
+}
+
+.bg-skill-2 {
+  background: linear-gradient(135deg, #2ebdf5, #1e88e5);
+}
+
+.bg-skill-3 {
+  background: linear-gradient(135deg, #003e49, #005e6e);
+}
+
+.bg-skill-4 {
+  background: linear-gradient(135deg, #28a745, #53d769);
+}
+
+.bg-skill-5 {
+  background: linear-gradient(135deg, #d4a235, #f3c969);
+}
+
 

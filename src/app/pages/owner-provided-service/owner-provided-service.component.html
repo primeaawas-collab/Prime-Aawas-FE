@@ -1,76 +1,71 @@
 <div class="card p-4 service-config-form">
-  <h5 class="mb-4">⚙️ Property Services Configuration</h5>
+  <h5 class="mb-2 d-flex align-items-center gap-2">
+    🛠️ Configure Monthly Services
+    <!-- ⓘ Info Icon -->
+    <button
+      type="button"
+      class="btn btn-sm btn-outline-secondary"
+      (click)="showInfo = !showInfo"
+      title="Help"
+    >
+      ℹ️
+    </button>
+  </h5>
 
-  <form [formGroup]="configForm" class="d-flex flex-column gap-4">
+  <!-- 🔹 Collapsible Info Text -->
+  <div *ngIf="showInfo" class="alert alert-info">
+    Here you can add or update monthly services provided to tenants (like Wifi, Security, etc.) with respective charges.
+    Click on a row to edit, or add a new one below.
+  </div>
 
-    <!-- ✅ PARKING -->
-    <div class="service-box" [formGroup]="parkingGroup">
-      <label class="form-check-label mb-2">
-        <input type="checkbox" class="form-check-input me-2" formControlName="available" />
-        Parking Provided
-      </label>
+  <!-- 🔧 Form -->
+  <form [formGroup]="serviceForm" (ngSubmit)="addOrUpdateService()" class="mb-4">
+    <div class="row g-3">
+      <div class="col-md-6">
+        <label>Service Name</label>
+        <input type="text" class="form-control" formControlName="name" placeholder="e.g. Wifi, Maid, etc." />
+      </div>
 
-      <div *ngIf="parkingGroup.get('available')?.value" class="d-flex flex-column gap-2">
-        <div>
-          <label>Car Parking Charge (₹)</label>
-          <input type="number" class="form-control" formControlName="carCharge" />
-        </div>
-        <div>
-          <label>Bike Parking Charge (₹)</label>
-          <input type="number" class="form-control" formControlName="bikeCharge" />
-        </div>
+      <div class="col-md-6">
+        <label>Monthly Charge (₹)</label>
+        <input
+          type="number"
+          class="form-control text-end" 
+          formControlName="charge"
+        />
       </div>
     </div>
 
-    <!-- ✅ WIFI -->
-    <div class="service-box" [formGroup]="wifiGroup">
-      <label class="form-check-label mb-2">
-        <input type="checkbox" class="form-check-input me-2" formControlName="available" />
-        Wifi Provided
-      </label>
-
-      <div *ngIf="wifiGroup.get('available')?.value">
-        <label>Wifi Charge (₹)</label>
-        <input type="number" class="form-control" formControlName="charge" />
-      </div>
-    </div>
-
-    <!-- ✅ MAINTENANCE -->
-    <div class="service-box" [formGroup]="maintenanceGroup">
-      <label class="form-check-label mb-2">
-        <input type="checkbox" class="form-check-input me-2" formControlName="available" />
-        Maintenance Provided
-      </label>
-
-      <div *ngIf="maintenanceGroup.get('available')?.value">
-        <label>Maintenance Charge (₹)</label>
-        <input type="number" class="form-control" formControlName="charge" />
-      </div>
-    </div>
-
-    <!-- ✅ WATER -->
-    <div class="service-box" [formGroup]="waterGroup">
-      <label class="form-check-label mb-2">
-        <input type="checkbox" class="form-check-input me-2" formControlName="available" />
-        Water Provided
-      </label>
-
-      <div *ngIf="waterGroup.get('available')?.value">
-        <label>Water Charge (₹)</label>
-        <input type="number" class="form-control" formControlName="charge" />
-      </div>
-    </div>
-
-    <!-- ✅ ELECTRICITY RATE -->
-    <div class="service-box">
-      <label>Electricity Rate (₹ / unit)</label>
-      <input type="number" class="form-control" formControlName="electricityRate" />
-    </div>
-
-    <!-- Save Button -->
     <div class="text-end mt-3">
-      <button type="button" class="btn btn-primary" (click)="save()">💾 Save Configuration</button>
+      <button type="submit" class="btn btn-primary">
+        {{ editingIndex !== null ? '💾 Update Service' : '➕ Add Service' }}
+      </button>
     </div>
-
   </form>
+
+  <!-- 🧾 Table remains same as before -->
+  <div *ngIf="savedServices.length" class="table-responsive">
+    <table class="table table-bordered align-middle">
+      <thead class="table-light">
+        <tr>
+          <th>#</th>
+          <th>Service</th>
+          <th class="text-end">Charge (₹)</th>
+          <th class="text-end">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let service of savedServices; let i = index" (click)="editService(i)" style="cursor: pointer;">
+          <td>{{ i + 1 }}</td>
+          <td>{{ service.name }}</td>
+          <td class="text-end">{{ service.charge }}</td>
+          <td class="text-end">
+            <button type="button" class="btn btn-sm btn-danger" (click)="deleteService(i); $event.stopPropagation();">
+              🗑️ Delete
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </div>

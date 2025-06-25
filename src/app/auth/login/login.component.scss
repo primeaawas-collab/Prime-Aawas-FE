@@ -29,7 +29,7 @@ background: linear-gradient(to right, #060b23, #2932a5);; // beige to white
 }
 
 .glass-card {
-  background: rgb(255 255 255 / 48%); // translucent
+  background: rgba(124, 208, 247, 0.48); // translucent
   border-radius: 12px;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
   backdrop-filter: blur(10px);
@@ -41,7 +41,7 @@ background: linear-gradient(to right, #060b23, #2932a5);; // beige to white
 
 .brand-logo {
   font-family: 'Segoe UI', sans-serif;
-  color: #4a5a6a; // 🟦 Blue-grey
+  color: #ffffff; // 🟦 Blue-grey
 
   .brand-name {
     font-size: 35.2px; // 2.2rem
@@ -57,14 +57,14 @@ background: linear-gradient(to right, #060b23, #2932a5);; // beige to white
     letter-spacing: 4.8px; // 0.3rem
     text-transform: uppercase;
     margin: 0;
-    color: #4a5a6a;
+    color: #ffffff;
   }
    .brand-tagline-paragraph {
     font-size: 12px; // 0.85rem
     font-weight: 500;
     text-transform: uppercase;
     margin: 0;
-    color: #4a5a6a;
+    color: #ffffff;
   }
 }
 
@@ -96,7 +96,7 @@ background: linear-gradient(to right, #060b23, #2932a5);; // beige to white
 .about-title {
   font-weight: 700;
   font-size: 22.4px; // 1.4rem
-  color: #4a5a6a;
+  color: #ffffff;
   text-transform: uppercase;
 }
 
@@ -115,7 +115,7 @@ background: linear-gradient(to right, #060b23, #2932a5);; // beige to white
 
   li::before {
     content: "• ";
-    color: #4a5a6a;
+    color: #ffffff;
     font-weight: bold;
   }
 }
