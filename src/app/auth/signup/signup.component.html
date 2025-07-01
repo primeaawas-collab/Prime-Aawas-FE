@@ -1,1 +1,68 @@
-<p>signup works!</p>
+<div class="signup-page d-flex align-items-center justify-content-center">
+  <div class="signup-container row shadow-lg">
+
+    <!-- LEFT: Sign Up Form -->
+    <div class="col-md-6 p-5 bg-white order-2 order-md-1">
+      <h2 class="fw-bold">Sign Up</h2>
+      <p class="text-muted">
+        Already have an account?
+        <a routerLink="/login" class="text-primary">Login</a>
+      </p>
+
+      <form (ngSubmit)="onSubmit()" #signupForm="ngForm" novalidate>
+
+        <!-- Full Name + Phone -->
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <label class="form-label">Full Name</label>
+            <input type="text" class="form-control" name="name" [(ngModel)]="name" required placeholder="John Doe" />
+          </div>
+          <div class="col-md-6 mb-3">
+            <label class="form-label">Phone Number</label>
+            <input type="tel" class="form-control" name="phone" [(ngModel)]="phone" required placeholder="1234567890" />
+          </div>
+        </div>
+
+        <!-- Email -->
+        <div class="mb-3">
+          <label class="form-label">Email Address</label>
+          <input type="email" class="form-control" name="email" [(ngModel)]="email" required placeholder="you@example.com" />
+        </div>
+
+        <!-- Password + Confirm Password -->
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <label class="form-label">Password</label>
+            <input type="password" class="form-control" name="password" [(ngModel)]="password" required placeholder="Enter password" />
+          </div>
+          <div class="col-md-6 mb-3">
+            <label class="form-label">Confirm Password</label>
+            <input type="password" class="form-control" name="confirmPassword" [(ngModel)]="confirmPassword" required placeholder="Re-enter password" />
+          </div>
+        </div>
+
+        <div *ngIf="errorMessage" class="text-danger text-center mb-2">
+          {{ errorMessage }}
+        </div>
+
+        <button type="submit" class="btn btn-primary w-100 mb-3" [disabled]="!signupForm.valid">Sign Up</button>
+        <button type="button" class="btn btn-light w-100 border" routerLink="/login">Login</button>
+      </form>
+    </div>
+
+    <!-- RIGHT: Branding -->
+    <div class="col-md-6 d-flex flex-column align-items-center justify-content-center login-image text-center p-4 order-1 order-md-2">
+      <div class="brand-logo mb-4">
+        <h1 class="brand-name">PRIME AAWAS</h1>
+        <p class="brand-tagline">OWN. MANAGE. RELAX.</p>
+        <p class="brand-tagline-paragraph">
+          Prime Aawas is a modern, user-friendly housing management platform
+          designed to empower landlords and society administrators with full control over tenant-related operations.
+        </p>
+      </div>
+
+      <img src="assets/images/undraw_sign-up.svg" alt="Signup Illustration" class="img-fluid" style="max-height: 300px;" />
+    </div>
+
+  </div>
+</div>

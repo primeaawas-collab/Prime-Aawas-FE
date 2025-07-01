@@ -1,22 +1,9 @@
 <div class="container my-4">
   <h3 class="mb-3">Monthly Billing</h3>
 
-  <!-- ✅ Entire form wrapped in [formGroup] -->
   <form [formGroup]="billingForm">
-    <!-- Global Billing Month Selector -->
-    <div class="row g-3 align-items-end mb-4">
-      <div class="col-md-4">
-        <label>Billing Month</label>
-        <input type="month" class="form-control" formControlName="billingMonth" />
-      </div>
-      <div class="col-md-4">
-        <button class="btn btn-success" type="button" (click)="submitAllBills()">
-          💾 Submit All Bills
-        </button>
-      </div>
-    </div>
 
-    <!-- ✅ Correct use of formArrayName inside formGroup -->
+    <!-- Flats FormArray -->
     <div formArrayName="flats">
       <div
         class="card p-3 mb-4"
@@ -25,61 +12,84 @@
       >
         <h5 class="mb-3">Flat {{ flat.value.flatId }} — {{ flat.value.tenantName }}</h5>
 
-        <div class="row g-3">
+        <!-- 🔹 Billing Info -->
+        <div class="row g-3 mb-3">
           <div class="col-md-4">
-            <label>Rent</label>
-            <input class="form-control" formControlName="rentAmount"  />
+            <label>Billing Type</label>
+            <select formControlName="billingType" class="form-select">
+              <option value="advance">Advance</option>
+              <option value="one-month">One Month Completion</option>
+            </select>
           </div>
-              <ng-container *ngIf="flat.value.servicesUsed.electricity">
-            <div class="col-md-4">
-              <label>Previous Unit</label>
-              <input type="number" formControlName="previousUnit" class="form-control" />
-            </div>
-            <div class="col-md-4">
-              <label>Current Unit</label>
-              <input type="number" formControlName="currentUnit" class="form-control" />
-            </div>
-            <div class="col-md-4">
-              <label>Electricity Cost (₹)</label>
-              <input class="form-control" formControlName="electricityCost"  />
-            </div>
-          </ng-container>
 
-          <ng-container *ngIf="flat.value.servicesUsed.parking">
-            <div class="col-md-4">
-              <label>Parking (₹)</label>
-              <input type="number" formControlName="parking" class="form-control" />
-            </div>
-          </ng-container>
+        
 
-          <ng-container *ngIf="flat.value.servicesUsed.wifi">
-            <div class="col-md-4">
-              <label>Wifi (₹)</label>
-              <input type="number" formControlName="wifi" class="form-control" />
-            </div>
-          </ng-container>
-
-          <ng-container *ngIf="flat.value.servicesUsed.maintenance">
-            <div class="col-md-4">
-              <label>Maintenance (₹)</label>
-              <input type="number" formControlName="maintenance" class="form-control" />
-            </div>
-          </ng-container>
-
-          <ng-container *ngIf="flat.value.servicesUsed.water">
-            <div class="col-md-4">
-              <label>Water (₹)</label>
-              <input type="number" formControlName="water" class="form-control" />
-            </div>
-          </ng-container>
-
-      
-
-          <div class="col-md-4 mt-2">
-            <label>Total Amount (₹)</label>
-            <input class="form-control fw-bold text-success" formControlName="total"  />
+          <div class="col-md-4">
+            <label>Pay Date</label>
+            <input type="date" class="form-control" formControlName="payDate" />
           </div>
         </div>
+
+        <!-- 🔹 Rent + Services + Electricity -->
+        <!-- 🔋 Electricity Row -->
+<ng-container *ngIf="flat.value.servicesUsed?.electricity">
+  <div class="row g-3">
+    <div class="col-md-4">
+      <label>Previous Unit</label>
+      <input type="number" class="form-control" formControlName="previousUnit" />
+    </div>
+    <div class="col-md-4">
+      <label>Current Unit</label>
+      <input type="number" class="form-control" formControlName="currentUnit" />
+    </div>
+    <div class="col-md-4">
+      <label>Electricity Cost (₹)</label>
+      <input class="form-control" formControlName="electricityCost" />
+    </div>
+  </div>
+</ng-container>
+
+<!-- 💸 Rent & Services Row -->
+<div class="row g-3 mt-2">
+  <div class="col-md-4">
+    <label>Rent</label>
+    <input class="form-control" formControlName="rentAmount" />
+  </div>
+
+  <ng-container *ngIf="flat.value.servicesUsed?.parking">
+    <div class="col-md-4">
+      <label>Parking (₹)</label>
+      <input type="number" class="form-control" formControlName="parking" />
+    </div>
+  </ng-container>
+
+  <ng-container *ngIf="flat.value.servicesUsed?.wifi">
+    <div class="col-md-4">
+      <label>Wifi (₹)</label>
+      <input type="number" class="form-control" formControlName="wifi" />
+    </div>
+  </ng-container>
+
+  <ng-container *ngIf="flat.value.servicesUsed?.maintenance">
+    <div class="col-md-4">
+      <label>Maintenance (₹)</label>
+      <input type="number" class="form-control" formControlName="maintenance" />
+    </div>
+  </ng-container>
+
+  <ng-container *ngIf="flat.value.servicesUsed?.water">
+    <div class="col-md-4">
+      <label>Water (₹)</label>
+      <input type="number" class="form-control" formControlName="water" />
+    </div>
+  </ng-container>
+
+  <div class="col-md-4 mt-2">
+    <label>Total Amount (₹)</label>
+    <input class="form-control fw-bold text-success" formControlName="total" />
+  </div>
+</div>
+
       </div>
     </div>
   </form>

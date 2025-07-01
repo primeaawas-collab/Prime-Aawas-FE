@@ -1,121 +1,77 @@
-.login-bg {
+
+.login-page {
   min-height: 100vh;
-background: linear-gradient(to right, #060b23, #2932a5);; // beige to white
-  background-size: cover;
-  position: relative;
-  overflow: hidden;
-
-  &::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    backdrop-filter: blur(8px); // 🔥 BLUR effect
-    -webkit-backdrop-filter: blur(8px);
-    z-index: 0;
-  }
-
-  > .container-fluid {
-    position: relative;
-    z-index: 1;
-  }
+  background: linear-gradient(135deg, #060b23, #2e54d4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;         /* ✅ Adds breathing room on small screens */
+  flex-direction: column;
 }
 
-.brand-title {
-  font-family: 'Segoe UI', sans-serif;
-  font-size: 40px; // 2.5rem
-  letter-spacing: 2px;
-  font-weight: bold;
-  color: #000000; // ✅ Dark grey
-}
-
-.glass-card {
-  background: rgba(124, 208, 247, 0.48); // translucent
+.login-container {
+  background: #ffffff;
   border-radius: 12px;
+  width: 100%;
+  max-width: 900px;
+  display: flex;
+  flex-direction: column; /* stacked on mobile */
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.18);
-  will-change: backdrop-filter;
-  transform: translateZ(0);
+  overflow: visible; /* ❗️Enable child content to grow */
+}
+
+/* Desktop mode: side-by-side layout with max-height */
+@media (min-width: 768px) {
+  .login-container {
+    flex-direction: row;
+    max-height: 90vh;
+    overflow: hidden;
+  }
+}
+
+
+.login-image {
+  background-color: #1e3a8a;
+  height: 100%;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.login-image img {
+  max-height: 200px;
+  height: auto;
+  width: auto;
 }
 
 .brand-logo {
-  font-family: 'Segoe UI', sans-serif;
-  color: #ffffff; // 🟦 Blue-grey
+  margin-bottom: 1rem;
+  color: #fff;
 
   .brand-name {
-    font-size: 35.2px; // 2.2rem
+    font-size: 1.8rem;
     font-weight: 700;
-    letter-spacing: 1px;
-    margin: 0;
-    text-transform: uppercase;
   }
 
   .brand-tagline {
-    font-size: 16px; // 0.85rem
-    font-weight: 500;
-    letter-spacing: 4.8px; // 0.3rem
-    text-transform: uppercase;
-    margin: 0;
-    color: #ffffff;
+    letter-spacing: 0.25rem;
+    font-size: 1rem;
   }
-   .brand-tagline-paragraph {
-    font-size: 12px; // 0.85rem
-    font-weight: 500;
-    text-transform: uppercase;
-    margin: 0;
-    color: #ffffff;
+
+  .brand-tagline-paragraph {
+    font-size: 0.85rem;
+    margin-top: 0.5rem;
+    color: #e0e0e0;
   }
 }
 
-.app-footer {
-  font-size: 13.6px; // 0.85rem
-  color: #666;
-  padding: 16px 0; // 1rem 0
-  width: 100%;
-  text-align: center;
-
-  small {
-    letter-spacing: 0.5px;
-  }
+html, body {
+  height: 100%;
+  margin: 0;
+  overflow-x: hidden; /* ✅ Prevent horizontal scroll */
+  overflow-y: auto;    /* ✅ Enable vertical scroll */
 }
 
-.about-section {
-  max-width: 600px;
-  color: #333;
-  background: rgba(255, 255, 255, 0.25);
-  backdrop-filter: blur(6px);
-  -webkit-backdrop-filter: blur(6px);
-  border-radius: 12px;
-  padding: 32px 24px; // 2rem 1.5rem
-  margin: 0 auto;
-  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.1);
-  font-family: 'Open Sans', sans-serif;
-}
-
-.about-title {
-  font-weight: 700;
-  font-size: 22.4px; // 1.4rem
-  color: #ffffff;
-  text-transform: uppercase;
-}
-
-.about-description {
-  font-size: 16px; // 1rem
-  margin-bottom: 16px; // 1rem
-  line-height: 1.6;
-}
-
-.about-list {
-  list-style: none;
-  padding-left: 0;
-  font-size: 15.2px; // 0.95rem
-  line-height: 1.8;
-  color: #333;
-
-  li::before {
-    content: "• ";
-    color: #ffffff;
-    font-weight: bold;
-  }
-}

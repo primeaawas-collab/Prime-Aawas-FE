@@ -5,7 +5,7 @@ import { Routes } from '@angular/router';
 
 export const routes: Routes = [
   {
-    path: 'auth',
+    path: '',
     loadChildren: () =>
       import('./auth/routes').then((m) => m.AUTH_ROUTES),
   },
@@ -20,5 +20,8 @@ export const routes: Routes = [
       },
       ...PAGES_ROUTES
     ]
+  },
+  {
+    path : '**' , redirectTo: '', pathMatch: 'full'
   }
 ];

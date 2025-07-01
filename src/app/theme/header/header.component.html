@@ -1,14 +1,29 @@
-<header class="zigzag-header">
-  <div class="zigzag-background"></div>
+<header class="modern-header">
+  <div class="container-fluid d-flex justify-content-between align-items-center flex-wrap px-3 py-2">
 
-  <div class="container header-content d-flex justify-content-between align-items-center">
-    <div class="logo text-white fw-bold fs-4">
-      PRIME AAWAS
+    <!-- LEFT: Logo + Company Name + Divider -->
+    <div class="d-flex align-items-center gap-3">
+      <div class="logo d-flex align-items-center gap-2">
+        <img src="assets/images/logo-icon.svg" alt="Logo" class="logo-icon" />
+        <span class="brand-name">
+          <strong>Prime</strong> <span class="light">Aawas</span>
+        </span>
+      </div>
+      <div class="divider"></div>
     </div>
-    <nav class="d-none d-md-flex gap-4 text-white">
-      <a routerLink="/home" class="nav-link">Home</a>
-      <a routerLink="/register-property" class="nav-link">Register Property</a>
-      <a routerLink="/register-tenant" class="nav-link">Register Tenant</a>
+
+    <!-- CENTER: Navigation Links -->
+    <nav class="nav-links d-flex gap-4 flex-wrap justify-content-center">
+      <a routerLink="/home" routerLinkActive="active" class="nav-item">Home</a>
+      <a routerLink="/about-us" routerLinkActive="active" class="nav-item">About Us</a>
+      <a routerLink="/projects" routerLinkActive="active" class="nav-item">Projects</a>
     </nav>
+
+    <!-- RIGHT: (Optional) -->
+    <div class="user-info d-none d-md-flex align-items-center gap-2">
+      <img src="assets/images/user-avatar.png" alt="User Avatar" class="avatar" />
+      <span class="welcome-text">Welcome! <strong>Muhammad Shahryar</strong></span>
+    </div>
+
   </div>
 </header>

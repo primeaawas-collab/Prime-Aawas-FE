@@ -1,93 +1,38 @@
-<div class="row g-4 home-cards-container justify-content-center px-3 mt-4">
-
-  <!-- 1. Register Property -->
-  <div class="col-12 col-md-6 col-lg-4 col-xl-3">
-    <div class="feature-card bg-skill-1" routerLink="/register-property">
-      <div class="card-header d-flex justify-content-between align-items-center">
-        <span class="skill-number">1</span>
-        <i class="bi bi-house-door-fill icon-right"></i>
-      </div>
-      <div class="card-body text-start">
-        <h5 class="skill-title">Register Property</h5>
-        <small class="skill-desc">Manage your flats</small>
-      </div>
-      <div class="card-footer">
-        <span>Start Now</span>
-        <i class="bi bi-arrow-right-short fs-4"></i>
-      </div>
-    </div>
+<!-- Hero Section -->
+<div class="hero-section text-center">
+  <div class="hero-content">
+    <h1>Provide You best <strong>Best UI Service</strong></h1>
+    <p>Mobile App Design and Development Studio. You can hire us</p>
+    <button class="cta-button">Work With Me</button>
   </div>
-
-  <!-- 2. Manage Services -->
-  <div class="col-12 col-md-6 col-lg-4 col-xl-3">
-    <div class="feature-card bg-skill-5" routerLink="/service-section">
-      <div class="card-header d-flex justify-content-between align-items-center">
-        <span class="skill-number">2</span>
-        <i class="bi bi-card-list icon-right"></i>
-      </div>
-      <div class="card-body text-start">
-        <h5 class="skill-title">Manage Services</h5>
-        <small class="skill-desc">Update your Services</small>
-      </div>
-      <div class="card-footer">
-        <span>Start Now</span>
-        <i class="bi bi-arrow-right-short fs-4"></i>
-      </div>
-    </div>
+  <div class="hero-image">
+    <img src="assets/images/undraw_personal-settings.svg" alt="Hero Illustration" />
   </div>
-
-  <!-- 3. Register Tenant -->
-  <div class="col-12 col-md-6 col-lg-4 col-xl-3">
-    <div class="feature-card bg-skill-2" routerLink="/register-tenant">
-      <div class="card-header d-flex justify-content-between align-items-center">
-        <span class="skill-number">3</span>
-        <i class="bi bi-person-plus-fill icon-right"></i>
-      </div>
-      <div class="card-body text-start">
-        <h5 class="skill-title">Register Tenant</h5>
-        <small class="skill-desc">Add tenant details</small>
-      </div>
-      <div class="card-footer">
-        <span>Start Now</span>
-        <i class="bi bi-arrow-right-short fs-4"></i>
-      </div>
-    </div>
-  </div>
-
-  <!-- 4. Manage Billing -->
-  <div class="col-12 col-md-6 col-lg-4 col-xl-3">
-    <div class="feature-card bg-skill-3" routerLink="/billing-cost">
-      <div class="card-header d-flex justify-content-between align-items-center">
-        <span class="skill-number">4</span>
-        <i class="bi bi-card-list icon-right"></i>
-      </div>
-      <div class="card-body text-start">
-        <h5 class="skill-title">Manage Billing</h5>
-        <small class="skill-desc">Update the Billing</small>
-      </div>
-      <div class="card-footer">
-        <span>Start Now</span>
-        <i class="bi bi-arrow-right-short fs-4"></i>
-      </div>
-    </div>
-  </div>
-
-  <!-- 5. Billing -->
-  <div class="col-12 col-md-6 col-lg-4 col-xl-3">
-    <div class="feature-card bg-skill-4" routerLink="/billing">
-      <div class="card-header d-flex justify-content-between align-items-center">
-        <span class="skill-number">5</span>
-        <i class="bi bi-receipt-cutoff icon-right"></i>
-      </div>
-      <div class="card-body text-start">
-        <h5 class="skill-title">Billing</h5>
-        <small class="skill-desc">Generate and manage bills</small>
-      </div>
-      <div class="card-footer">
-        <span>Start Now</span>
-        <i class="bi bi-arrow-right-short fs-4"></i>
-      </div>
-    </div>
-  </div>
-
 </div>
+
+<!-- Services Section -->
+<section class="services-section text-center">
+  <h2 class="section-title">Our Services</h2>
+  <p class="section-subtitle">
+    We Provide Best Quality Service
+  </p>
+
+  <div class="row justify-content-center g-4 px-3 mt-4">
+    <div class="col-12 col-md-6 col-lg-4 col-xl-3" *ngFor="let card of serviceCards">
+      <div class="feature-card" [ngClass]="card.bgClass" [routerLink]="card.link">
+        <div class="card-header d-flex justify-content-between align-items-center">
+          <span class="skill-number">{{ card.number }}</span>
+          <i class="{{ card.icon }} icon-right"></i>
+        </div>
+        <div class="card-body text-start">
+          <h5 class="skill-title">{{ card.title }}</h5>
+          <small class="skill-desc">{{ card.desc }}</small>
+        </div>
+        <div class="card-footer">
+          <span>Start Now</span>
+          <i class="bi bi-arrow-right-short fs-4"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

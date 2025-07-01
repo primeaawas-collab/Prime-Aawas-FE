@@ -62,26 +62,29 @@ export class BillingCostComponent  implements OnInit  {
     });
   }
 
-  createFlatBillingGroup(flat: any): FormGroup {
-    const group = this.fb.group({
-      flatId: [flat.flatId],
-      tenantName: [flat.tenantName],
-      rentAmount: [flat.rentAmount],
-      parking: [flat.services.parking ? 500 : 0],
-      wifi: [flat.services.wifi ? 300 : 0],
-      water: [flat.services.water ? 200 : 0],
-      maintenance: [flat.services.maintenance ? 400 : 0],
-      previousUnit: [0],
-      currentUnit: [0],
-      electricityCost: [{ value: 0, disabled: true }],
-      total: [{ value: 0, disabled: true }],
-      servicesUsed: [flat.services],
-    });
+createFlatBillingGroup(flat: any): FormGroup {
+  const group = this.fb.group({
+    flatId: [flat.flatId],
+    tenantName: [flat.tenantName],
+    billingType: ['advance'], // or 'one-month'
+    payDate: [''],
+    rentAmount: [flat.rentAmount],
+    parking: [flat.services.parking ? 500 : 0],
+    wifi: [flat.services.wifi ? 300 : 0],
+    water: [flat.services.water ? 200 : 0],
+    maintenance: [flat.services.maintenance ? 400 : 0],
+    previousUnit: [0],
+    currentUnit: [0],
+    electricityCost: [{ value: 0, disabled: true }],
+    total: [{ value: 0, disabled: true }],
+    servicesUsed: [flat.services],
+  });
 
-    group.valueChanges.subscribe(() => this.calculateTotals(group));
+  group.valueChanges.subscribe(() => this.calculateTotals(group));
 
-    return group;
-  }
+  return group;
+}
+
 
   calculateTotals(group: FormGroup): void {
     const values = group.getRawValue();
