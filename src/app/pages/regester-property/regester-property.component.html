@@ -14,7 +14,7 @@
 
     <!-- RIGHT PANEL (FORM CARD) -->
     <div class="col-lg-6 col-md-10">
-      <div class="form-card p-4 p-md-5">
+      <div class="form-card p-4">
         <form [formGroup]="propertyForm" (ngSubmit)="submitForm()">
 
           <h5 class="mb-4">Property Details</h5>
@@ -102,7 +102,7 @@
 
 
 
-                  <div class="col-md-3 mt-2">
+                  <div class="col-md-3">
                     <label>Monthly Rent (₹)</label>
                     <input type="number" class="form-control" formControlName="monthlyRent" />
                   </div>

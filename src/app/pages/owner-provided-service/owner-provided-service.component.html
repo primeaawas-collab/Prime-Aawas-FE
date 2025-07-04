@@ -1,52 +1,61 @@
 <div class="card p-4 service-config-form">
-  <h5 class="mb-2 d-flex align-items-center gap-2">
-    🛠️ Configure Monthly Services
-    <!-- ⓘ Info Icon -->
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <h4 class="mb-0 fw-semibold d-flex align-items-center gap-2">
+      🛠️ Service Management
+    </h4>
     <button
       type="button"
-      class="btn btn-sm btn-outline-secondary"
+      class="btn btn-sm btn-outline-primary"
       (click)="showInfo = !showInfo"
-      title="Help"
+      title="Click for more info"
     >
-      ℹ️
+      ℹ️ Info
     </button>
-  </h5>
-
-  <!-- 🔹 Collapsible Info Text -->
-  <div *ngIf="showInfo" class="alert alert-info">
-    Here you can add or update monthly services provided to tenants (like Wifi, Security, etc.) with respective charges.
-    Click on a row to edit, or add a new one below.
   </div>
 
-  <!-- 🔧 Form -->
+  <div *ngIf="showInfo" class="alert alert-info small">
+    Add or update monthly services like Wifi, Security, Maid, etc.  
+    Click a row to edit, or delete it using the button.
+  </div>
+
   <form [formGroup]="serviceForm" (ngSubmit)="addOrUpdateService()" class="mb-4">
-    <div class="row g-3">
+    <div class="row g-3 align-items-end">
       <div class="col-md-6">
-        <label>Service Name</label>
-        <input type="text" class="form-control" formControlName="name" placeholder="e.g. Wifi, Maid, etc." />
-      </div>
-
-      <div class="col-md-6">
-        <label>Monthly Charge (₹)</label>
+        <label for="name" class="form-label">Service Name</label>
         <input
-          type="number"
-          class="form-control text-end" 
-          formControlName="charge"
+          id="name"
+          type="text"
+          class="form-control"
+          placeholder="e.g. Wifi, Maid"
+          formControlName="name"
+          [ngClass]="{ 'is-invalid': serviceForm.get('name')?.touched && serviceForm.get('name')?.invalid }"
         />
+        <div class="invalid-feedback">Service name is required.</div>
       </div>
-    </div>
 
-    <div class="text-end mt-3">
-      <button type="submit" class="btn btn-primary">
-        {{ editingIndex !== null ? '💾 Update Service' : '➕ Add Service' }}
-      </button>
+      <div class="col-md-4">
+        <label for="charge" class="form-label">Charge (₹)</label>
+        <input
+          id="charge"
+          type="number"
+          class="form-control text-end"
+          formControlName="charge"
+          [ngClass]="{ 'is-invalid': serviceForm.get('charge')?.touched && serviceForm.get('charge')?.invalid }"
+        />
+        <div class="invalid-feedback">Enter a valid amount.</div>
+      </div>
+
+      <div class="col-md-2 text-end">
+        <button type="submit" class="btn btn-primary w-100">
+          {{ editingIndex !== null ? '💾 Update' : '➕ Add' }}
+        </button>
+      </div>
     </div>
   </form>
 
-  <!-- 🧾 Table remains same as before -->
   <div *ngIf="savedServices.length" class="table-responsive">
-    <table class="table table-bordered align-middle">
-      <thead class="table-light">
+    <table class="table table-hover align-middle table-borderless shadow-sm">
+      <thead class="table-primary text-dark">
         <tr>
           <th>#</th>
           <th>Service</th>
@@ -55,12 +64,20 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let service of savedServices; let i = index" (click)="editService(i)" style="cursor: pointer;">
+        <tr
+          *ngFor="let service of savedServices; let i = index"
+          (click)="editService(i)"
+          class="editable-row"
+        >
           <td>{{ i + 1 }}</td>
           <td>{{ service.name }}</td>
           <td class="text-end">{{ service.charge }}</td>
           <td class="text-end">
-            <button type="button" class="btn btn-sm btn-danger" (click)="deleteService(i); $event.stopPropagation();">
+            <button
+              type="button"
+              class="btn btn-sm btn-outline-danger"
+              (click)="deleteService(i); $event.stopPropagation();"
+            >
               🗑️ Delete
             </button>
           </td>
