@@ -1,59 +1,61 @@
 <div class="login-page d-flex align-items-center justify-content-center">
+  <div class="moving-text-top">
+    <span>✨ Welcome to PRIME AAWAS: Smart Property Management   |   Billing Management   |    Rent Management   |    Flat Allocation   |    Service Management! ✨</span>
+  </div>
+  <div class="login-container col-md-6 order-1 shadow-lg ">
 
-  <div class="login-container row shadow-lg">
-    <!-- LEFT: Login form -->
-<div class="col-md-6 order-2 order-md-1 p-5 bg-white">
-      <h2 class="fw-bold">Login</h2>
-      <p class="text-muted">Don’t have an account yet? <a routerLink="/signup" class="text-primary">Sign Up</a></p>
-
-      <form (ngSubmit)="onSubmit()" #loginForm="ngForm" novalidate>
-        <div class="mb-3">
-          <label class="form-label">Email Address</label>
-          <input type="email" class="form-control" [(ngModel)]="email" name="email" required
-            placeholder="you@example.com" />
-        </div>
-
-        <div class="mb-3">
-          <label class="form-label d-flex justify-content-between">
-            Password
-            <a href="#" class="text-decoration-none text-primary">Forgot Password?</a>
-          </label>
-          <input type="password" class="form-control" [(ngModel)]="password" name="password" required
-            placeholder="Enter 6 character or more" />
-        </div>
-
-        <div class="form-check mb-3">
-          <input class="form-check-input" type="checkbox" id="rememberMe" />
-          <label class="form-check-label" for="rememberMe">Remember me</label>
-        </div>
-
-        <div *ngIf="errorMessage" class="text-danger mb-2 text-center">
-          {{ errorMessage }}
-        </div>
-
-        <button type="submit" class="btn btn-primary w-100 mb-3">Login</button>
-        <button type="button" class="btn btn-light w-100 border" routerLink="/signup">Sign Up </button>
-
-
-      </form>
-    </div>
-
-    <!-- RIGHT: Image or illustration -->
-    <!-- RIGHT: Image + branding -->
-    <div
-  class="col-md-6 order-1 order-md-2 d-flex flex-column align-items-center justify-content-center login-image text-center p-4">
-      <div class="brand-logo mb-4">
-        <h1 class="brand-name">PRIME AAWAS</h1>
-        <p class="brand-tagline">OWN. MANAGE. RELAX.</p>
+    <div class="login-image d-flex flex-column align-items-center justify-content-center text-center p-4">
+      <div class="brand-logo">
+        <img src="assets/images/Smart home-pana-1.png" alt="Login Illustration" class="img-fluid"
+          style="max-height: 300px;" />
+        <h1 class="heading-1">Manage Everything in One Place</h1>
         <p class="brand-tagline-paragraph">
-          Prime Aawas is a modern, user-friendly housing management platform
-          designed to empower landlords and society administrators with full control over tenant-related operations.
+          Track tenants, payments, complaints, and notices—all from one smart dashboard.
         </p>
       </div>
-
-      <img src="assets/images/undraw-smart-home.svg" alt="Login Illustration" class="img-fluid"
-        style="max-height: 300px;" />
     </div>
 
+  </div>
+  <div class="col-md-6  order-2 p-5 ">
+    <div class="head">
+      <h1 class="brand-name">PRIME AAWAS</h1>
+      <p class="brand-tagline">OWN || MANAGE || RELAX</p>
+    
+    </div>
+
+
+    <form (ngSubmit)="onSubmit()" #loginForm="ngForm" novalidate>
+      <div class="mb-3">
+        <label class="form-label">Email Address</label>
+        <input type="email" class="form-control" [(ngModel)]="email" name="email" required
+          placeholder="you@example.com" />
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label d-flex justify-content-between">
+          Password
+          <a href="#" class="text-decoration-none text-primary">Forgot Password?</a>
+        </label>
+        <input type="password" class="form-control" [(ngModel)]="password" name="password" required
+          placeholder="Enter 6 character or more" />
+      </div>
+
+      <div class="form-check mb-3">
+        <input class="form-check-input" type="checkbox" id="rememberMe" />
+        <label class="form-check-label" for="rememberMe">Remember me</label>
+      </div>
+
+      <div *ngIf="errorMessage" class="text-danger mb-2 text-center">
+        {{ errorMessage }}
+      </div>
+
+      <button type="submit" class="btn btn-primary w-100 mb-3">Login</button>
+        <p class="text-muted">Don’t have an account yet? <a routerLink="/signup" class="text-primary">Sign Up</a></p>
+
+
+    </form>
+  </div>
+<div class="moving-text-bottom">
+    <span>🔔 Get instant alerts and manage tenant Related Billing effortlessly | Try our Pro features! 🔔</span>
   </div>
 </div>

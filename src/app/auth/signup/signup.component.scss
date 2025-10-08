@@ -1,40 +1,48 @@
-.signup-page {
+.login-page {
+  /* Removed 'position: relative;' as it's not strictly needed for fixed children, */
+  /* but kept for the overall flex structure. The original code had it, 
+     but the fixed version doesn't rely on it. I'll omit it for cleanliness
+     since fixed positioning is relative to the viewport. */
   min-height: 100vh;
-  background: linear-gradient(135deg, #060b23, #2e54d4);
-  display: flex;
+  background: linear-gradient(255deg, #FFF 44.07%, var(--brand-700, #1F3799) 99.98%);
   align-items: center;
   justify-content: center;
-  padding: 1rem;
+  /* Updated padding to make space for the fixed top/bottom banners */
+  padding-top: 40px; 
+  padding-bottom: 40px;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  flex-direction: row;
 }
 
-.signup-container {
-  width: 100%;
-  max-width: 900px;
-  background: #fff;
+.login-container {
+  background: #ffffff;
   border-radius: 12px;
-  overflow: visible;
+  width: 35%;
+  max-width: 900px;
   display: flex;
   flex-direction: column;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  overflow: visible;
 }
 
+/* Reset margins for main content containers (due to fixed banners) */
+.login-container,
+.col-md-6.order-2 {
+  margin-top: 0; 
+  margin-bottom: 0;
+}
+
+/* Desktop mode: side-by-side layout with max-height */
 @media (min-width: 768px) {
-  .signup-container {
-    flex-direction: row;
+  .login-container {
     max-height: 90vh;
     overflow: hidden;
   }
 }
 
 .login-image {
-  background-color: #1e3a8a;
-
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
+  border-radius: 12px;
+  background: linear-gradient(to bottom, #1f3799 8%, #3050c3 25%, #7a93e0 53%, #ffffff 64%);
 }
 
 .login-image img {
@@ -43,14 +51,41 @@
   width: auto;
 }
 
+.head {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-weight: 600;
+  color: var(--brand-700, #1F3799);
+}
+
+.heading-1 {
+  color: var(--Gray-800, #343A40);
+  text-align: center;
+  font-family: Inter;
+  font-size: 32px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 120%;
+}
+
+.paragraph-1 {
+  color: var(--Gray-700, #495057);
+  font-family: Inter;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 120%;
+}
+
 .brand-logo {
-  margin-bottom: 1rem;
   color: #fff;
 }
 
 .brand-logo .brand-name {
-  font-size: 1.8rem;
-  font-weight: 700;
+  font-family: Inter;
+  font-size: 32px;
+  font-style: normal;
 }
 
 .brand-logo .brand-tagline {
@@ -59,7 +94,137 @@
 }
 
 .brand-logo .brand-tagline-paragraph {
-  font-size: 0.85rem;
-  margin-top: 0.5rem;
-  color: #e0e0e0;
+  color: var(--Gray-700, #495057);
+  font-family: Inter;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 120%;
 }
+
+/* --- FIXED (NON-SCROLLING) TEXT BANNERS --- */
+
+.moving-text-top,
+.moving-text-bottom {
+  /* Key rule for fixed position on screen */
+  position: fixed; 
+  width: 100%;
+  overflow: hidden; 
+  left: 0;
+  z-index: 10; 
+  background-color: var(--brand-700, #1F3799);
+  padding: 8px 0;
+  white-space: nowrap; 
+  text-align: center; /* Center the text */
+}
+
+.moving-text-top {
+  top: 0; 
+}
+
+.moving-text-bottom {
+  bottom: 0; 
+}
+
+.moving-text-top span,
+.moving-text-bottom span {
+  /* Text styling for the banners */
+  display: block; 
+  color: #ffffff; 
+  font-weight: 600;
+  padding: 0 10px;
+}
+.login-page {
+  /* Note: The 'fixed' banners will overlap the content, 
+     so we must keep the padding-top/bottom on .login-page to create space. */
+  min-height: 100vh;
+  background: linear-gradient(255deg, #FFF 44.07%, var(--brand-700, #1F3799) 99.98%);
+  align-items: center;
+  justify-content: center;
+  /* Crucial: Padding to prevent content overlap with fixed banners */
+  padding-top: 40px; 
+  padding-bottom: 40px;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  flex-direction: row;
+}
+
+/* --- SCROLLING ANIMATION KEYFRAMES (RESTORED) --- */
+@keyframes marquee {
+  0% {
+    transform: translateX(100%); /* Start off-screen to the right */
+  }
+  100% {
+    transform: translateX(-100%); /* End off-screen to the left */
+  }
+}
+
+/* --- FIXED & SCROLLING TEXT BANNERS --- */
+.moving-text-top,
+.moving-text-bottom {
+  /* Key rule for fixed position on screen (always visible) */
+  position: fixed; 
+  width: 100%;
+  overflow: hidden; /* Hides the text when it moves outside the container */
+  left: 0;
+  z-index: 10; 
+background: linear-gradient(to right, #2a3a5a,  #00082a); 
+  padding: 8px 0;
+  white-space: nowrap; /* Prevents text from wrapping */
+  /* Remove text-align: center; as the text is now moving */
+}
+
+.moving-text-top {
+  top: 0; 
+}
+
+.moving-text-bottom {
+  bottom: 0; 
+}
+
+.moving-text-top span,
+.moving-text-bottom span {
+  /* Must be inline-block for the transform/animation to work correctly */
+  display: inline-block; 
+  color: #ffffff; 
+  font-weight: 600;
+  padding: 0 10px;
+  
+  /* CRUCIAL: RESTORED ANIMATION PROPERTY */
+  animation: marquee 30s linear infinite;
+  /* 30s: duration, linear: constant speed, infinite: loops forever */
+}
+
+
+/* --- REST OF ORIGINAL COMPONENT STYLES (No Change) --- */
+
+.login-container {
+  background: #ffffff;
+  border-radius: 12px;
+  width: 35%;
+  max-width: 900px;
+  display: flex;
+  flex-direction: column;
+  overflow: visible;
+}
+
+.login-container,
+.col-md-6.order-2 {
+  margin-top: 0; 
+  margin-bottom: 0;
+}
+
+@media (min-width: 768px) {
+  .login-container {
+    max-height: 90vh;
+    overflow: hidden;
+  }
+}
+
+.login-image {
+  border-radius: 12px;
+  background: linear-gradient(to bottom, #1f3799 8%, #3050c3 25%, #7a93e0 53%, #ffffff 64%);
+}
+
+/* ... (rest of your .login-image, .head, .heading-1, .brand-logo styles go here) ... */
+

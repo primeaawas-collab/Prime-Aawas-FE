@@ -36,6 +36,15 @@ $prime-aawas-theme: mat.define-theme((
 // @include mat.color-variants-backwards-compatibility($prime-aawas-theme);
 /* You can add global styles to this file, and also import other style files */
 @import 'bootstrap/scss/bootstrap';
+// @import "~typeface-inter";
+
 
 html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+body { margin: 0; font-family: 'Inter', sans-serif }
+
+
+//Buttons
+.btn-primary {
+ border-radius: 4px;
+background: linear-gradient(270deg, #287CEF 8.32%, #123360 93.36%);
+}
