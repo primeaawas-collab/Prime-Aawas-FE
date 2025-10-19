@@ -43,12 +43,41 @@
 .login-image {
   border-radius: 12px;
   background: linear-gradient(to bottom, #1f3799 8%, #3050c3 25%, #7a93e0 53%, #ffffff 64%);
+  min-height: calc(100vh - 200px);
+
+
 }
 
 .login-image img {
-  max-height: 200px;
-  height: auto;
+  height: 50vh; /* takes up 50% of the viewport height */
+  max-height: 500px; /* optional upper limit */
   width: auto;
+  object-fit: contain; /* keeps proportions */
+}
+
+.brand-logo {
+  color: #fff;
+  
+}
+
+.brand-logo .brand-name {
+  font-family: Inter;
+  font-size: 32px;
+  font-style: normal;
+}
+
+.brand-logo .brand-tagline {
+  letter-spacing: 0.25rem;
+  font-size: 1rem;
+}
+
+.brand-logo .brand-tagline-paragraph {
+  color: var(--Gray-700, #495057);
+  font-family: Inter;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 120%;
 }
 
 .head {
@@ -78,29 +107,6 @@
   line-height: 120%;
 }
 
-.brand-logo {
-  color: #fff;
-}
-
-.brand-logo .brand-name {
-  font-family: Inter;
-  font-size: 32px;
-  font-style: normal;
-}
-
-.brand-logo .brand-tagline {
-  letter-spacing: 0.25rem;
-  font-size: 1rem;
-}
-
-.brand-logo .brand-tagline-paragraph {
-  color: var(--Gray-700, #495057);
-  font-family: Inter;
-  font-size: 18px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: 120%;
-}
 
 /* --- FIXED (NON-SCROLLING) TEXT BANNERS --- */
 
