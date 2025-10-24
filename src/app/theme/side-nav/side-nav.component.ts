@@ -9,7 +9,7 @@ import { RouterModule } from '@angular/router';
   styleUrl: './side-nav.component.scss'
 })
 export class SideNavComponent {
- isCollapsed = false;
+ isCollapsed = true;
 
   toggleSidebar() {
     this.isCollapsed = !this.isCollapsed;
