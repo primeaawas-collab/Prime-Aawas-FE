@@ -20,7 +20,7 @@ export class LoginComponent {
   onSubmit(): void {
     if (this.email === 'prime@123' && this.password === '12345') {
       this.errorMessage = '';
-      this.router.navigate(['/home']);
+      this.router.navigate(['/owner/owner-dashboard']);
     } else {
       this.errorMessage = 'Invalid email or password';
     }
