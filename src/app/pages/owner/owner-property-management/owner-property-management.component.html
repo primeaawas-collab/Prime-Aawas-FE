@@ -1,1 +1,123 @@
-<p>owner-property-management works!</p>
+<div class="property-management-container">
+  <!-- Header Section -->
+  <div class="header-section">
+    <div class="header-content">
+      <div class="title-section">
+        <h1 class="page-title">Property Management</h1>
+        <p class="page-subtitle">Manage your property flats and their configurations</p>
+      </div>
+      
+      <div class="header-actions">
+        <div class="search-container">
+          <div class="search-input-group">
+            <input 
+              type="text" 
+              class="form-control search-input" 
+              placeholder="Search..." 
+              [(ngModel)]="searchTerm"
+            />
+            <div class="search-icon">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="11" cy="11" r="8" stroke="currentColor" stroke-width="2"/>
+                <path d="m21 21-4.35-4.35" stroke="currentColor" stroke-width="2"/>
+              </svg>
+            </div>
+          </div>
+        </div>
+        
+        <button class="btn btn-primary add-property-btn" (click)="onAddProperty()">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 5v14m-7-7h14" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          Add Property
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Properties Grid -->
+  <div class="properties-grid">
+    <div class="row">
+      @for (property of filteredProperties; track property.id) {
+        <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
+          <div class="property-card">
+            <!-- Card Header -->
+            <div class="card-header">
+              <div class="property-icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M3 21H21" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  <path d="M5 21V7L13 2L21 7V21" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  <path d="M9 9V13" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  <path d="M15 9V13" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </div>
+              <button class="options-btn" (click)="onPropertyOptions(property.id)">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <circle cx="12" cy="12" r="1" fill="currentColor"/>
+                  <circle cx="12" cy="5" r="1" fill="currentColor"/>
+                  <circle cx="12" cy="19" r="1" fill="currentColor"/>
+                </svg>
+              </button>
+            </div>
+
+            <!-- Property Details -->
+            <div class="card-body">
+              <h5 class="property-name">{{ property.name }}</h5>
+              
+              <div class="property-address">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M21 10C21 17 12 23 12 23S3 17 3 10C3 7.61 4.42 5.61 6.5 4.61C8.58 3.61 11.19 3.61 13.27 4.61C15.35 5.61 16.77 7.61 16.77 10Z" stroke="currentColor" stroke-width="2"/>
+                  <circle cx="12" cy="10" r="3" stroke="currentColor" stroke-width="2"/>
+                </svg>
+                <span>{{ property.address }}</span>
+              </div>
+
+              <!-- Flat Statistics -->
+              <div class="flat-stats">
+                <div class="stat-tag">
+                  <span class="stat-number">{{ property.totalFlats }}</span>
+                  <span class="stat-label">Total Flats</span>
+                </div>
+                <div class="stat-tag">
+                  <span class="stat-number">{{ property.allottedFlats }}</span>
+                  <span class="stat-label">Allotted</span>
+                </div>
+                <div class="stat-tag">
+                  <span class="stat-number">{{ property.vacantFlats }}</span>
+                  <span class="stat-label">Vacant</span>
+                </div>
+              </div>
+
+              <!-- Registration Date -->
+              <div class="registration-date">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <rect x="3" y="4" width="18" height="18" rx="2" ry="2" stroke="currentColor" stroke-width="2"/>
+                  <line x1="16" y1="2" x2="16" y2="6" stroke="currentColor" stroke-width="2"/>
+                  <line x1="8" y1="2" x2="8" y2="6" stroke="currentColor" stroke-width="2"/>
+                  <line x1="3" y1="10" x2="21" y2="10" stroke="currentColor" stroke-width="2"/>
+                </svg>
+                <span>Registered On {{ property.registeredDate }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      }
+    </div>
+  </div>
+
+  <!-- Empty State -->
+  @if (filteredProperties.length === 0) {
+    <div class="empty-state">
+      <div class="empty-state-content">
+        <svg width="64" height="64" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M3 21H21" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M5 21V7L13 2L21 7V21" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M9 9V13" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M15 9V13" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <h3>No Properties Found</h3>
+        <p>No properties match your search criteria. Try adjusting your search terms.</p>
+      </div>
+    </div>
+  }
+</div>

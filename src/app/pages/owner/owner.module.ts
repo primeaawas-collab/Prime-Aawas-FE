@@ -7,6 +7,7 @@ import { OwnerDashboardComponent } from './owner-dashboard/owner-dashboard.compo
 import { OwnerRegistrationComponent } from './owner-registration/owner-registration.component';
 import { OwnerBillingComponent } from './owner-billing/owner-billing.component';
 import { OwnerRegisterTenantComponent } from './owner-register-tenant/owner-register-tenant.component';
+import { FlatsAssociatedPropertyComponent } from './flats-associated-property/flats-associated-property.component';
 
 
 @NgModule({
@@ -17,7 +18,8 @@ import { OwnerRegisterTenantComponent } from './owner-register-tenant/owner-regi
     OwnerRegistrationComponent,
     OwnerBillingComponent,
     OwnerRegistrationComponent,
-    OwnerRegisterTenantComponent
+    OwnerRegisterTenantComponent,
+    FlatsAssociatedPropertyComponent
   ],
 })
 export class OwnerModule { }
