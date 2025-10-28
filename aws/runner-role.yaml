@@ -1,0 +1,84 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: IAM role for Bitbucket OIDC to deploy Angular app to S3 and manage CloudFront + ACM
+
+Parameters:
+  WorkspaceId:
+    Type: String
+    Description: Bitbucket workspace ID (used for OIDC trust)
+  RepoName:
+    Type: String
+    Description: Repository name
+  BucketName:
+    Type: String
+    Description: Target S3 bucket name for frontend deployment
+  OidcProviderArn:
+    Type: String
+    Description: ARN of the OIDC provider you created in IAM (for Bitbucket)
+
+Resources:
+  DeployRole:
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName: Bitbucket-CI-Deploy-Role
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Effect: Allow
+            Principal:
+              Federated: !Ref OidcProviderArn
+            Action: sts:AssumeRoleWithWebIdentity
+            Condition:
+              StringEquals:
+                api.bitbucket.org/2.0/workspaces/!Ref WorkspaceId/pipelines-config/identity/oidc:aud: "sts.amazonaws.com"
+              StringLike:
+                api.bitbucket.org/2.0/workspaces/!Ref WorkspaceId/pipelines-config/identity/oidc:sub: !Sub "repo:${WorkspaceId}/${RepoName}:*"
+
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/CloudFrontFullAccess
+        - arn:aws:iam::aws:policy/AWSCertificateManagerFullAccess
+
+      Policies:
+        - PolicyName: S3FrontendDeployPolicy
+          PolicyDocument:
+            Version: "2012-10-17"
+            Statement:
+              - Sid: S3WriteAccess
+                Effect: Allow
+                Action:
+                  - s3:PutObject
+                  - s3:PutObjectAcl
+                  - s3:DeleteObject
+                  - s3:ListBucket
+                  - s3:CopyObject
+                Resource:
+                  - !Sub "arn:aws:s3:::${BucketName}"
+                  - !Sub "arn:aws:s3:::${BucketName}/*"
+
+              - Sid: CloudFrontAccess
+                Effect: Allow
+                Action:
+                  - cloudfront:CreateInvalidation
+                  - cloudfront:GetDistribution
+                  - cloudfront:ListDistributions
+                  - cloudfront:UpdateDistribution
+                  - cloudfront:CreateDistribution
+                  - cloudfront:DeleteDistribution
+                  - cloudfront:GetInvalidation
+                  - cloudfront:TagResource
+                Resource: "*"
+
+              - Sid: ACMAccess
+                Effect: Allow
+                Action:
+                  - acm:ListCertificates
+                  - acm:DescribeCertificate
+                  - acm:RequestCertificate
+                  - acm:DeleteCertificate
+                  - acm:AddTagsToCertificate
+                  - acm:GetCertificate
+                Resource: "*"
+
+Outputs:
+  RoleArn:
+    Description: ARN of the CI/CD Deploy Role
+    Value: !GetAtt DeployRole.Arn
