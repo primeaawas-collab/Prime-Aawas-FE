@@ -46,6 +46,18 @@ export class FlatsAssociatedPropertyComponent {
   selectedFurnishing: string = 'all';
   selectedAvailable: string = 'all';
   activeTab: string = 'flats';
+  showAddFlatModal: boolean = false;
+  
+  // Add Flat Form Data
+  newFlat = {
+    flatNumber: '',
+    type: '',
+    furnishing: '',
+    monthlyRent: '',
+    billingType: 'Advance',
+    meteringType: 'Self',
+    status: 'Available'
+  };
   
   selectedProperty = {
     id: 1,
@@ -244,8 +256,51 @@ export class FlatsAssociatedPropertyComponent {
   }
 
   onAddFlat(): void {
-    // TODO: Implement add flat functionality
-    console.log('Add Flat clicked');
+    this.showAddFlatModal = true;
+    this.resetForm();
+  }
+
+  onCloseModal(): void {
+    this.showAddFlatModal = false;
+    this.resetForm();
+  }
+
+  onSaveFlat(): void {
+    // TODO: Implement save flat functionality
+    console.log('Saving flat:', this.newFlat);
+    
+    // Add the new flat to the flats array
+    const newFlatData: Flat = {
+      id: this.flats.length + 1,
+      flatNumber: this.newFlat.flatNumber,
+      floor: 1, // Default floor
+      area: 1000, // Default area
+      bedrooms: this.newFlat.type === '1BHK' ? 1 : this.newFlat.type === '2BHK' ? 2 : 3,
+      bathrooms: this.newFlat.type === '1BHK' ? 1 : 2,
+      status: this.newFlat.status.toLowerCase() as 'occupied' | 'available' | 'maintenance',
+      type: this.newFlat.type,
+      furnishing: this.newFlat.furnishing as 'Fully Furnished' | 'Semi-Furnished' | 'Unfurnished',
+      billingType: this.newFlat.billingType as 'Advance' | 'Monthly',
+      monthlyRent: +this.newFlat.monthlyRent,
+      meteringType: this.newFlat.meteringType as 'Self Pay' | 'Sub-meter',
+      subMeterRate: this.newFlat.meteringType === 'Sub-meter' ? 8 : undefined,
+      createdDate: new Date().toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' })
+    };
+    
+    this.flats.unshift(newFlatData);
+    this.onCloseModal();
+  }
+
+  resetForm(): void {
+    this.newFlat = {
+      flatNumber: '',
+      type: '',
+      furnishing: '',
+      monthlyRent: '',
+      billingType: 'Advance',
+      meteringType: 'Self',
+      status: 'Available'
+    };
   }
 
   onEditFlat(flatId: number): void {

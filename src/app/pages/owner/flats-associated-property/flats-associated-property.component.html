@@ -286,3 +286,155 @@
     </div>
   }
 </div>
+
+<!-- Add Flat Modal -->
+@if (showAddFlatModal) {
+  <div class="modal-overlay" (click)="onCloseModal()">
+    <div class="modal-container" (click)="$event.stopPropagation()">
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <div class="modal-title">
+          <div class="title-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M3 21H21" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M5 21V7L13 2L21 7V21" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M9 9V13" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M15 9V13" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <h3>{{ newFlat.flatNumber || 'A-110' }}</h3>
+        </div>
+        <button class="close-btn" (click)="onCloseModal()">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+      </div>
+
+      <!-- Modal Body -->
+      <div class="modal-body">
+        <div class="form-grid">
+          <!-- Left Column -->
+          <div class="form-column">
+            <!-- Type -->
+            <div class="form-group">
+              <label class="form-label">Type</label>
+              <select class="form-select" [(ngModel)]="newFlat.type">
+                <option value="">Select flat type</option>
+                <option value="1BHK">1BHK</option>
+                <option value="2BHK">2BHK</option>
+                <option value="3BHK">3BHK</option>
+              </select>
+            </div>
+
+            <!-- Monthly Rent -->
+            <div class="form-group">
+              <label class="form-label">Monthly Rent</label>
+              <input 
+                type="number" 
+                class="form-input" 
+                placeholder="Enter flat monthly rent"
+                [(ngModel)]="newFlat.monthlyRent"
+              />
+            </div>
+
+            <!-- Billing Type -->
+            <div class="form-group">
+              <label class="form-label">Billing Type</label>
+              <div class="radio-group">
+                <label class="radio-item">
+                  <input 
+                    type="radio" 
+                    name="billingType" 
+                    value="Advance" 
+                    [(ngModel)]="newFlat.billingType"
+                  />
+                  <span class="radio-label">Advance</span>
+                </label>
+                <label class="radio-item">
+                  <input 
+                    type="radio" 
+                    name="billingType" 
+                    value="Post-paid" 
+                    [(ngModel)]="newFlat.billingType"
+                  />
+                  <span class="radio-label">Post-paid</span>
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right Column -->
+          <div class="form-column">
+            <!-- Furnishing -->
+            <div class="form-group">
+              <label class="form-label">Furnishing</label>
+              <select class="form-select" [(ngModel)]="newFlat.furnishing">
+                <option value="">Select flat furnishing</option>
+                <option value="Fully Furnished">Fully Furnished</option>
+                <option value="Semi-Furnished">Semi-Furnished</option>
+                <option value="Unfurnished">Unfurnished</option>
+              </select>
+            </div>
+
+            <!-- Electricity Type -->
+            <div class="form-group">
+              <label class="form-label">Electricity Type</label>
+              <div class="radio-group">
+                <label class="radio-item">
+                  <input 
+                    type="radio" 
+                    name="meteringType" 
+                    value="Self" 
+                    [(ngModel)]="newFlat.meteringType"
+                  />
+                  <span class="radio-label">Self</span>
+                </label>
+                <label class="radio-item">
+                  <input 
+                    type="radio" 
+                    name="meteringType" 
+                    value="Sub-meter" 
+                    [(ngModel)]="newFlat.meteringType"
+                  />
+                  <span class="radio-label">Sub meter</span>
+                </label>
+              </div>
+            </div>
+
+            <!-- Allotted -->
+            <div class="form-group">
+              <label class="form-label">Allotted</label>
+              <div class="radio-group">
+                <label class="radio-item">
+                  <input 
+                    type="radio" 
+                    name="status" 
+                    value="Available" 
+                    [(ngModel)]="newFlat.status"
+                  />
+                  <span class="radio-label">Available</span>
+                </label>
+                <label class="radio-item">
+                  <input 
+                    type="radio" 
+                    name="status" 
+                    value="Occupied" 
+                    [(ngModel)]="newFlat.status"
+                  />
+                  <span class="radio-label">Occupied</span>
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Modal Footer -->
+      <div class="modal-footer">
+        <button class="btn btn-secondary" (click)="onCloseModal()">Cancel</button>
+        <button class="btn btn-primary" (click)="onSaveFlat()">Save</button>
+      </div>
+    </div>
+  </div>
+}

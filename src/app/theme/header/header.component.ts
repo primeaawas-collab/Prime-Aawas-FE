@@ -1,17 +1,19 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
 import { filter } from 'rxjs/operators';
+import { ProfileCardComponent } from './profile-card/profile-card.component';
 
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [],
+  imports: [ProfileCardComponent],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss'
 })
 export class HeaderComponent implements OnInit {
   currentPageTitle = 'Dashboard';
   isDarkMode = false;
+  showProfileCard = false;
 
   constructor(private router: Router) {}
 
@@ -26,11 +28,27 @@ export class HeaderComponent implements OnInit {
 
   updatePageTitle(url: string) {
     const routeMap: { [key: string]: string } = {
+      // Auth Routes
+      '/login': 'Login',
+      '/signup': 'Sign Up',
+      
+      // Owner Routes
       '/owner/owner-dashboard': 'Dashboard',
+      '/owner/owner-register': 'Owner Registration',
       '/owner/owner-property-management': 'Property Management',
+      '/owner/flats-associated-property': 'Flats Associated Property',
       '/owner/owner-register-tenant': 'Register Tenant',
       '/owner/owner-billing': 'Billing',
-      '/owner/owner-registration': 'Owner Registration'
+      
+      // Admin Routes
+      '/admin': 'Admin Dashboard',
+      
+      // Tenant Routes
+      '/tenant': 'Tenant Dashboard',
+      
+      // Default fallbacks
+      '/': 'Dashboard',
+      '': 'Dashboard'
     };
 
     this.currentPageTitle = routeMap[url] || 'Dashboard';
@@ -46,5 +64,31 @@ export class HeaderComponent implements OnInit {
     this.isDarkMode = !this.isDarkMode;
     // Add dark mode logic here
     console.log('Toggle dark mode:', this.isDarkMode);
+  }
+
+  toggleProfileCard() {
+    this.showProfileCard = !this.showProfileCard;
+  }
+
+  onCloseProfileCard() {
+    this.showProfileCard = false;
+  }
+
+  onLogout() {
+    console.log('Logout clicked');
+    this.showProfileCard = false;
+    // Implement logout logic
+    this.router.navigate(['/auth/login']);
+  }
+
+  @HostListener('document:click', ['$event'])
+  onDocumentClick(event: Event) {
+    // Close profile card when clicking outside
+    if (this.showProfileCard) {
+      const target = event.target as HTMLElement;
+      if (!target.closest('.profile-card') && !target.closest('.user-avatar')) {
+        this.showProfileCard = false;
+      }
+    }
   }
 }

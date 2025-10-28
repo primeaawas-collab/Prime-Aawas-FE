@@ -1,7 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { RouterModule } from '@angular/router';
+import { RouterModule, Router } from '@angular/router';
+import { TokenService } from '../../service/authentication/token.service';
 
 @Component({
   selector: 'app-signup',
@@ -18,6 +19,8 @@ export class SignupComponent {
   password = '';
   confirmPassword = '';
   errorMessage = '';
+
+  constructor(private tokenService: TokenService, private router: Router) {}
 
   onSubmit() {
     if (!this.name || !this.email || !this.phone || !this.password || !this.confirmPassword) {
@@ -37,6 +40,31 @@ export class SignupComponent {
       phone: this.phone,
       password: this.password
     });
+    
+    // Generate a mock token and store it
+    const mockToken = 'mock_jwt_token_' + Date.now();
+    this.tokenService.setToken(mockToken);
     this.errorMessage = '';
+    
+    // Navigate to dashboard after successful signup
+    this.router.navigate(['/owner/owner-dashboard']);
+  }
+
+  onGoogleSignup(): void {
+    console.log('Google signup clicked');
+    // TODO: Implement Google OAuth signup
+    // For now, simulate successful signup
+    const mockToken = 'google_oauth_token_' + Date.now();
+    this.tokenService.setToken(mockToken);
+    this.router.navigate(['/owner/owner-dashboard']);
+  }
+
+  onFacebookSignup(): void {
+    console.log('Facebook signup clicked');
+    // TODO: Implement Facebook OAuth signup
+    // For now, simulate successful signup
+    const mockToken = 'facebook_oauth_token_' + Date.now();
+    this.tokenService.setToken(mockToken);
+    this.router.navigate(['/owner/owner-dashboard']);
   }
 }
