@@ -7,6 +7,7 @@ pipelines:
         deployment: development
         oidc: true     # 👈 Enables OpenID Connect token exchange
         script:
+            - apt-get update && apt-get install -y git bash
             - 'COMMIT_MSG=$(git log -1 --pretty=%B)'
             - 'echo "Last commit message: $COMMIT_MSG"'
             - |
@@ -31,12 +32,7 @@ pipelines:
             - aws sts get-caller-identity
 
             # -----------------------------
-            # 2. Install dependencies if needed
-            # -----------------------------
-            - apt-get update && apt-get install -y bash
-
-            # -----------------------------
-            # 3. Run your deployment script
+            # 2. Run your deployment script
             # -----------------------------
             - chmod +x deploy.sh
             - ./deploy.sh
