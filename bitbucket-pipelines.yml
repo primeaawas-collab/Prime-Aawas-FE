@@ -8,7 +8,7 @@ pipelines:
         oidc: true     # 👈 Enables OpenID Connect token exchange
         script:
             - echo "🧰 Installing required packages..."
-            - apk add --no-cache git bash
+            - yum install -y git bash
 
             - 'COMMIT_MSG=$(git log -1 --pretty=%B)'
             - 'echo "Last commit message: $COMMIT_MSG"'
