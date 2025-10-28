@@ -32,7 +32,6 @@ pipelines:
 
 
             # 👇 Optional: just to confirm file exists and has content
-            - echo "🔍 Token file created at: $AWS_WEB_IDENTITY_TOKEN_FILE"
             - ls -l $(pwd)
             - cat "$AWS_WEB_IDENTITY_TOKEN_FILE"
 
