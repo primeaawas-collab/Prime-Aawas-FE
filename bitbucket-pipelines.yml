@@ -7,9 +7,8 @@ pipelines:
         deployment: development
         oidc: true     # 👈 Enables OpenID Connect token exchange
         script:
-            - apt-get update && apt-get install -y git bash
-            - 'COMMIT_MSG=$(git log -1 --pretty=%B)'
-            - 'echo "Last commit message: $COMMIT_MSG"'
+            - echo "📝 Commit message: $BITBUCKET_COMMIT_MESSAGE"
+            - COMMIT_MSG="$BITBUCKET_COMMIT_MESSAGE"
             - |
               if echo "$COMMIT_MSG" | grep -iq "#deploy"; then
                 echo "Deploy flag detected — running dev deployment..."
@@ -32,7 +31,7 @@ pipelines:
             - aws sts get-caller-identity
 
             # -----------------------------
-            # 2. Run your deployment script
+            # 3. Run your deployment script
             # -----------------------------
             - chmod +x deploy.sh
             - ./deploy.sh
