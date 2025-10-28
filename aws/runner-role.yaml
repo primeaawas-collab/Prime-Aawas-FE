@@ -29,9 +29,9 @@ Resources:
             Action: sts:AssumeRoleWithWebIdentity
             Condition:
               StringEquals:
-                api.bitbucket.org/2.0/workspaces/!Ref WorkspaceId/pipelines-config/identity/oidc:aud: "sts.amazonaws.com"
+                api.bitbucket.org/2.0/workspaces/7999d769-954c-4c9a-8e78-f81f3336d437/pipelines-config/identity/oidc:aud: "sts.amazonaws.com"
               StringLike:
-                api.bitbucket.org/2.0/workspaces/!Ref WorkspaceId/pipelines-config/identity/oidc:sub: !Sub "repo:${WorkspaceId}/${RepoName}:*"
+                api.bitbucket.org/2.0/workspaces/7999d769-954c-4c9a-8e78-f81f3336d437/pipelines-config/identity/oidc:sub: !Sub "repo:${WorkspaceId}/${RepoName}:*"
 
       ManagedPolicyArns:
         - arn:aws:iam::aws:policy/CloudFrontFullAccess

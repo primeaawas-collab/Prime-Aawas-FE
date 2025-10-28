@@ -28,6 +28,7 @@ pipelines:
             - export AWS_DEFAULT_REGION=ap-south-1  # or your region
 
             # Bitbucket automatically injects OIDC token as BITBUCKET_STEP_OIDC_TOKEN
+            - cat "$AWS_WEB_IDENTITY_TOKEN_FILE"
             - echo "$BITBUCKET_STEP_OIDC_TOKEN" > "$AWS_WEB_IDENTITY_TOKEN_FILE"
 
             # Verify AWS identity (optional)
