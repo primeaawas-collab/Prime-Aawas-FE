@@ -33,7 +33,7 @@ pipelines:
 
             # 👇 Optional: just to confirm file exists and has content
             - ls -l $(pwd)
-            - cat "$AWS_WEB_IDENTITY_TOKEN_FILE"
+            - cat web-identity-token
 
             # Verify AWS identity (optional)
             - aws sts get-caller-identity
