@@ -12,13 +12,12 @@ pipelines:
           # -----------------------------
           - echo "📝 Commit message: $BITBUCKET_COMMIT_MESSAGE"
           - COMMIT_MSG="$BITBUCKET_COMMIT_MESSAGE"
-
-          - |
+          - >
             if echo "$COMMIT_MSG" | grep -iq "#deploy"; then
-              echo "✅ Deploy flag detected — running dev deployment..."
+              echo "✅ Deploy flag detected — running dev deployment...";
             else
-              echo "⏭️ No deploy flag found — skipping deployment."
-              exit 0
+              echo "⏭️ No deploy flag found — skipping deployment.";
+              exit 0;
             fi
 
           # -----------------------------
@@ -30,6 +29,7 @@ pipelines:
           - export AWS_DEFAULT_REGION=ap-south-1
           - echo "$BITBUCKET_STEP_OIDC_TOKEN" > "$AWS_WEB_IDENTITY_TOKEN_FILE"
 
+          # Verify AWS Identity
           - aws sts get-caller-identity
 
           # -----------------------------
