@@ -7,8 +7,8 @@ pipelines:
         deployment: development
         oidc: true     # 👈 Enables OpenID Connect token exchange
         script:
-            - echo "📝 Commit message: $BITBUCKET_COMMIT_MESSAGE"
-            - COMMIT_MSG="$BITBUCKET_COMMIT_MESSAGE"
+            - 'echo "📝 Commit message: $BITBUCKET_COMMIT_MESSAGE"'
+            - 'COMMIT_MSG="$BITBUCKET_COMMIT_MESSAGE"'
             - |
               if echo "$COMMIT_MSG" | grep -iq "#deploy"; then
                 echo "Deploy flag detected — running dev deployment..."
