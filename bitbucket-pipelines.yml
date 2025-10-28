@@ -5,52 +5,69 @@ pipelines:
     - step:
         name: Build and Conditional Deploy
         deployment: development
-        oidc: true
+        oidc: true     # 👈 Enables OpenID Connect token exchange
         script:
-          # -----------------------------
-          # 0. Read commit message properly
-          # -----------------------------
-          - echo "📝 Commit message: $BITBUCKET_COMMIT_MESSAGE"
-          - COMMIT_MSG="$BITBUCKET_COMMIT_MESSAGE"
-          - >
-            if echo "$COMMIT_MSG" | grep -iq "#deploy"; then
-              echo "✅ Deploy flag detected — running dev deployment...";
-            else
-              echo "⏭️ No deploy flag found — skipping deployment.";
-              exit 0;
-            fi
+            - echo "🧰 Installing required packages..."
+            - apk add --no-cache git bash
 
-          # -----------------------------
-          # 1. Assume AWS Role via OIDC
-          # -----------------------------
-          - echo "🔑 Assuming AWS OIDC Role..."
-          - export AWS_ROLE_ARN="${AWS_ROLE_ARN}"
-          - export AWS_WEB_IDENTITY_TOKEN_FILE=$(pwd)/web-identity-token
-          - export AWS_DEFAULT_REGION=ap-south-1
-          - echo "$BITBUCKET_STEP_OIDC_TOKEN" > "$AWS_WEB_IDENTITY_TOKEN_FILE"
+            - 'COMMIT_MSG=$(git log -1 --pretty=%B)'
+            - 'echo "Last commit message: $COMMIT_MSG"'
+            - |
+              if echo "$COMMIT_MSG" | grep -iq "#deploy"; then
+                echo "Deploy flag detected — running dev deployment..."
+              else
+                echo "No deploy flag found — skipping deployment."
+                exit 0
+              fi
+            # -----------------------------
+            # 1. Assume the AWS IAM Role using OIDC
+            # -----------------------------
+            - echo "🔑 Assuming AWS OIDC Role..."
+            - export AWS_ROLE_ARN="${AWS_ROLE_ARN}"
+            - export AWS_WEB_IDENTITY_TOKEN_FILE=$(pwd)/web-identity-token
+            - export AWS_DEFAULT_REGION=ap-south-1  # or your region
 
-          # Verify AWS Identity
-          - aws sts get-caller-identity
+            # Bitbucket automatically injects OIDC token as BITBUCKET_STEP_OIDC_TOKEN
+            - echo "$BITBUCKET_STEP_OIDC_TOKEN" > "$AWS_WEB_IDENTITY_TOKEN_FILE"
 
-          # -----------------------------
-          # 2. Run your deploy script
-          # -----------------------------
-          - chmod +x deploy.sh
-          - ./deploy.sh
+            # Verify AWS identity (optional)
+            - aws sts get-caller-identity
+
+            # -----------------------------
+            # 3. Run your deployment script
+            # -----------------------------
+            - chmod +x deploy.sh
+            - ./deploy.sh
 
   branches:
     master:
       - step:
           name: Deploy to AWS (S3 + CloudFront)
           deployment: development
-          oidc: true
+          oidc: true     # 👈 Enables OpenID Connect token exchange
           script:
+            # -----------------------------
+            # 1. Assume the AWS IAM Role using OIDC
+            # -----------------------------
             - echo "🔑 Assuming AWS OIDC Role..."
-            - export AWS_ROLE_ARN="${AWS_ROLE_ARN}"
+            - export AWS_ROLE_ARN="${AWS_ROLE_ARN}"   # 👈 replace with your role ARN
             - export AWS_WEB_IDENTITY_TOKEN_FILE=$(pwd)/web-identity-token
-            - export AWS_DEFAULT_REGION=ap-south-1
+            - export AWS_DEFAULT_REGION=ap-south-1  # or your region
+
+            # Bitbucket automatically injects OIDC token as BITBUCKET_STEP_OIDC_TOKEN
             - echo "$BITBUCKET_STEP_OIDC_TOKEN" > "$AWS_WEB_IDENTITY_TOKEN_FILE"
+
+            # Verify AWS identity (optional)
             - aws sts get-caller-identity
+
+            # -----------------------------
+            # 2. Install dependencies if needed
+            # -----------------------------
+            - apt-get update && apt-get install -y bash
+
+            # -----------------------------
+            # 3. Run your deployment script
+            # -----------------------------
             - chmod +x deploy.sh
             - ./deploy.sh
 
@@ -62,10 +79,18 @@ pipelines:
           oidc: true
           script:
             - echo "🚀 Deploying for release tag: $BITBUCKET_TAG"
+            # -----------------------------
+            # 1. Setup AWS OIDC credentials
+            # -----------------------------
             - export AWS_ROLE_ARN="${AWS_ROLE_ARN}"
             - export AWS_WEB_IDENTITY_TOKEN_FILE=$(pwd)/web-identity-token
             - export AWS_DEFAULT_REGION=ap-south-1
             - echo "$BITBUCKET_STEP_OIDC_TOKEN" > "$AWS_WEB_IDENTITY_TOKEN_FILE"
+
             - aws sts get-caller-identity
+
+            # -----------------------------
+            # 2. Run deployment script
+            # -----------------------------
             - chmod +x deploy.sh
             - ./deploy.sh prod
