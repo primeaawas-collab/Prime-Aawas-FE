@@ -20,7 +20,7 @@ pipelines:
             # 1. Assume the AWS IAM Role using OIDC
             # -----------------------------
             - echo "🔑 Assuming AWS OIDC Role..."
-            - export AWS_ROLE_ARN="${AWS_ROLE_ARN}"   # 👈 replace with your role ARN
+            - export AWS_ROLE_ARN="${AWS_ROLE_ARN}"
             - export AWS_WEB_IDENTITY_TOKEN_FILE=$(pwd)/web-identity-token
             - export AWS_DEFAULT_REGION=ap-south-1  # or your region
 
