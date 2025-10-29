@@ -1,28 +1,50 @@
 .login-page {
-  /* Removed 'position: relative;' as it's not strictly needed for fixed children, */
-  /* but kept for the overall flex structure. The original code had it, 
-     but the fixed version doesn't rely on it. I'll omit it for cleanliness
-     since fixed positioning is relative to the viewport. */
   min-height: 100vh;
   background: linear-gradient(255deg, #FFF 44.07%, var(--brand-700, #1F3799) 99.98%);
   align-items: center;
   justify-content: center;
-  /* Updated padding to make space for the fixed top/bottom banners */
-  padding-top: 40px; 
-  padding-bottom: 40px;
-  padding-left: 1rem;
-  padding-right: 1rem;
-  flex-direction: row;
+  /* Mobile-first responsive padding */
+  padding: 20px 1rem;
+  
+  /* Desktop layout */
+  @media (min-width: 768px) {
+    padding-top: 40px; 
+    padding-bottom: 40px;
+    flex-direction: row;
+  }
+  
+  /* Mobile layout */
+  @media (max-width: 767px) {
+    flex-direction: column;
+    padding-top: 60px; /* Space for mobile banner */
+    padding-bottom: 60px; /* Space for mobile banner */
+  }
 }
 
 .login-container {
   background: #ffffff;
   border-radius: 12px;
-  width: 35%;
-  max-width: 900px;
   display: flex;
   flex-direction: column;
   overflow: visible;
+  
+  /* Mobile-first responsive width */
+  width: 100%;
+  max-width: 100%;
+  
+  /* Desktop layout */
+  @media (min-width: 768px) {
+    width: 35%;
+    max-width: 900px;
+    max-height: 90vh;
+    overflow: hidden;
+  }
+  
+  /* Small mobile devices */
+  @media (max-width: 575px) {
+    border-radius: 8px;
+    margin: 0 10px;
+  }
 }
 
 /* Reset margins for main content containers (due to fixed banners) */
@@ -32,27 +54,37 @@
   margin-bottom: 0;
 }
 
-/* Desktop mode: side-by-side layout with max-height */
-@media (min-width: 768px) {
-  .login-container {
-    max-height: 90vh;
-    overflow: hidden;
-  }
-}
-
 .login-image {
   border-radius: 12px;
   background: linear-gradient(to bottom, #1f3799 8%, #3050c3 25%, #7a93e0 53%, #ffffff 64%);
-  min-height: calc(100vh - 200px);
-
-
+  
+  /* Mobile layout */
+  @media (max-width: 767px) {
+    min-height: 200px;
+    border-radius: 8px;
+  }
+  
+  /* Desktop layout */
+  @media (min-width: 768px) {
+    min-height: calc(100vh - 200px);
+  }
 }
 
 .login-image img {
-  height: 50vh; /* takes up 50% of the viewport height */
-  max-height: 500px; /* optional upper limit */
   width: auto;
   object-fit: contain; /* keeps proportions */
+  
+  /* Mobile layout */
+  @media (max-width: 767px) {
+    height: 150px;
+    max-height: 150px;
+  }
+  
+  /* Desktop layout */
+  @media (min-width: 768px) {
+    height: 50vh; /* takes up 50% of the viewport height */
+    max-height: 500px; /* optional upper limit */
+  }
 }
 
 .brand-logo {
@@ -74,10 +106,20 @@
 .brand-logo .brand-tagline-paragraph {
   color: var(--Gray-700, #495057);
   font-family: Inter;
-  font-size: 18px;
   font-style: normal;
   font-weight: 400;
   line-height: 120%;
+  
+  /* Mobile responsive typography */
+  font-size: 14px;
+  
+  @media (min-width: 576px) {
+    font-size: 16px;
+  }
+  
+  @media (min-width: 768px) {
+    font-size: 18px;
+  }
 }
 
 .head {
@@ -92,10 +134,20 @@
   color: var(--Gray-800, #343A40);
   text-align: center;
   font-family: Inter;
-  font-size: 32px;
   font-style: normal;
   font-weight: 600;
   line-height: 120%;
+  
+  /* Mobile responsive typography */
+  font-size: 20px;
+  
+  @media (min-width: 576px) {
+    font-size: 24px;
+  }
+  
+  @media (min-width: 768px) {
+    font-size: 32px;
+  }
 }
 
 .paragraph-1 {
@@ -139,6 +191,37 @@
   color: #ffffff; 
   font-weight: 600;
   padding: 0 10px;
+}
+
+/* Mobile-specific banners */
+.moving-text-top-mobile,
+.moving-text-bottom-mobile {
+  position: fixed;
+  width: 100%;
+  left: 0;
+  z-index: 10;
+  background: linear-gradient(to right, #2a3a5a, #00082a);
+  padding: 6px 0;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.moving-text-top-mobile {
+  top: 0;
+}
+
+.moving-text-bottom-mobile {
+  bottom: 0;
+}
+
+.moving-text-top-mobile span,
+.moving-text-bottom-mobile span {
+  display: inline-block;
+  color: #ffffff;
+  font-weight: 600;
+  padding: 0 10px;
+  font-size: 14px;
+  animation: marquee 20s linear infinite;
 }
 .login-page {
   /* Note: The 'fixed' banners will overlap the content, 

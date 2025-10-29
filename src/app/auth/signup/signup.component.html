@@ -1,36 +1,38 @@
-<div class="login-page d-flex align-items-center justify-content-center">
-  <div class="moving-text-top">
+<div class="login-page d-flex flex-column flex-md-row align-items-center justify-content-center">
+  <div class="moving-text-top d-none d-md-block">
     <span>✨ Welcome to PRIME AAWAS: Smart Property Management | Billing Management | Rent Management | Flat Allocation |
       Service Management! ✨</span>
   </div>
-  <div class="login-container col-md-6 order-1 shadow-lg ">
-
-    <div class="login-image d-flex flex-column align-items-center justify-content-center text-center p-4">
+  
+  <!-- Mobile top banner -->
+  <div class="moving-text-top-mobile d-md-none">
+    <span>✨ Welcome to PRIME AAWAS! ✨</span>
+  </div>
+  
+  <div class="login-container col-12 col-md-6 order-2 order-md-1 shadow-lg">
+    <div class="login-image d-flex flex-column align-items-center justify-content-center text-center p-3 p-md-4">
       <div class="brand-logo">
-        <img src="assets/images/Smart home-pana-1.png" alt="Login Illustration" />
+        <img src="assets/images/Smart home-pana-1.png" alt="Login Illustration" class="img-fluid" />
         <h1 class="heading-1">Manage Everything in One Place</h1>
         <p class="brand-tagline-paragraph">
           Track tenants, payments, complaints, and notices—all from one smart dashboard.
         </p>
       </div>
     </div>
-
   </div>
-  <div class="col-md-6  order-2 p-5 ">
-    <div class="head">
-       <img src="assets/images/Primae-aawas-official.png" alt="Login Illustration" style="max-height: 150px;"/>
-
-
+  
+  <div class="col-12 col-md-6 order-1 order-md-2 p-3 p-md-5">
+    <div class="head text-center mb-4">
+       <img src="assets/images/Primae-aawas-official.png" alt="Login Illustration" class="img-fluid" style="max-height: 120px; max-width: 200px;"/>
     </div>
 
     <form (ngSubmit)="onSubmit()" #signupForm="ngForm" novalidate>
-
       <div class="row">
-        <div class="col-md-6 mb-3">
+        <div class="col-12 col-md-6 mb-3">
           <label class="form-label">Full Name</label>
           <input type="text" class="form-control" name="name" [(ngModel)]="name" required placeholder="John Doe" />
         </div>
-        <div class="col-md-6 mb-3">
+        <div class="col-12 col-md-6 mb-3">
           <label class="form-label">Phone Number</label>
           <input type="tel" class="form-control" name="phone" [(ngModel)]="phone" required placeholder="1234567890" />
         </div>
@@ -43,12 +45,12 @@
       </div>
 
       <div class="row">
-        <div class="col-md-6 mb-3">
+        <div class="col-12 col-md-6 mb-3">
           <label class="form-label">Password</label>
           <input type="password" class="form-control" name="password" [(ngModel)]="password" required
             placeholder="Enter password" />
         </div>
-        <div class="col-md-6 mb-3">
+        <div class="col-12 col-md-6 mb-3">
           <label class="form-label">Confirm Password</label>
           <input type="password" class="form-control" name="confirmPassword" [(ngModel)]="confirmPassword" required
             placeholder="Re-enter password" />
@@ -87,12 +89,18 @@
         </div>
       </div>
       
-      <p class="text-muted">Already have an account? <a routerLink="/login" class="text-primary">Log in</a></p>
+      <p class="text-muted text-center">Already have an account? <a routerLink="/login" class="text-primary">Log in</a></p>
 
     </form>
-
   </div>
-  <div class="moving-text-bottom">
+  
+  <!-- Desktop bottom banner -->
+  <div class="moving-text-bottom d-none d-md-block">
     <span>🔔 Get instant alerts and manage tenant Related Billing effortlessly | Try our Pro features! 🔔</span>
+  </div>
+  
+  <!-- Mobile bottom banner -->
+  <div class="moving-text-bottom-mobile d-md-none">
+    <span>🔔 Get instant alerts and manage billing effortlessly! 🔔</span>
   </div>
 </div>
