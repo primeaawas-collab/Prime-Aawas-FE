@@ -1,0 +1,267 @@
+<div class="container-fluid py-4">
+  <!-- Header Section -->
+  <div class="row justify-content-center mb-5">
+    <div class="col-12 text-center">
+      <div class="d-flex align-items-center justify-content-center mb-4">
+        <img src="assets/images/Primae-aawas-official.png" alt="Login Illustration" style="max-height: 150px;"/>
+      </div>
+      
+      <h2 class="display-5 fw-bold text-dark mb-3">Welcome to Your Ownership Journey</h2>
+      <p class="lead text-muted mx-auto" style="max-width: 600px;">
+        Enter your information to register and gain full access to your owner dashboard, payments, and service management.
+      </p>
+    </div>
+  </div>
+
+  <!-- Registration Form -->
+  <div class="row justify-content-center">
+    <div class="col-12 col-lg-10 col-xl-8">
+      <form [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
+        
+        <!-- Property Information Section -->
+        <div class="card shadow-sm mb-4">
+          <div class="card-header bg-white border-0 py-3">
+            <div class="d-flex align-items-center">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="me-2">
+                <path d="M3 21H21" stroke="#1F37A6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M5 21V7L13 2L21 7V21" stroke="#1F37A6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M9 9V13" stroke="#1F37A6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M15 9V13" stroke="#1F37A6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              <h4 class="mb-0 text-dark fw-semibold">Property Information</h4>
+            </div>
+          </div>
+          
+          <div class="card-body">
+            <div class="row g-3 mb-4">
+              <div class="col-md-6">
+                <label for="propertyName" class="form-label fw-medium">Property Name</label>
+                <input type="text" class="form-control" id="propertyName" formControlName="propertyName" placeholder="Enter property name">
+              </div>
+              
+              <div class="col-md-6">
+                <label for="ownerName" class="form-label fw-medium">Owner Name</label>
+                <input type="text" class="form-control" id="ownerName" formControlName="ownerName" placeholder="Enter owner's full name">
+              </div>
+              
+              <div class="col-md-6">
+                <label for="ownerPhone" class="form-label fw-medium">Owner Phone</label>
+                <input type="tel" class="form-control" id="ownerPhone" formControlName="ownerPhone" placeholder="Enter owner's phone number">
+              </div>
+              
+              <div class="col-md-6">
+                <label for="ownerEmail" class="form-label fw-medium">Owner Email</label>
+                <input type="email" class="form-control" id="ownerEmail" formControlName="ownerEmail" placeholder="Enter owner's Email ID">
+              </div>
+              
+              <div class="col-md-6">
+                <label for="city" class="form-label fw-medium">City</label>
+                <input type="text" class="form-control" id="city" formControlName="city" placeholder="Enter city name">
+              </div>
+              
+              <div class="col-md-6">
+                <label for="pinCode" class="form-label fw-medium">Pin Code</label>
+                <input type="text" class="form-control" id="pinCode" formControlName="pinCode" placeholder="Enter pin code">
+              </div>
+            </div>
+            
+            <div class="mb-4">
+              <label for="address" class="form-label fw-medium">Address Line 2</label>
+              <textarea class="form-control" id="address" formControlName="address" placeholder="Enter full address" rows="3"></textarea>
+            </div>
+            
+            <div class="d-flex justify-content-between align-items-center pt-3 border-top">
+              <button type="button" class="btn btn-outline-secondary">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="me-1">
+                  <path d="M12 5V19M5 12H19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                Add New Property
+              </button>
+              <div class="d-flex gap-2">
+                <button type="button" class="btn btn-outline-primary">Edit</button>
+                <button type="button" class="btn btn-primary">Save & Next</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- KYC Verification Section -->
+        <div class="card shadow-sm mb-4">
+          <div class="card-header bg-white border-0 py-3">
+            <div class="d-flex align-items-center">
+              <div class="kyc-icon me-3">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M14 2H6C5.46957 2 4.96086 2.21071 4.58579 2.58579C4.21071 2.96086 4 3.46957 4 4V20C4 20.5304 4.21071 21.0391 4.58579 21.4142C4.96086 21.7893 5.46957 22 6 22H18C18.5304 22 19.0391 21.7893 19.4142 21.4142C19.7893 21.0391 20 20.5304 20 20V8L14 2Z" fill="#1F37A6"/>
+                  <path d="M14 2V8H20" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  <rect x="8" y="12" width="8" height="1" fill="white"/>
+                  <rect x="8" y="14" width="6" height="1" fill="white"/>
+                  <rect x="8" y="16" width="4" height="1" fill="white"/>
+                </svg>
+              </div>
+              <h4 class="mb-0 text-dark fw-bold">KYC Verification Panel</h4>
+            </div>
+          </div>
+          
+          <div class="card-body p-0">
+            <!-- Aadhaar Front Side -->
+            <div class="kyc-section">
+              <div class="kyc-content">
+                <div class="kyc-text">
+                  <h5 class="kyc-title">Upload Aadhaar - Front Side</h5>
+                  <p class="kyc-description">Attach a clear image or PDF of the front side of your Aadhaar card.</p>
+                </div>
+                <div class="kyc-upload-area">
+                  <div class="upload-placeholder" (click)="triggerFileUpload('aadhaarFront')">
+                    <input type="file" #aadhaarFrontInput (change)="onFileSelected($event, 'aadhaarFront')" accept=".jpg,.jpeg,.png,.pdf" style="display: none;">
+                    <span class="placeholder-text">Front Side</span>
+                  </div>
+                  <button class="upload-btn" (click)="triggerFileUpload('aadhaarFront')">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M7 10L12 5L17 10" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                      <path d="M12 5V15" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                  </button>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Aadhaar Back Side -->
+            <div class="kyc-section">
+              <div class="kyc-content">
+                <div class="kyc-text">
+                  <h5 class="kyc-title">Upload Aadhaar - Back Side</h5>
+                  <p class="kyc-description">Attach a clear image or PDF of the Back side of your Aadhaar card.</p>
+                </div>
+                <div class="kyc-upload-area">
+                  <div class="upload-placeholder" (click)="triggerFileUpload('aadhaarBack')">
+                    <input type="file" #aadhaarBackInput (change)="onFileSelected($event, 'aadhaarBack')" accept=".jpg,.jpeg,.png,.pdf" style="display: none;">
+                    <span class="placeholder-text">Back Side</span>
+                  </div>
+                  <button class="upload-btn" (click)="triggerFileUpload('aadhaarBack')">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M7 10L12 5L17 10" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                      <path d="M12 5V15" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                  </button>
+                </div>
+              </div>
+            </div>
+            
+            <!-- PAN Upload -->
+            <div class="kyc-section">
+              <div class="kyc-content">
+                <div class="kyc-text">
+                  <h5 class="kyc-title">PAN Upload</h5>
+                  <p class="kyc-description">Attach a clear image or PDF of your PAN card for verification.</p>
+                </div>
+                <div class="kyc-upload-area">
+                  <div class="upload-placeholder" (click)="triggerFileUpload('panCard')">
+                    <input type="file" #panCardInput (change)="onFileSelected($event, 'panCard')" accept=".jpg,.jpeg,.png,.pdf" style="display: none;">
+                    <span class="placeholder-text">PAN Card</span>
+                  </div>
+                  <button class="upload-btn" (click)="triggerFileUpload('panCard')">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M7 10L12 5L17 10" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                      <path d="M12 5V15" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                  </button>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Footer -->
+            <div class="kyc-footer">
+              <div class="kyc-info">
+                <p class="mb-0">Accepted Formats: JPG, PNG, PDF • Max Size: 5 MB</p>
+              </div>
+              <div class="kyc-actions">
+                <button type="button" class="btn btn-primary">Save & Next</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Bank Account Details Section -->
+        <div class="card shadow-sm mb-4">
+          <div class="card-header bg-white border-0 py-3">
+            <div class="d-flex align-items-center">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="me-2">
+                <rect x="2" y="3" width="20" height="14" rx="2" stroke="#1F37A6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <line x1="8" y1="21" x2="16" y2="21" stroke="#1F37A6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <line x1="12" y1="17" x2="12" y2="21" stroke="#1F37A6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              <h4 class="mb-0 text-dark fw-semibold">Bank Account Details</h4>
+            </div>
+          </div>
+          
+          <div class="card-body">
+            <div class="row g-3 mb-4">
+              <div class="col-md-6">
+                <label for="accountHolderName" class="form-label fw-medium">Account Holder Name</label>
+                <input type="text" class="form-control" id="accountHolderName" formControlName="accountHolderName" placeholder="e.g., Amitesh Raj Jha">
+              </div>
+              
+              <div class="col-md-6">
+                <label for="accountNumber" class="form-label fw-medium">Bank Account Number</label>
+                <input type="text" class="form-control" id="accountNumber" formControlName="accountNumber" placeholder="e.g., 123456789012">
+              </div>
+              
+              <div class="col-md-6">
+                <label for="confirmAccountNumber" class="form-label fw-medium">Confirm Account Number</label>
+                <input type="text" class="form-control" id="confirmAccountNumber" formControlName="confirmAccountNumber" placeholder="e.g., 123456789012">
+              </div>
+              
+              <div class="col-md-6">
+                <label for="ifscCode" class="form-label fw-medium">IFSC Code</label>
+                <input type="text" class="form-control" id="ifscCode" formControlName="ifscCode" placeholder="e.g., HDFC0001234">
+              </div>
+              
+              <div class="col-md-6">
+                <label for="bankName" class="form-label fw-medium">Bank Name (Optional)</label>
+                <input type="text" class="form-control" id="bankName" formControlName="bankName" placeholder="e.g., HDFC Bank">
+              </div>
+            </div>
+            
+            <div class="mb-4">
+              <label class="form-label fw-medium mb-3">Account Type</label>
+              <div class="d-flex gap-4">
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="accountType" id="savings" value="savings" formControlName="accountType" checked>
+                  <label class="form-check-label" for="savings">Savings</label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="accountType" id="current" value="current" formControlName="accountType">
+                  <label class="form-check-label" for="current">Current</label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="accountType" id="nre" value="nre" formControlName="accountType">
+                  <label class="form-check-label" for="nre">NRE</label>
+                </div>
+              </div>
+            </div>
+            
+            <div class="d-flex justify-content-end pt-3 border-top">
+              <button type="button" class="btn btn-primary">Save & Next</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Terms and Submit Section -->
+        <div class="card shadow-sm">
+          <div class="card-body">
+            <div class="d-flex justify-content-between align-items-center">
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="agreeTerms" formControlName="agreeTerms">
+                <label class="form-check-label" for="agreeTerms">
+                  I have read and agree to the Terms & Conditions and Privacy Policy.
+                </label>
+              </div>
+              
+              <button type="submit" class="btn btn-primary btn-lg px-4">Submit</button>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

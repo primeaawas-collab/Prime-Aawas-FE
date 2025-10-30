@@ -1,0 +1,22 @@
+.dashboard-container {
+
+  min-height: 100%;
+}
+
+.card {
+  border-radius: 12px;
+  transition: all 0.2s ease-in-out;
+
+  &:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+  }
+
+  .icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 38px;
+    height: 38px;
+  }
+}

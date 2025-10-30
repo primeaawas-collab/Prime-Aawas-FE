@@ -1,0 +1,36 @@
+<header class="header">
+  <div class="header-content">
+    <!-- LEFT: Page Title with Menu Icon -->
+    <div class="page-section">
+      <button class="menu-toggle" (click)="toggleSidebar()">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M3 12H21M3 6H21M3 18H21" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+      <h1 class="page-title">{{ currentPageTitle }}</h1>
+    </div>
+
+    <!-- RIGHT: Action Buttons -->
+    <div class="action-buttons">
+
+     
+
+      <!-- User Avatar -->
+      <div class="user-avatar-container">
+        <button class="user-avatar" title="User Profile" (click)="toggleProfileCard()">
+          <span class="avatar-text">S</span>
+        </button>
+        
+        <!-- Profile Card -->
+        <app-profile-card 
+          [isVisible]="showProfileCard"
+          [userName]="'John Doe'"
+          [userRole]="'Property Owner'"
+          [userInitials]="'JD'"
+          (close)="onCloseProfileCard()"
+          (logout)="onLogout()">
+        </app-profile-card>
+      </div>
+    </div>
+  </div>
+</header>

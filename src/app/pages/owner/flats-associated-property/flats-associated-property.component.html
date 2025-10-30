@@ -1,0 +1,440 @@
+<div class="flats-management-container">
+  <!-- Property Header Section -->
+  <div class="property-header">
+    <div class="property-info">
+      <div class="property-name">{{ selectedProperty.name }}</div>
+      <div class="property-address">{{ selectedProperty.address }}</div>
+    </div>
+    <div class="property-selector">
+      <select class="property-dropdown" (change)="onPropertyChange($event)" [value]="selectedProperty.id">
+        @for (property of properties; track property.id) {
+          <option [value]="property.id">{{ property.name }}</option>
+        }
+      </select>
+    </div>
+  </div>
+
+  <!-- Summary Cards -->
+  <div class="summary-cards">
+    <div class="summary-card">
+      <div class="card-icon total-flats">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M3 21H21" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M5 21V7L13 2L21 7V21" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M9 9V13" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M15 9V13" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <div class="card-content">
+        <div class="card-title">Total Flats</div>
+        <div class="card-value">{{ metrics.totalFlats }}</div>
+      </div>
+    </div>
+
+    <div class="summary-card">
+      <div class="card-icon active-tenants">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" stroke="currentColor" stroke-width="2"/>
+          <circle cx="12" cy="7" r="4" stroke="currentColor" stroke-width="2"/>
+        </svg>
+      </div>
+      <div class="card-content">
+        <div class="card-title">Active Tenants</div>
+        <div class="card-value">{{ metrics.activeTenants }}</div>
+        <div class="card-tags">
+          <span class="tag">{{ metrics.allottedFlats }} Allotted</span>
+          <span class="tag">{{ metrics.vacantFlats }} Vacant</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="summary-card">
+      <div class="card-icon monthly-revenue">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" stroke="currentColor" stroke-width="2"/>
+        </svg>
+      </div>
+      <div class="card-content">
+        <div class="card-title">Monthly Revenue</div>
+        <div class="card-value">₹{{ metrics.monthlyRevenue.toLocaleString() }}</div>
+        <div class="card-trend positive">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M7 14l5-5 5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          +{{ metrics.revenueTrend }} this month
+        </div>
+      </div>
+    </div>
+
+    <div class="summary-card">
+      <div class="card-icon pending-payments">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" stroke="currentColor" stroke-width="2"/>
+          <polyline points="14,2 14,8 20,8" stroke="currentColor" stroke-width="2"/>
+          <line x1="16" y1="13" x2="8" y2="13" stroke="currentColor" stroke-width="2"/>
+          <line x1="16" y1="17" x2="8" y2="17" stroke="currentColor" stroke-width="2"/>
+          <polyline points="10,9 9,9 8,9" stroke="currentColor" stroke-width="2"/>
+        </svg>
+      </div>
+      <div class="card-content">
+        <div class="card-title">Pending Payments</div>
+        <div class="card-value">₹{{ metrics.pendingPayments.toLocaleString() }}</div>
+        <div class="card-trend negative">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M7 10l5 5 5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          {{ metrics.paymentTrend }} this month
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tabs Section -->
+  <div class="tabs-section">
+    <div class="tabs-container">
+      <div class="tabs">
+        <button 
+          class="tab-button" 
+          [class.active]="activeTab === 'flats'"
+          (click)="onTabChange('flats')"
+        >
+          Flats
+        </button>
+        <button 
+          class="tab-button" 
+          [class.active]="activeTab === 'services'"
+          (click)="onTabChange('services')"
+        >
+          Services
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Flats Tab Content -->
+  @if (activeTab === 'flats') {
+    <!-- Filters Section -->
+    <div class="filters-section">
+      <div class="filters-content">
+        <div class="search-container">
+          <div class="search-input-group">
+            <input 
+              type="text" 
+              class="form-control search-input" 
+              placeholder="Search..." 
+              [(ngModel)]="searchTerm"
+            />
+            <div class="search-icon">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="11" cy="11" r="8" stroke="currentColor" stroke-width="2"/>
+                <path d="m21 21-4.35-4.35" stroke="currentColor" stroke-width="2"/>
+              </svg>
+            </div>
+          </div>
+        </div>
+        
+        <div class="filter-controls">
+          <div class="filter-group">
+            <select class="form-select filter-select" [(ngModel)]="selectedType">
+              <option value="all">Type</option>
+              <option value="1BHK">1BHK</option>
+              <option value="2BHK">2BHK</option>
+              <option value="3BHK">3BHK</option>
+            </select>
+          </div>
+          
+          <div class="filter-group">
+            <select class="form-select filter-select" [(ngModel)]="selectedFurnishing">
+              <option value="all">Furnishing</option>
+              <option value="Fully Furnished">Fully Furnished</option>
+              <option value="Semi-Furnished">Semi-Furnished</option>
+              <option value="Unfurnished">Unfurnished</option>
+            </select>
+          </div>
+          
+          <div class="filter-group">
+            <select class="form-select filter-select" [(ngModel)]="selectedAvailable">
+              <option value="all">Available</option>
+              <option value="available">Available</option>
+              <option value="occupied">Occupied</option>
+              <option value="maintenance">Maintenance</option>
+            </select>
+          </div>
+        </div>
+        
+        <button class="btn btn-primary add-flat-btn" (click)="onAddFlat()">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 5v14m-7-7h14" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+           Add Flats
+        </button>
+      </div>
+    </div>
+  }
+
+    <!-- Flats Grid -->
+    <div class="flats-grid">
+      <div class="row">
+        @for (flat of filteredFlats; track flat.id) {
+          <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
+            <div class="flat-card" [ngClass]="{'available-card': flat.status === 'available', 'occupied-card': flat.status === 'occupied'}">
+              <!-- Card Header -->
+              <div class="card-header">
+                <div class="flat-info">
+                  <div class="flat-icon">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M3 21H21" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                      <path d="M5 21V7L13 2L21 7V21" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                      <path d="M9 9V13" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                      <path d="M15 9V13" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                  </div>
+                  <span class="flat-number">{{ flat.flatNumber }}</span>
+                </div>
+                <div class="card-tags">
+                  <span class="status-tag" [ngClass]="getStatusClass(flat.status)">
+                    {{ getStatusText(flat.status) }}
+                  </span>
+                  <span class="type-tag">{{ flat.type }}</span>
+                </div>
+                <button class="options-btn" (click)="onViewDetails(flat.id)">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="12" cy="12" r="1" fill="currentColor"/>
+                    <circle cx="12" cy="5" r="1" fill="currentColor"/>
+                    <circle cx="12" cy="19" r="1" fill="currentColor"/>
+                  </svg>
+                </button>
+              </div>
+
+              <!-- Card Body -->
+              <div class="card-body">
+                <div class="flat-details-grid">
+                  <!-- Left Column -->
+                  <div class="detail-column">
+                    <div class="detail-item">
+                      <span class="detail-label">Furnishing</span>
+                      <span class="detail-value">{{ flat.furnishing }}</span>
+                    </div>
+                    <div class="detail-item">
+                      <span class="detail-label">Monthly Rent</span>
+                      <span class="detail-value rent-amount">₹{{ flat.monthlyRent.toLocaleString() }}</span>
+                    </div>
+                  </div>
+                  
+                  <!-- Right Column -->
+                  <div class="detail-column">
+                    <div class="detail-item">
+                      <span class="detail-label">Billing Type</span>
+                      <span class="detail-value">{{ flat.billingType }}</span>
+                    </div>
+                    <div class="detail-item">
+                      <span class="detail-label">Metering Type</span>
+                      <span class="detail-value">
+                        @if (flat.meteringType === 'Self Pay') {
+                          Self Pay
+                        } @else {
+                          Sub-meter ₹{{ flat.subMeterRate }}/unit
+                        }
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                
+                <!-- Footer -->
+                <div class="card-footer">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="3" y="4" width="18" height="18" rx="2" ry="2" stroke="currentColor" stroke-width="2"/>
+                    <line x1="16" y1="2" x2="16" y2="6" stroke="currentColor" stroke-width="2"/>
+                    <line x1="8" y1="2" x2="8" y2="6" stroke="currentColor" stroke-width="2"/>
+                    <line x1="3" y1="10" x2="21" y2="10" stroke="currentColor" stroke-width="2"/>
+                  </svg>
+                  <span>Created: {{ flat.createdDate }}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        }
+      </div>
+    </div>
+
+  <!-- Services Tab Content -->
+  @if (activeTab === 'services') {
+    <div class="services-content">
+      <div class="services-placeholder">
+        <svg width="64" height="64" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z" stroke="currentColor" stroke-width="2"/>
+        </svg>
+        <h3>Services Management</h3>
+        <p>Manage property services and maintenance requests.</p>
+      </div>
+    </div>
+  }
+
+  <!-- Empty State -->
+  @if (activeTab === 'flats' && filteredFlats.length === 0) {
+    <div class="empty-state">
+      <div class="empty-state-content">
+        <svg width="64" height="64" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M3 21H21" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M5 21V7L13 2L21 7V21" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M9 9V13" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M15 9V13" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <h3>No Flats Found</h3>
+        <p>No flats match your search criteria. Try adjusting your filters or add a new flat.</p>
+      </div>
+    </div>
+  }
+</div>
+
+<!-- Add Flat Modal -->
+@if (showAddFlatModal) {
+  <div class="modal-overlay" (click)="onCloseModal()">
+    <div class="modal-container" (click)="$event.stopPropagation()">
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <div class="modal-title">
+          <div class="title-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M3 21H21" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M5 21V7L13 2L21 7V21" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M9 9V13" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M15 9V13" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <h3>{{ newFlat.flatNumber || 'A-110' }}</h3>
+        </div>
+        <button class="close-btn" (click)="onCloseModal()">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+      </div>
+
+      <!-- Modal Body -->
+      <div class="modal-body">
+        <div class="form-grid">
+          <!-- Left Column -->
+          <div class="form-column">
+            <!-- Type -->
+            <div class="form-group">
+              <label class="form-label">Type</label>
+              <select class="form-select" [(ngModel)]="newFlat.type">
+                <option value="">Select flat type</option>
+                <option value="1BHK">1BHK</option>
+                <option value="2BHK">2BHK</option>
+                <option value="3BHK">3BHK</option>
+              </select>
+            </div>
+
+            <!-- Monthly Rent -->
+            <div class="form-group">
+              <label class="form-label">Monthly Rent</label>
+              <input 
+                type="number" 
+                class="form-input" 
+                placeholder="Enter flat monthly rent"
+                [(ngModel)]="newFlat.monthlyRent"
+              />
+            </div>
+
+            <!-- Billing Type -->
+            <div class="form-group">
+              <label class="form-label">Billing Type</label>
+              <div class="radio-group">
+                <label class="radio-item">
+                  <input 
+                    type="radio" 
+                    name="billingType" 
+                    value="Advance" 
+                    [(ngModel)]="newFlat.billingType"
+                  />
+                  <span class="radio-label">Advance</span>
+                </label>
+                <label class="radio-item">
+                  <input 
+                    type="radio" 
+                    name="billingType" 
+                    value="Post-paid" 
+                    [(ngModel)]="newFlat.billingType"
+                  />
+                  <span class="radio-label">Post-paid</span>
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right Column -->
+          <div class="form-column">
+            <!-- Furnishing -->
+            <div class="form-group">
+              <label class="form-label">Furnishing</label>
+              <select class="form-select" [(ngModel)]="newFlat.furnishing">
+                <option value="">Select flat furnishing</option>
+                <option value="Fully Furnished">Fully Furnished</option>
+                <option value="Semi-Furnished">Semi-Furnished</option>
+                <option value="Unfurnished">Unfurnished</option>
+              </select>
+            </div>
+
+            <!-- Electricity Type -->
+            <div class="form-group">
+              <label class="form-label">Electricity Type</label>
+              <div class="radio-group">
+                <label class="radio-item">
+                  <input 
+                    type="radio" 
+                    name="meteringType" 
+                    value="Self" 
+                    [(ngModel)]="newFlat.meteringType"
+                  />
+                  <span class="radio-label">Self</span>
+                </label>
+                <label class="radio-item">
+                  <input 
+                    type="radio" 
+                    name="meteringType" 
+                    value="Sub-meter" 
+                    [(ngModel)]="newFlat.meteringType"
+                  />
+                  <span class="radio-label">Sub meter</span>
+                </label>
+              </div>
+            </div>
+
+            <!-- Allotted -->
+            <div class="form-group">
+              <label class="form-label">Allotted</label>
+              <div class="radio-group">
+                <label class="radio-item">
+                  <input 
+                    type="radio" 
+                    name="status" 
+                    value="Available" 
+                    [(ngModel)]="newFlat.status"
+                  />
+                  <span class="radio-label">Available</span>
+                </label>
+                <label class="radio-item">
+                  <input 
+                    type="radio" 
+                    name="status" 
+                    value="Occupied" 
+                    [(ngModel)]="newFlat.status"
+                  />
+                  <span class="radio-label">Occupied</span>
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Modal Footer -->
+      <div class="modal-footer">
+        <button class="btn btn-secondary" (click)="onCloseModal()">Cancel</button>
+        <button class="btn btn-primary" (click)="onSaveFlat()">Save</button>
+      </div>
+    </div>
+  </div>
+}
