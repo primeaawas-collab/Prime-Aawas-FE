@@ -32,10 +32,23 @@ export class AuthService {
   constructor(private http: HttpClient) {}
 
   login(credentials: LoginRequest): Observable<AuthResponse> {
-    return this.http.post<AuthResponse>(`${this.baseUrl}/api/auth/login`, credentials);
+    return this.http.post<AuthResponse>(`${this.baseUrl}/auth/login`, credentials, {
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      }
+    });
   }
 
   signup(userData: SignupRequest): Observable<AuthResponse> {
-    return this.http.post<AuthResponse>(`${this.baseUrl}/api/auth/signup`, userData);
+    const url = `${this.baseUrl}/auth/signup`;
+    console.log('Signup API URL:', url);
+    console.log('Base URL from environment:', this.baseUrl);
+    return this.http.post<AuthResponse>(url, userData, {
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      }
+    });
   }
 }
