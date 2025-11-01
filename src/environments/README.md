@@ -1,108 +1,53 @@
 # Environment Configuration
 
-This directory contains environment-specific configuration files for different deployment environments.
+This folder contains environment-specific configuration files for the Prime Aawas brand landing page.
 
-## Environment Files
+## Available Environments
 
-- `environment.ts` - Development environment (default)
-- `environment.local.ts` - Local development environment
-- `environment.qa.ts` - QA/Testing environment
-- `environment.prod.ts` - Production environment
+### 1. Local (`environment.local.ts`)
+- **Use**: Development on localhost
+- **Build**: `ng build --configuration=local` or `ng serve --configuration=local`
+- **API URL**: `http://localhost:3000/api`
 
-## Environment Variables
+### 2. Dev (`environment.ts`)
+- **Use**: Development/staging environment
+- **Build**: `ng build --configuration=dev` or `ng serve --configuration=dev` (default)
+- **API URL**: `https://dev-api.primeaawas.com/api`
 
-Each environment file contains the following configuration:
+### 3. Production (`environment.prod.ts`)
+- **Use**: Production deployment
+- **Build**: `ng build --configuration=production` (default for build)
+- **API URL**: `https://api.primeaawas.com/api`
 
-### Core Settings
-- `production`: Boolean indicating if this is a production build
-- `environment`: String identifier for the environment (local, development, qa, production)
-- `apiUrl`: Base URL for API endpoints
-- `apiVersion`: API version string
-- `appName`: Application display name
+## Environment Structure
+
+Each environment file contains:
+- `production`: Boolean flag for production mode
+- `environment`: String identifier ('local' | 'dev' | 'production')
+- `apiUrl`: Base API URL for backend services
+- `appName`: Application name
 - `appVersion`: Application version
 
-### Feature Flags
-- `enableLogging`: Enable/disable console logging
-- `enableAnalytics`: Enable/disable analytics tracking
-- `enableDebugMode`: Enable/disable debug features
+## Build Commands
 
-### Performance Settings
-- `timeout`: HTTP request timeout in milliseconds
-- `retryAttempts`: Number of retry attempts for failed requests
+```bash
+# Local development
+ng serve --configuration=local
+ng build --configuration=local
 
-### Feature Toggles
-- `features.enableNotifications`: Enable/disable push notifications
-- `features.enableDarkMode`: Enable/disable dark mode
-- `features.enableOfflineMode`: Enable/disable offline functionality
+# Dev environment
+ng serve --configuration=dev
+ng build --configuration=dev
 
-### Third Party Services
-- `thirdPartyServices.googleMapsApiKey`: Google Maps API key
-- `thirdPartyServices.firebaseConfig`: Firebase configuration object
+# Production build
+ng build --configuration=production
+```
 
-## Usage
+## Usage in Code
 
-### In Components
 ```typescript
-import { EnvironmentService } from './service/environment/environment.service';
+import { environment } from '../environments/environment';
 
-constructor(private envService: EnvironmentService) {}
-
-// Check environment
-if (this.envService.isProduction) {
-  // Production-specific logic
-}
-
-// Get API endpoint
-const apiUrl = this.envService.getApiEndpoint('/users');
-
-// Check feature flags
-if (this.envService.isFeatureEnabled('enableDarkMode')) {
-  // Dark mode logic
-}
+console.log(environment.appName);
+console.log(environment.apiUrl);
 ```
-
-### Building for Different Environments
-
-```bash
-# Development
-npm run build:dev
-
-# QA
-npm run build:qa
-
-# Local
-npm run build:local
-
-# Production
-npm run build:prod
-```
-
-### Serving Different Environments
-
-```bash
-# Development
-npm run start:dev
-
-# QA
-npm run start:qa
-
-# Local
-npm run start:local
-
-# Production
-npm run start:prod
-```
-
-## Environment-Specific URLs
-
-- **Local**: http://localhost:3000
-- **Development**: https://api-dev.primeaawas.com
-- **QA**: https://api-qa.primeaawas.com
-- **Production**: https://api.primeaawas.com
-
-## Security Notes
-
-- Never commit sensitive API keys to version control
-- Use environment-specific keys for each deployment
-- Consider using a secrets management service for production
-- The production environment has analytics enabled and debug mode disabled

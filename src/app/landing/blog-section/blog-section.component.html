@@ -1,0 +1,28 @@
+<section class="blog-section">
+  <div class="container">
+    <div class="section-header">
+      <h2>Latest from Our Blog</h2>
+      <p>Stay updated with the latest insights, tips, and news</p>
+    </div>
+    
+    <div class="blog-grid">
+      <article *ngFor="let post of blogPosts" class="blog-card">
+        <div class="blog-image">
+          <div class="image-placeholder">
+            <i class="bi bi-image"></i>
+          </div>
+        </div>
+        <div class="blog-content">
+          <div class="blog-meta">
+            <span class="category">{{ post.category }}</span>
+            <span class="date">{{ post.date }}</span>
+          </div>
+          <h3>{{ post.title }}</h3>
+          <p>{{ post.excerpt }}</p>
+          <a href="#" class="read-more">Read More <i class="bi bi-arrow-right"></i></a>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+

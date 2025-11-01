@@ -1,0 +1,22 @@
+<section class="integration-section">
+  <div class="container">
+    <div class="integration-header">
+      <h2>Seamless Integration</h2>
+      <p class="client-count">More than {{ clientCount }} clients.</p>
+    </div>
+    
+    <div class="integrations-grid">
+      <div *ngFor="let integration of integrations" class="integration-logo">
+        {{ integration.name }}
+      </div>
+    </div>
+    
+    <div class="cta-section">
+      <div class="cta-content">
+        <h3>Solutions for any Business</h3>
+        <button class="btn-cta" (click)="startJourney()">Start your journey</button>
+      </div>
+    </div>
+  </div>
+</section>
+

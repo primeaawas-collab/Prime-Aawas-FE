@@ -1,0 +1,53 @@
+<section class="protection-section">
+  <div class="container">
+    <div class="protection-content">
+      <div class="protection-text">
+        <div class="section-badge">WE PROTECT</div>
+        <h2>Hard to Place</h2>
+        <p class="subtitle">We Protect.</p>
+        <p class="description">
+          Prime Aawas handles difficult property management scenarios with ease. 
+          Whether you're managing high-risk properties, dealing with international 
+          tenants, or need specialized support, we've got you covered.
+        </p>
+        
+        <div class="features-grid">
+          <div *ngFor="let feature of features" class="feature-item">
+            <i class="bi bi-check-circle-fill"></i>
+            <span>{{ feature }}</span>
+          </div>
+        </div>
+      </div>
+      
+      <div class="protection-graphic">
+        <div class="graphic-container">
+          <div class="app-coming-soon">
+            <h3>App Coming Soon</h3>
+            <p class="coming-soon-text">Stay tuned for our mobile app launch on</p>
+            
+            <div class="app-stores">
+              <div class="store-badge app-store" (click)="notifyComingSoon('App Store')">
+                <i class="bi bi-apple"></i>
+                <div class="store-text">
+                  <span class="store-subtitle">Download on the</span>
+                  <span class="store-name">App Store</span>
+                  <span class="coming-badge">Coming Soon</span>
+                </div>
+              </div>
+              
+              <div class="store-badge play-store" (click)="notifyComingSoon('Play Store')">
+                <i class="bi bi-google-play"></i>
+                <div class="store-text">
+                  <span class="store-subtitle">GET IT ON</span>
+                  <span class="store-name">Google Play</span>
+                  <span class="coming-badge">Coming Soon</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+

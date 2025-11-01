@@ -1,0 +1,61 @@
+.coverage-section {
+  padding: 4rem 0;
+  background: white;
+  
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+  
+  .coverage-badge {
+    text-align: center;
+    margin-bottom: 3rem;
+    
+    span {
+      display: inline-block;
+      background: #3b82f6;
+      color: white;
+      padding: 0.5rem 2rem;
+      border-radius: 50px;
+      font-weight: 600;
+      font-size: 0.9rem;
+      letter-spacing: 1px;
+    }
+  }
+  
+  .partners-grid {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 3rem;
+    flex-wrap: wrap;
+    
+    .partner-logo {
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: #1e3a8a;
+      opacity: 0.7;
+      transition: opacity 0.3s;
+      
+      &:hover {
+        opacity: 1;
+      }
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .coverage-section {
+    padding: 2rem 0;
+    
+    .partners-grid {
+      gap: 2rem;
+      
+      .partner-logo {
+        font-size: 1.2rem;
+      }
+    }
+  }
+}
+

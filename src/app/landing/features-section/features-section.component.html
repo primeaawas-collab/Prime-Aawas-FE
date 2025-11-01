@@ -1,0 +1,19 @@
+<section class="features-section">
+  <div class="container">
+    <div class="section-header">
+      <h2>Why Choose Prime Aawas?</h2>
+      <p>Comprehensive property management solutions tailored for modern businesses</p>
+    </div>
+    
+    <div class="features-grid">
+      <div *ngFor="let feature of features" class="feature-card">
+        <div class="feature-icon">
+          <i [class]="'bi ' + feature.icon"></i>
+        </div>
+        <h3>{{ feature.title }}</h3>
+        <p>{{ feature.description }}</p>
+      </div>
+    </div>
+  </div>
+</section>
+

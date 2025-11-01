@@ -25,8 +25,7 @@ export class ApiService {
       name: environment.appName,
       version: environment.appVersion,
       environment: environment.environment,
-      apiUrl: environment.apiUrl,
-      debugMode: environment.enableDebugMode
+      apiUrl: environment.apiUrl
     };
   }
 }

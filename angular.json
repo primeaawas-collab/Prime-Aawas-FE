@@ -60,26 +60,6 @@
                   "maximumError": "4kB"
                 }
               ],
-              "outputHashing": "all",
-              "fileReplacements": [
-                {
-                  "replace": "src/environments/environment.ts",
-                  "with": "src/environments/environment.prod.ts"
-                }
-              ]
-            },
-            "development": {
-              "optimization": false,
-              "extractLicenses": false,
-              "sourceMap": true,
-              "fileReplacements": [
-                {
-                  "replace": "src/environments/environment.ts",
-                  "with": "src/environments/environment.ts"
-                }
-              ]
-            },
-            "qa": {
               "optimization": true,
               "outputHashing": "all",
               "sourceMap": false,
@@ -87,7 +67,18 @@
               "fileReplacements": [
                 {
                   "replace": "src/environments/environment.ts",
-                  "with": "src/environments/environment.qa.ts"
+                  "with": "src/environments/environment.prod.ts"
+                }
+              ]
+            },
+            "dev": {
+              "optimization": false,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.ts"
                 }
               ]
             },
@@ -103,7 +94,7 @@
               ]
             }
           },
-          "defaultConfiguration": "production"
+          "defaultConfiguration": "dev"
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
@@ -114,17 +105,14 @@
             "production": {
               "buildTarget": "prime-aawas:build:production"
             },
-            "development": {
-              "buildTarget": "prime-aawas:build:development"
-            },
-            "qa": {
-              "buildTarget": "prime-aawas:build:qa"
+            "dev": {
+              "buildTarget": "prime-aawas:build:dev"
             },
             "local": {
               "buildTarget": "prime-aawas:build:local"
             }
           },
-          "defaultConfiguration": "development"
+          "defaultConfiguration": "dev"
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n"

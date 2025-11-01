@@ -1,0 +1,22 @@
+<header class="landing-header">
+  <div class="container">
+    <nav class="navbar">
+      <div class="logo">
+        <a routerLink="/">
+          <img src="assets/images/Primae-aawas-official.png" alt="Prime Aawas" class="logo-image" />
+        </a>
+      </div>
+      
+      <div class="header-actions">
+        <a href="tel:{{ phoneNumber }}" class="phone-link">
+          <i class="bi bi-telephone"></i>
+          {{ phoneNumber }}
+        </a>
+        <button class="btn btn-primary" (click)="startJourney()">
+          Start your journey
+        </button>
+      </div>
+    </nav>
+  </div>
+</header>
+

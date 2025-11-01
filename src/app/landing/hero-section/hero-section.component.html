@@ -1,0 +1,96 @@
+<section class="hero-section">
+  <div class="hero-background"></div>
+  
+  <div class="container">
+    <div class="hero-content">
+      <div class="hero-text">
+        <h1 class="hero-title">
+          <span class="title-line">Property Management</span><br>
+          <span class="title-line">Made Simple</span>
+        </h1>
+        <p class="hero-subtitle">
+          Prime Aawas - Smart Property Management Platform. Enterprises, organizations, 
+          and property owners nationwide have trusted us to handle their property management, 
+          billing, and tenant relations efficiently.
+        </p>
+        
+        <ul class="features-list">
+          <li *ngFor="let feature of features">
+            <span class="check-icon">
+              <i class="bi bi-check"></i>
+            </span>
+            {{ feature }}
+          </li>
+        </ul>
+        
+        <div class="payment-methods">
+          <div class="payment-methods-label">Accepted Payment Methods:</div>
+          <div class="payment-logos">
+            <span *ngFor="let method of paymentMethods" class="payment-logo" [title]="method.name">
+              <i [class]="'bi ' + method.icon"></i>
+              <span class="logo-name">{{ method.name }}</span>
+            </span>
+          </div>
+        </div>
+      </div>
+      
+      <div class="hero-form">
+        <div class="form-container">
+          <h3>Contact us today</h3>
+          <form (ngSubmit)="onSubmit()" #form="ngForm">
+            <div class="form-group">
+              <input 
+                type="text" 
+                class="form-control" 
+                placeholder="First Name"
+                [(ngModel)]="contactForm.firstName"
+                name="firstName"
+                required>
+            </div>
+            
+            <div class="form-group">
+              <input 
+                type="text" 
+                class="form-control" 
+                placeholder="Last Name"
+                [(ngModel)]="contactForm.lastName"
+                name="lastName"
+                required>
+            </div>
+            
+            <div class="form-group">
+              <input 
+                type="email" 
+                class="form-control" 
+                placeholder="Email Address"
+                [(ngModel)]="contactForm.email"
+                name="email"
+                required>
+            </div>
+            
+            <div class="form-group">
+              <input 
+                type="tel" 
+                class="form-control" 
+                placeholder="Phone Number"
+                [(ngModel)]="contactForm.phone"
+                name="phone"
+                required>
+            </div>
+            
+            <button type="submit" class="btn-submit" [disabled]="!form.valid">
+              Submit
+            </button>
+            
+            <p class="form-privacy">
+              By submitting, you agree to our privacy policy.
+              <br>
+              Call us: <a href="tel:1-888-422-0101">1-888-422-0101</a>
+            </p>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
