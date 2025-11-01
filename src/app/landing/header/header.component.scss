@@ -1,6 +1,6 @@
 .landing-header {
   background: transparent;
-  padding: 1rem 0;
+  // padding: 1rem 0;
   position: sticky;
   top: 0;
   z-index: 1000;
@@ -77,13 +77,66 @@
 
 @media (max-width: 768px) {
   .landing-header {
+    padding: 0.75rem 0;
+    
     .navbar {
       flex-direction: column;
       gap: 1rem;
       
+      .logo {
+        .logo-image {
+          height: 40px;
+          max-width: 150px;
+        }
+      }
+      
       .header-actions {
         width: 100%;
         justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 1rem;
+        
+        .phone-link {
+          font-size: clamp(0.85rem, 0.9vw + 0.4rem, 0.9rem);
+          
+          i {
+            font-size: clamp(0.9rem, 1vw + 0.4rem, 1rem);
+          }
+        }
+        
+        .btn-start {
+          padding: 0.5rem 1rem;
+          font-size: clamp(0.85rem, 0.9vw + 0.4rem, 0.9rem);
+          white-space: nowrap;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .landing-header {
+    .navbar {
+      .logo {
+        .logo-image {
+          height: 35px;
+          max-width: 120px;
+        }
+      }
+      
+      .header-actions {
+        flex-direction: column;
+        align-items: stretch;
+        
+        .phone-link {
+          text-align: center;
+          justify-content: center;
+          font-size: clamp(0.8rem, 0.85vw + 0.3rem, 0.85rem);
+        }
+        
+        .btn-start {
+          width: 100%;
+        }
       }
     }
   }

@@ -65,14 +65,14 @@
         margin-bottom: 1.5rem;
         
         i {
-          font-size: 2rem;
+          font-size: clamp(1.5rem, 2vw + 0.5rem, 2rem);
           color: #1e3a8a;
         }
       }
       
       h3 {
         color: #1e3a8a;
-        font-size: 1.25rem;
+        font-size: clamp(1rem, 1.2vw + 0.6rem, 1.25rem);
         font-weight: 600;
         margin-bottom: 1rem;
       }
@@ -131,7 +131,7 @@
         
         i {
           color: #fbbf24;
-          font-size: 1.25rem;
+          font-size: clamp(1rem, 1.2vw + 0.5rem, 1.25rem);
           transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
       }
@@ -150,12 +150,113 @@
   .solutions-section {
     padding: 3rem 0;
     
+    .container {
+      padding: 0 1.5rem;
+    }
+    
     .solutions-grid {
       grid-template-columns: 1fr;
+      gap: 1.5rem;
+      margin-bottom: 3rem;
+      
+      .solution-card {
+        padding: 1.5rem;
+        
+        .solution-icon {
+          width: 50px;
+          height: 50px;
+          margin-bottom: 1.25rem;
+          
+          i {
+            font-size: clamp(1.5rem, 1.7vw + 0.4rem, 1.75rem);
+          }
+        }
+        
+        h3 {
+          font-size: clamp(1rem, 1.1vw + 0.4rem, 1.1rem);
+          margin-bottom: 0.75rem;
+        }
+        
+        p {
+          font-size: clamp(0.9rem, 0.95vw + 0.3rem, 0.95rem);
+        }
+      }
     }
     
     .testimonials-grid {
       grid-template-columns: 1fr;
+      gap: 1.5rem;
+      
+      .testimonial-card {
+        padding: 1.5rem;
+        
+        .rating {
+          margin-bottom: 0.875rem;
+          
+          i {
+            font-size: clamp(1rem, 1.1vw + 0.4rem, 1.1rem);
+          }
+        }
+        
+        p {
+          font-size: clamp(0.9rem, 0.95vw + 0.3rem, 0.95rem);
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .solutions-section {
+    padding: 2rem 0;
+    
+    .container {
+      padding: 0 1rem;
+    }
+    
+    .solutions-grid {
+      gap: 1.25rem;
+      margin-bottom: 2.5rem;
+      
+      .solution-card {
+        padding: 1.25rem;
+        
+        .solution-icon {
+          width: 45px;
+          height: 45px;
+          margin-bottom: 1rem;
+          
+          i {
+            font-size: clamp(1.25rem, 1.5vw + 0.3rem, 1.5rem);
+          }
+        }
+        
+        h3 {
+          font-size: clamp(0.95rem, 1vw + 0.3rem, 1rem);
+        }
+        
+        p {
+          font-size: clamp(0.85rem, 0.9vw + 0.3rem, 0.9rem);
+        }
+      }
+    }
+    
+    .testimonials-grid {
+      gap: 1.25rem;
+      
+      .testimonial-card {
+        padding: 1.25rem;
+        
+        .rating {
+          i {
+            font-size: clamp(0.9rem, 1vw + 0.3rem, 1rem);
+          }
+        }
+        
+        p {
+          font-size: clamp(0.85rem, 0.9vw + 0.3rem, 0.9rem);
+        }
+      }
     }
   }
 }

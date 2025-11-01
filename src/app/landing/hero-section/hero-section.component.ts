@@ -1,22 +1,14 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-hero-section',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule],
   templateUrl: './hero-section.component.html',
   styleUrl: './hero-section.component.scss'
 })
 export class HeroSectionComponent {
-  contactForm = {
-    firstName: '',
-    lastName: '',
-    email: '',
-    phone: ''
-  };
-
   features = [
     'Owner dashboard (view tenants, rent, bills)',
     'Tenant portal (view and pay bills)',
@@ -38,10 +30,8 @@ export class HeroSectionComponent {
     { name: 'Amazon Pay', icon: 'bi-wallet-fill', color: '#ff9900' }
   ];
 
-  onSubmit(): void {
-    // Handle form submission
-    console.log('Form submitted:', this.contactForm);
-    // Add API call here
+  notifyComingSoon(store: string): void {
+    alert(`${store} app coming soon! Stay tuned for updates.`);
   }
 }
 

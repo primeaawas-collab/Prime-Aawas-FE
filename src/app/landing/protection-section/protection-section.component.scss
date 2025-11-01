@@ -22,26 +22,26 @@
         color: #fbbf24;
         padding: 0.5rem 1.5rem;
         border-radius: 50px;
-        font-size: 0.85rem;
+        font-size: clamp(0.75rem, 0.8vw + 0.4rem, 0.85rem);
         font-weight: 600;
         letter-spacing: 1px;
         margin-bottom: 1.5rem;
       }
       
       h2 {
-        font-size: 3rem;
+        font-size: clamp(1.75rem, 4vw + 1rem, 3rem);
         font-weight: 700;
         margin-bottom: 0.5rem;
       }
       
       .subtitle {
-        font-size: 1.25rem;
+        font-size: clamp(0.95rem, 1.3vw + 0.5rem, 1.25rem);
         opacity: 0.9;
         margin-bottom: 1.5rem;
       }
       
       .description {
-        font-size: 1.1rem;
+        font-size: clamp(0.9rem, 1.1vw + 0.5rem, 1.1rem);
         line-height: 1.8;
         opacity: 0.95;
         margin-bottom: 2.5rem;
@@ -68,12 +68,12 @@
           
           i {
             color: #fbbf24;
-            font-size: 1.25rem;
+            font-size: clamp(1rem, 1.2vw + 0.5rem, 1.25rem);
             transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
           }
           
           span {
-            font-size: 1rem;
+            font-size: clamp(0.9rem, 1vw + 0.4rem, 1rem);
           }
         }
       }
@@ -84,94 +84,74 @@
       justify-content: center;
       align-items: center;
       
-      .graphic-container {
-        position: relative;
+      .form-container {
+        background: white;
+        padding: 2.5rem;
+        border-radius: 12px;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
         width: 100%;
+        display: flex;
+        flex-direction: column;
         
-        .app-coming-soon {
-          background: linear-gradient(135deg, #3b82f6 0%, #6366f1 100%);
-          border-radius: 20px;
-          padding: 3rem 2rem;
-          text-align: center;
-          box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        h3 {
+          color: #1e3a8a;
+          margin-bottom: 1.5rem;
+          font-size: clamp(1.1rem, 1.5vw + 0.5rem, 1.5rem);
+          font-weight: 600;
+        }
+        
+        .form-group {
+          margin-bottom: 1.25rem;
           
-          h3 {
-            font-size: 2rem;
-            font-weight: 700;
-            margin-bottom: 0.5rem;
-            color: white;
-          }
-          
-          .coming-soon-text {
-            font-size: 1rem;
-            opacity: 0.9;
-            margin-bottom: 2rem;
-            color: white;
-          }
-          
-          .app-stores {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
+          .form-control {
+            width: 100%;
+            padding: 0.875rem 1rem;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            font-size: clamp(0.9rem, 1vw + 0.4rem, 1rem);
+            transition: all 0.3s;
             
-            .store-badge {
-              background: rgba(255, 255, 255, 0.15);
-              backdrop-filter: blur(10px);
-              border: 1px solid rgba(255, 255, 255, 0.2);
-              border-radius: 12px;
-              padding: 1rem 1.5rem;
-              display: flex;
-              align-items: center;
-              gap: 1rem;
-              cursor: pointer;
-              transition: all 0.3s;
-              position: relative;
-              
-              &:hover {
-                background: rgba(255, 255, 255, 0.25);
-                transform: translateY(-2px);
-                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-              }
-              
-              i {
-                font-size: 2.5rem;
-                color: white;
-              }
-              
-              .store-text {
-                display: flex;
-                flex-direction: column;
-                align-items: flex-start;
-                flex: 1;
-                
-                .store-subtitle {
-                  font-size: 0.75rem;
-                  opacity: 0.9;
-                  color: white;
-                  text-transform: uppercase;
-                  letter-spacing: 0.5px;
-                }
-                
-                .store-name {
-                  font-size: 1.25rem;
-                  font-weight: 600;
-                  color: white;
-                }
-                
-                .coming-badge {
-                  display: inline-block;
-                  background: #fbbf24;
-                  color: #1e3a8a;
-                  font-size: 0.7rem;
-                  font-weight: 700;
-                  padding: 0.25rem 0.75rem;
-                  border-radius: 12px;
-                  margin-top: 0.5rem;
-                  text-transform: uppercase;
-                  letter-spacing: 0.5px;
-                }
-              }
+            &:focus {
+              outline: none;
+              border-color: #3b82f6;
+              box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
             }
+          }
+        }
+        
+        .btn-submit {
+          width: 100%;
+          padding: 1rem;
+          background: #fbbf24;
+          color: #1e3a8a;
+          border: none;
+          border-radius: 8px;
+          font-size: clamp(0.95rem, 1.1vw + 0.4rem, 1.1rem);
+          font-weight: 600;
+          cursor: pointer;
+          transition: all 0.3s;
+          
+          &:hover:not(:disabled) {
+            background: #f59e0b;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(251, 191, 36, 0.4);
+          }
+          
+          &:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+          }
+        }
+        
+        .form-privacy {
+          margin-top: 1rem;
+          font-size: clamp(0.75rem, 0.85vw + 0.3rem, 0.85rem);
+          color: #6b7280;
+          text-align: center;
+          
+          a {
+            color: #3b82f6;
+            text-decoration: none;
           }
         }
       }
@@ -181,16 +161,24 @@
 
 @media (max-width: 1024px) {
   .protection-section {
+    padding: clamp(3rem, 4vw, 4rem) 0;
+    
+    .container {
+      padding: 0 1.5rem;
+    }
+    
     .protection-content {
       grid-template-columns: 1fr;
+      gap: clamp(2.5rem, 3vw, 3rem);
       
       .protection-text {
-        h2 {
-          font-size: 2.5rem;
+        .description {
+          margin-bottom: 2rem;
         }
         
         .features-grid {
           grid-template-columns: 1fr;
+          gap: 0.875rem;
         }
       }
       
@@ -203,39 +191,93 @@
 
 @media (max-width: 768px) {
   .protection-section {
-    padding: 3rem 0;
+    padding: clamp(2rem, 3vw, 3rem) 0;
+    
+    .container {
+      padding: 0 1.5rem;
+    }
     
     .protection-content {
+      gap: clamp(2rem, 2.5vw, 2.5rem);
+      
       .protection-text {
-        h2 {
-          font-size: 2rem;
+        .section-badge {
+          padding: 0.4rem 1.25rem;
+          margin-bottom: 1rem;
+        }
+        
+        .description {
+          line-height: 1.7;
+          margin-bottom: 1.5rem;
+        }
+        
+        .features-grid {
+          gap: 0.75rem;
         }
       }
       
       .protection-graphic {
-        .graphic-container {
-          .app-coming-soon {
-            padding: 2rem 1.5rem;
+        .form-container {
+          padding: 1.5rem;
+          
+          .form-group {
+            margin-bottom: 1rem;
             
-            h3 {
-              font-size: 1.5rem;
+            .form-control {
+              padding: 0.75rem 0.875rem;
             }
+          }
+          
+          .btn-submit {
+            padding: 0.875rem;
+          }
+          
+          .form-privacy {
+            margin-top: 0.875rem;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .protection-section {
+    padding: 2rem 0;
+    
+    .container {
+      padding: 0 1rem;
+    }
+    
+    .protection-content {
+      gap: 2rem;
+      
+      .protection-text {
+        .section-badge {
+          padding: 0.35rem 1rem;
+        }
+        
+        .features-grid {
+          .feature-item {
+            gap: 0.5rem;
+          }
+        }
+      }
+      
+      .protection-graphic {
+        .form-container {
+          padding: 1.25rem;
+          
+          .form-group {
+            margin-bottom: 0.875rem;
             
-            .app-stores {
-              .store-badge {
-                padding: 0.875rem 1rem;
-                
-                i {
-                  font-size: 2rem;
-                }
-                
-                .store-text {
-                  .store-name {
-                    font-size: 1.1rem;
-                  }
-                }
-              }
+            .form-control {
+              padding: 0.7rem 0.75rem;
             }
+          }
+          
+          .btn-submit {
+            padding: 0.8rem;
           }
         }
       }

@@ -5,7 +5,7 @@
   align-items: center;
   padding: 4rem 0;
   animation: fadeInUp 0.8s ease-out;
-  
+  background: linear-gradient(135deg, #F0E6F0 0%, #E0F2F7 100%);
   @keyframes fadeInUp {
     from {
       opacity: 0;
@@ -17,13 +17,19 @@
     }
   }
   
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+  
   .hero-background {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: #E6F0F7;
+  
     z-index: -1;
     overflow: hidden;
     animation: fadeIn 1s ease-out;
@@ -51,7 +57,7 @@
       color: #1e3a8a;
       
       .hero-title {
-        font-size: 3.5rem;
+        font-size: clamp(1.75rem, 5vw + 1rem, 3.5rem);
         font-weight: 700;
         margin-bottom: 1.5rem;
         line-height: 1.2;
@@ -63,7 +69,7 @@
       }
       
       .hero-subtitle {
-        font-size: 1.1rem;
+        font-size: clamp(0.9rem, 1.2vw + 0.5rem, 1.1rem);
         line-height: 1.6;
         margin-bottom: 2rem;
         color: #1e40af;
@@ -76,7 +82,7 @@
         
         li {
           padding: 0.75rem 0;
-          font-size: 1rem;
+          font-size: clamp(0.85rem, 1vw + 0.5rem, 1rem);
           display: flex;
           align-items: center;
           gap: 0.75rem;
@@ -94,7 +100,7 @@
             
             i {
               color: #ffffff;
-              font-size: 0.875rem;
+              font-size: clamp(0.75rem, 0.8vw + 0.3rem, 0.875rem);
               font-weight: 700;
             }
           }
@@ -105,7 +111,7 @@
         margin-top: 2.5rem;
         
         .payment-methods-label {
-          font-size: 0.9rem;
+          font-size: clamp(0.85rem, 0.9vw + 0.4rem, 0.9rem);
           color: #1e40af;
           margin-bottom: 1rem;
         }
@@ -120,7 +126,7 @@
             background: #f3f4f6;
             border: 1px solid #e5e7eb;
             border-radius: 6px;
-            font-size: 0.85rem;
+            font-size: clamp(0.65rem, 0.8vw + 0.3rem, 0.85rem);
             font-weight: 500;
             color: #374151;
             transition: all 0.2s;
@@ -135,11 +141,11 @@
             }
             
             i {
-              font-size: 1.1rem;
+              font-size: clamp(0.9rem, 1vw + 0.4rem, 1.1rem);
             }
             
             .logo-name {
-              font-size: 0.85rem;
+              font-size: clamp(0.65rem, 0.8vw + 0.3rem, 0.85rem);
             }
           }
         }
@@ -147,78 +153,98 @@
     }
     
     .hero-form {
-
       display: flex;
-  
+      justify-content: center;
+      align-items: center;
       
-      .form-container {
-        background: white;
-        padding: 2.5rem;
-        border-radius: 12px;
-        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+      .graphic-container {
+        position: relative;
         width: 100%;
-        display: flex;
-        flex-direction: column;
         
-        h3 {
-          color: #1e3a8a;
-          margin-bottom: 1.5rem;
-          font-size: 1.5rem;
-          font-weight: 600;
-        }
-        
-        .form-group {
-          margin-bottom: 1.25rem;
+        .app-coming-soon {
+          background: linear-gradient(135deg, #3b82f6 0%, #6366f1 100%);
+          border-radius: 20px;
+          padding: 3rem 2rem;
+          text-align: center;
+          box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
           
-          .form-control {
-            width: 100%;
-            padding: 0.875rem 1rem;
-            border: 1px solid #e5e7eb;
-            border-radius: 8px;
-            font-size: 1rem;
-            transition: all 0.3s;
-            
-            &:focus {
-              outline: none;
-              border-color: #3b82f6;
-              box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
-            }
+          h3 {
+            font-size: clamp(1.25rem, 2.5vw + 0.5rem, 2rem);
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: white;
           }
-        }
-        
-        .btn-submit {
-          width: 100%;
-          padding: 1rem;
-          background: #fbbf24;
-          color: #1e3a8a;
-          border: none;
-          border-radius: 8px;
-          font-size: 1.1rem;
-          font-weight: 600;
+          
+          .coming-soon-text {
+            font-size: clamp(0.85rem, 1vw + 0.4rem, 1rem);
+            opacity: 0.9;
+            margin-bottom: 2rem;
+            color: white;
+          }
+          
+          .app-stores {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            
+            .store-badge {
+              background: rgba(255, 255, 255, 0.15);
+              backdrop-filter: blur(10px);
+              border: 1px solid rgba(255, 255, 255, 0.2);
+              border-radius: 12px;
+              padding: 1rem 1.5rem;
+              display: flex;
+              align-items: center;
+              gap: 1rem;
           cursor: pointer;
           transition: all 0.3s;
+              position: relative;
           
-          &:hover:not(:disabled) {
-            background: #f59e0b;
+              &:hover {
+                background: rgba(255, 255, 255, 0.25);
             transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(251, 191, 36, 0.4);
-          }
-          
-          &:disabled {
-            opacity: 0.6;
-            cursor: not-allowed;
-          }
-        }
-        
-        .form-privacy {
-          margin-top: 1rem;
-          font-size: 0.85rem;
-          color: #6b7280;
-          text-align: center;
-          
-          a {
-            color: #3b82f6;
-            text-decoration: none;
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+              }
+              
+              i {
+                font-size: clamp(1.75rem, 3vw + 0.5rem, 2.5rem);
+                color: white;
+              }
+              
+              .store-text {
+                display: flex;
+                flex-direction: column;
+                align-items: flex-start;
+                flex: 1;
+                
+                .store-subtitle {
+                  font-size: clamp(0.65rem, 0.7vw + 0.3rem, 0.75rem);
+                  opacity: 0.9;
+                  color: white;
+                  text-transform: uppercase;
+                  letter-spacing: 0.5px;
+                }
+                
+                .store-name {
+                  font-size: clamp(1rem, 1.2vw + 0.5rem, 1.25rem);
+                  font-weight: 600;
+                  color: white;
+                }
+                
+                .coming-badge {
+                  display: inline-block;
+                  background: #fbbf24;
+                  color: #1e3a8a;
+                  font-size: clamp(0.65rem, 0.7vw + 0.2rem, 0.7rem);
+                  font-weight: 700;
+                  padding: 0.25rem 0.75rem;
+                  border-radius: 12px;
+                  margin-top: 0.5rem;
+                  text-transform: uppercase;
+                  letter-spacing: 0.5px;
+                }
+              }
+            }
           }
         }
       }
@@ -228,12 +254,107 @@
 
 @media (max-width: 1024px) {
   .hero-section {
+    min-height: auto;
+    padding: clamp(2rem, 3vw, 3rem) 0;
+    
     .hero-content {
       grid-template-columns: 1fr;
+      gap: clamp(2rem, 2.5vw, 2.5rem);
+      
+      .hero-text {
+        .features-list {
+          li {
+            padding: 0.65rem 0;
+          }
+        }
+      }
+      
+      .hero-form {
+        order: -1;
+      }
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .hero-section {
+    padding: clamp(1.5rem, 2vw, 2rem) 0;
+    min-height: auto;
+    
+    .container {
+      padding: 0 1.5rem;
+    }
+    
+    .hero-content {
+      gap: clamp(1.5rem, 2vw, 2rem);
       
       .hero-text {
         .hero-title {
-          font-size: 2.5rem;
+          margin-bottom: 1rem;
+        }
+        
+        .hero-subtitle {
+          margin-bottom: 1.5rem;
+        }
+        
+        .features-list {
+          margin: 1.5rem 0;
+          
+          li {
+            padding: 0.5rem 0;
+            
+            .check-icon {
+              width: 20px;
+              height: 20px;
+            }
+          }
+        }
+        
+        .payment-methods {
+          margin-top: 1.5rem;
+          
+          .payment-methods-label {
+            margin-bottom: 0.75rem;
+          }
+          
+          .payment-logos {
+            gap: 0.5rem;
+            
+            .payment-logo {
+              padding: 0.4rem 0.75rem;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-section {
+    .hero-content {
+      .hero-text {
+        .payment-methods {
+          .payment-logos {
+            .payment-logo {
+              .logo-name {
+                display: none;
+              }
+            }
+          }
+        }
+      }
+      
+      .hero-form {
+        .graphic-container {
+          .app-coming-soon {
+            .app-stores {
+              .store-badge {
+                padding: 0.75rem;
+                flex-direction: row;
+              }
+            }
+          }
         }
       }
     }
@@ -242,25 +363,100 @@
 
 @media (max-width: 768px) {
   .hero-section {
-    padding: 2rem 0;
+    padding: clamp(1.5rem, 2vw, 2rem) 0;
+    min-height: auto;
+    
+    .container {
+      padding: 0 1.5rem;
+    }
     
     .hero-content {
+      gap: clamp(1.5rem, 2vw, 2rem);
+      
       .hero-text {
         .hero-title {
-          font-size: 2rem;
+          margin-bottom: 1rem;
         }
         
-        .payment-logos {
-          .payment-logo {
-            font-size: 0.75rem;
-            padding: 0.4rem 0.8rem;
+        .hero-subtitle {
+          margin-bottom: 1.5rem;
+        }
+        
+        .features-list {
+          margin: 1.5rem 0;
+          
+          li {
+            padding: 0.5rem 0;
+            
+            .check-icon {
+              width: 20px;
+              height: 20px;
+            }
+          }
+        }
+        
+        .payment-methods {
+          margin-top: 1.5rem;
+          
+          .payment-methods-label {
+            margin-bottom: 0.75rem;
+          }
+          
+          .payment-logos {
+            gap: 0.5rem;
+            
+            .payment-logo {
+              padding: 0.4rem 0.75rem;
+            }
           }
         }
       }
       
       .hero-form {
-        .form-container {
-          padding: 1.5rem;
+        .graphic-container {
+          .app-coming-soon {
+            padding: clamp(1.5rem, 2vw, 2rem) 1.5rem;
+            
+            .app-stores {
+              gap: 0.875rem;
+              
+              .store-badge {
+                padding: 0.875rem 1rem;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-section {
+    padding: 1.5rem 0;
+    
+    .container {
+      padding: 0 1rem;
+    }
+    
+    .hero-content {
+      gap: 1.5rem;
+      
+      .hero-text {
+        .hero-title {
+          line-height: 1.3;
+        }
+        
+        .features-list {
+          margin: 1rem 0;
+        }
+      }
+      
+      .hero-form {
+        .graphic-container {
+          .app-coming-soon {
+            padding: 1.5rem 1rem;
+          }
         }
       }
     }
