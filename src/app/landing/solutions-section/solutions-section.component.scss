@@ -14,18 +14,18 @@
     gap: 2rem;
     margin-bottom: 4rem;
     
-    .solution-card {
+      .solution-card {
       border-radius: 12px;
       box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-      transition: transform 0.3s, box-shadow 0.3s;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
       border: none;
       overflow: hidden;
       background: linear-gradient(135deg, #E6F0F7 0%, #F0E6F0 100%);
       padding: 2rem;
       
       &:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        transform: translateY(-8px) scale(1.02);
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
       }
       
       &:nth-child(1) {
@@ -97,6 +97,16 @@
       overflow: hidden;
       background: linear-gradient(135deg, #E6F0F7 0%, #F0E6F0 100%);
       padding: 2rem;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      
+      &:hover {
+        transform: translateY(-5px) scale(1.02);
+        box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
+        
+        .rating i {
+          transform: scale(1.1);
+        }
+      }
       
       &:nth-child(1) {
         background: linear-gradient(135deg, #F0E6F0 0%, #E0F2F7 100%);
@@ -122,6 +132,7 @@
         i {
           color: #fbbf24;
           font-size: 1.25rem;
+          transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
       }
       

@@ -34,15 +34,19 @@
       border-radius: 12px;
       box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
       text-align: center;
-      transition: transform 0.3s, box-shadow 0.3s;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
       border: none;
       overflow: hidden;
       background: linear-gradient(135deg, #E6F0F7 0%, #F0E6F0 100%);
       padding: 2.5rem;
       
       &:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        transform: translateY(-8px) scale(1.02);
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+        
+        .feature-icon {
+          transform: scale(1.1) rotate(5deg);
+        }
       }
       
       &:nth-child(1) {
@@ -80,10 +84,12 @@
         align-items: center;
         justify-content: center;
         margin: 0 auto 1.5rem;
+        transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         
         i {
           font-size: 2.5rem;
           color: #1e3a8a;
+          transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
       }
       

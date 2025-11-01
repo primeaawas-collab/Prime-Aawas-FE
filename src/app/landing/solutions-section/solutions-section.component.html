@@ -1,6 +1,6 @@
 <section class="solutions-section">
   <div class="container">
-    <div class="solutions-grid">
+    <div class="solutions-grid stagger-children">
       <div *ngFor="let solution of solutions" class="solution-card">
         <div class="solution-icon">
           <i [class]="'bi ' + solution.icon"></i>
@@ -10,7 +10,7 @@
       </div>
     </div>
     
-    <div class="testimonials-grid">
+    <div class="testimonials-grid stagger-children">
       <div *ngFor="let testimonial of testimonials" class="testimonial-card">
         <div class="rating">
           <i *ngFor="let star of [1,2,3,4,5]" class="bi bi-star-fill"></i>

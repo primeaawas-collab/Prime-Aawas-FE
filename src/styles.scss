@@ -39,8 +39,39 @@ $prime-aawas-theme: mat.define-theme((
 // @import "~typeface-inter";
 
 
-html, body { height: 100%; }
-body { margin: 0; font-family: 'Inter', sans-serif }
+html {
+  scroll-behavior: smooth;
+}
+
+html, body { 
+  height: 100%; 
+  overflow-x: hidden;
+}
+
+body { 
+  margin: 0; 
+  font-family: 'Inter', sans-serif;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+// Prevent double scrollbars
+.container-fluid,
+.container {
+  overflow: visible !important;
+}
+
+// Smooth transitions for all interactive elements
+* {
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+// Focus styles for accessibility
+*:focus-visible {
+  outline: 2px solid #3b82f6;
+  outline-offset: 2px;
+  border-radius: 4px;
+}
 
 
 //Buttons

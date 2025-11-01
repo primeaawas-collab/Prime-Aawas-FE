@@ -34,16 +34,25 @@
       border-radius: 12px;
       overflow: hidden;
       box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-      transition: transform 0.3s, box-shadow 0.3s;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
       border: none;
       background: linear-gradient(135deg, #E6F0F7 0%, #F0E6F0 100%);
       
       &:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        transform: translateY(-8px) scale(1.02);
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
         
         .read-more {
           color: #3b82f6;
+          transform: translateX(5px);
+          
+          i {
+            transform: translateX(3px);
+          }
+        }
+        
+        .blog-image {
+          transform: scale(1.05);
         }
       }
       
@@ -66,6 +75,8 @@
         display: flex;
         align-items: center;
         justify-content: center;
+        transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        overflow: hidden;
         
         .image-placeholder {
           color: #1e3a8a;
@@ -73,6 +84,7 @@
           i {
             font-size: 3rem;
             opacity: 0.3;
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
           }
         }
       }
@@ -117,7 +129,11 @@
           display: inline-flex;
           align-items: center;
           gap: 0.5rem;
-          transition: color 0.3s;
+          transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+          
+          i {
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+          }
         }
       }
     }

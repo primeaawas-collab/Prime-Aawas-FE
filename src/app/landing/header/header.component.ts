@@ -11,7 +11,7 @@ import { AppNavigationService } from '../utils/app-navigation.service';
   styleUrl: './header.component.scss'
 })
 export class HeaderComponent {
-  phoneNumber = '1-888-422-0101';
+  phoneNumber = '+918800631833';
   
   constructor(private appNavigation: AppNavigationService) {}
   

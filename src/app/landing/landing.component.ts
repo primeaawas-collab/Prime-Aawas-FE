@@ -10,6 +10,7 @@ import { IntegrationSectionComponent } from './integration-section/integration-s
 import { BlogSectionComponent } from './blog-section/blog-section.component';
 import { FooterComponent } from './footer/footer.component';
 import { HeaderComponent } from './header/header.component';
+import { ScrollAnimateDirective } from './utils/scroll-animate.directive';
 
 @Component({
   selector: 'app-landing',
@@ -17,6 +18,7 @@ import { HeaderComponent } from './header/header.component';
   imports: [
     CommonModule,
     RouterModule,
+    ScrollAnimateDirective,
     HeaderComponent,
     HeroSectionComponent,
     FeaturesSectionComponent,
