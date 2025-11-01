@@ -20,7 +20,7 @@ import { HeaderComponent } from './header/header.component';
     HeaderComponent,
     HeroSectionComponent,
     FeaturesSectionComponent,
-    CoverageSectionComponent,
+    // CoverageSectionComponent,
     SolutionsSectionComponent,
     ProtectionSectionComponent,
     // IntegrationSectionComponent,
