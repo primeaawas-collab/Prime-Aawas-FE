@@ -18,15 +18,15 @@
       <!-- User Avatar -->
       <div class="user-avatar-container">
         <button class="user-avatar" title="User Profile" (click)="toggleProfileCard()">
-          <span class="avatar-text">S</span>
+          <span class="avatar-text">{{ userInitials }}</span>
         </button>
         
         <!-- Profile Card -->
         <app-profile-card 
           [isVisible]="showProfileCard"
-          [userName]="'John Doe'"
-          [userRole]="'Property Owner'"
-          [userInitials]="'JD'"
+          [userName]="userName"
+          [userRole]="userRole"
+          [userInitials]="userInitials"
           (close)="onCloseProfileCard()"
           (logout)="onLogout()">
         </app-profile-card>

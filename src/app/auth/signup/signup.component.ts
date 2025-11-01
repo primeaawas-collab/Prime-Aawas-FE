@@ -22,6 +22,7 @@ export class SignupComponent {
   confirmPassword = '';
   errorMessage = '';
   isLoading: boolean = false;
+  fieldErrors: { [key: string]: string } = {};
 
   constructor(
     private tokenService: TokenService, 
@@ -43,6 +44,7 @@ export class SignupComponent {
 
     this.isLoading = true;
     this.errorMessage = '';
+    this.fieldErrors = {};
 
     const signupData: SignupRequest = {
       name: this.name,
@@ -67,13 +69,20 @@ export class SignupComponent {
           this.toastService.success('Account created successfully! Welcome to Prime Aawas.', 'Success');
           this.router.navigate(['/owner/owner-dashboard']);
         } else {
-          this.toastService.error(response.message || 'Signup failed. Please try again.', 'Signup Error');
+          // Handle validation errors from API
+          this.handleApiErrors(response);
         }
       },
       error: (error) => {
         this.isLoading = false;
         console.error('Signup error:', error);
-        this.toastService.error('An error occurred. Please try again.', 'Network Error');
+        
+        // Handle HTTP error response
+        if (error.error && error.error.data) {
+          this.handleApiErrors(error.error);
+        } else {
+          this.toastService.error('An error occurred. Please try again.', 'Network Error');
+        }
       }
     });
   }
@@ -96,5 +105,40 @@ export class SignupComponent {
     // const mockToken = 'facebook_oauth_token_' + Date.now();
     // this.tokenService.setToken(mockToken);
     // this.router.navigate(['/owner/owner-dashboard']);
+  }
+
+  private handleApiErrors(response: any): void {
+    this.fieldErrors = {};
+    
+    // Extract field-specific errors from response.data
+    if (response.data && typeof response.data === 'object') {
+      Object.keys(response.data).forEach((field) => {
+        // Map API field names to component property names
+        const fieldKey = field === 'phoneNumber' ? 'phone' : field;
+        this.fieldErrors[fieldKey] = response.data[field];
+      });
+    }
+    
+    // Show general error message if no field-specific errors
+    if (Object.keys(this.fieldErrors).length === 0) {
+      this.toastService.error(response.message || 'Signup failed. Please try again.', 'Signup Error');
+    } else {
+      // Show general error message as well
+      this.toastService.error(response.message || 'Please correct the errors below.', 'Validation Error');
+    }
+  }
+
+  getFieldError(fieldName: string): string {
+    return this.fieldErrors[fieldName] || '';
+  }
+
+  hasFieldError(fieldName: string): boolean {
+    return !!this.fieldErrors[fieldName];
+  }
+
+  clearFieldError(fieldName: string): void {
+    if (this.fieldErrors[fieldName]) {
+      delete this.fieldErrors[fieldName];
+    }
   }
 }

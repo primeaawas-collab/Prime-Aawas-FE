@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterModule, Router } from '@angular/router';
@@ -13,9 +13,10 @@ import { ToastService } from '../../service/toast/toast.service';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
   email: string = '';
   password: string = '';
+  rememberMe: boolean = false;
   errorMessage: string = '';
   isLoading: boolean = false;
 
@@ -25,6 +26,15 @@ export class LoginComponent {
     private authService: AuthService,
     private toastService: ToastService
   ) {}
+
+  ngOnInit(): void {
+    // Load remembered email if it exists
+    const rememberedEmail = this.tokenService.getRememberedEmail();
+    if (rememberedEmail) {
+      this.email = rememberedEmail;
+      this.rememberMe = true;
+    }
+  }
 
   onSubmit(): void {
     if (!this.email || !this.password) {
@@ -52,6 +62,30 @@ export class LoginComponent {
             const mockToken = 'api_jwt_token_' + Date.now();
             this.tokenService.setToken(mockToken);
           }
+          
+          // Store role if provided in response.data
+          if (response.data && response.data.role) {
+            this.tokenService.setRole(response.data.role);
+          }
+          
+          // Store user info (name, email, role, profileImageUrl)
+          if (response.data) {
+            const userInfo = {
+              name: response.data.name || '',
+              email: response.data.email || '',
+              role: response.data.role || '',
+              profileImageUrl: response.data.profileImageUrl || null
+            };
+            this.tokenService.setUserInfo(userInfo);
+          }
+          
+          // Handle remember me functionality
+          if (this.rememberMe) {
+            this.tokenService.setRememberedEmail(this.email);
+          } else {
+            this.tokenService.removeRememberedEmail();
+          }
+          
           this.toastService.success('Login successful! Welcome back.', 'Success');
           this.router.navigate(['/owner/owner-dashboard']);
         } else {

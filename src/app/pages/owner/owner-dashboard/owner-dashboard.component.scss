@@ -6,10 +6,34 @@
 .card {
   border-radius: 12px;
   transition: all 0.2s ease-in-out;
+  border: none;
+  overflow: hidden;
 
   &:hover {
     transform: translateY(-3px);
-    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+  }
+
+  .card-body {
+    background: linear-gradient(135deg, #F0E6F0 0%, #E0F2F7 100%);
+    padding: 1.5rem;
+  }
+
+  // Variation gradients for different cards
+  &.card-properties .card-body {
+    background: linear-gradient(135deg, #F0E6F0 0%, #E0F2F7 100%);
+  }
+
+  &.card-tenants .card-body {
+    background: linear-gradient(135deg, #E8F4F8 0%, #F0E6F0 100%);
+  }
+
+  &.card-revenue .card-body {
+    background: linear-gradient(135deg, #F5E6F0 0%, #E0EFF7 100%);
+  }
+
+  &.card-payments .card-body {
+    background: linear-gradient(135deg, #E6F0F7 0%, #F0E6F0 100%);
   }
 
   .icon {

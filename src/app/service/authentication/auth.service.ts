@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
 
@@ -47,6 +47,26 @@ export class AuthService {
     return this.http.post<AuthResponse>(url, userData, {
       headers: {
         'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      }
+    });
+  }
+
+  checkEmailExists(email: string): Observable<AuthResponse> {
+    const params = new HttpParams().set('email', email);
+    return this.http.get<AuthResponse>(`${this.baseUrl}/api/users/check-email`, {
+      params,
+      headers: {
+        'Accept': 'application/json'
+      }
+    });
+  }
+
+  checkPhoneExists(phoneNumber: string): Observable<AuthResponse> {
+    const params = new HttpParams().set('phoneNumber', phoneNumber);
+    return this.http.get<AuthResponse>(`${this.baseUrl}/api/users/check-phone`, {
+      params,
+      headers: {
         'Accept': 'application/json'
       }
     });

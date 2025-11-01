@@ -1,7 +1,7 @@
 export const environment = {
   production: false,
   environment: 'development',
-  apiUrl: 'https://dev-api.primeaawas.com',
+  apiUrl: 'https://dev-api.primeaawas.com/api',
   apiVersion: 'v1',
   appName: 'Prime Aawas',
   appVersion: '1.0.0',

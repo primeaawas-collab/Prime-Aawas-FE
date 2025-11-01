@@ -2,6 +2,7 @@ import { Component, OnInit, HostListener } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
 import { filter } from 'rxjs/operators';
 import { ProfileCardComponent } from './profile-card/profile-card.component';
+import { TokenService } from '../../service/authentication/token.service';
 
 @Component({
   selector: 'app-header',
@@ -14,16 +15,45 @@ export class HeaderComponent implements OnInit {
   currentPageTitle = 'Dashboard';
   isDarkMode = false;
   showProfileCard = false;
+  userName = 'John Doe';
+  userRole = 'Property Owner';
+  userInitials = 'JD';
 
-  constructor(private router: Router) {}
+  constructor(
+    private router: Router,
+    private tokenService: TokenService
+  ) {}
 
   ngOnInit() {
+    // Load user info from localStorage
+    this.loadUserInfo();
+    
     // Listen to route changes to update page title
     this.router.events
       .pipe(filter(event => event instanceof NavigationEnd))
       .subscribe((event: NavigationEnd) => {
         this.updatePageTitle(event.url);
       });
+  }
+
+  loadUserInfo(): void {
+    const userInfo = this.tokenService.getUserInfo();
+    const role = this.tokenService.getRole();
+    
+    if (userInfo) {
+      this.userName = userInfo.name || 'User';
+      this.userRole = this.formatRole(userInfo.role || role || 'Property Owner');
+      this.userInitials = this.tokenService.generateInitials(this.userName);
+    } else if (role) {
+      this.userRole = this.formatRole(role);
+    }
+  }
+
+  formatRole(role: string): string {
+    if (!role) return 'Property Owner';
+    
+    // Convert role like "OWNER" to "Owner"
+    return role.charAt(0).toUpperCase() + role.slice(1).toLowerCase();
   }
 
   updatePageTitle(url: string) {
@@ -77,7 +107,12 @@ export class HeaderComponent implements OnInit {
   onLogout() {
     console.log('Logout clicked');
     this.showProfileCard = false;
-    // Implement logout logic
+    // Clear token, role, and user info
+    this.tokenService.logout();
+    // Reset user info display
+    this.userName = 'John Doe';
+    this.userRole = 'Property Owner';
+    this.userInitials = 'JD';
     this.router.navigate(['/auth/login']);
   }
 
