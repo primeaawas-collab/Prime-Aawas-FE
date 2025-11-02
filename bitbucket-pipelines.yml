@@ -1,0 +1,94 @@
+image: node:18-alpine
+
+pipelines:
+  default:
+    - step:
+        name: Build and Conditional Deploy
+        deployment: development
+        oidc: true
+        script:
+          - set -e
+          # --- python venv + awscli via pip ---
+          - apk add --no-cache python3 py3-pip bash git curl
+          - python3 -m venv /opt/venv
+          - . /opt/venv/bin/activate && pip install --upgrade pip && pip install awscli
+          - export PATH="/opt/venv/bin:$PATH"
+          - aws --version
+          - node -v && npm -v
+
+          # --- Gate on "#deploy" in last commit ---
+          - COMMIT_MSG="$(git log -1 --pretty=%B)"
+          - echo "Last commit message:$COMMIT_MSG"
+          - if echo "$COMMIT_MSG" | grep -iq "#deploy"; then echo "✅ Deploy flag detected — continuing"; else echo "⚠️ No deploy flag found — skipping deployment."; exit 0; fi
+
+          # --- OIDC: Assume AWS Role ---
+          - echo "🔑 Assuming AWS OIDC Role..."
+          - export AWS_ROLE_ARN="${AWS_ROLE_ARN}"
+          - export AWS_WEB_IDENTITY_TOKEN_FILE="$(pwd)/web-identity-token"
+          - export AWS_DEFAULT_REGION="ap-south-1"
+          - printf "%s" "$BITBUCKET_STEP_OIDC_TOKEN" > "$AWS_WEB_IDENTITY_TOKEN_FILE"
+          - aws sts get-caller-identity
+
+          # --- Build & Deploy ---
+          - npm ci
+          - chmod +x deploy.sh
+          - ./deploy.sh
+
+  branches:
+    main:
+      - step:
+          name: Deploy to AWS (S3 + CloudFront)
+          deployment: development
+          oidc: true
+          script:
+            - set -e
+            # --- python venv + awscli via pip ---
+            - apk add --no-cache python3 py3-pip bash git curl
+            - python3 -m venv /opt/venv
+            - . /opt/venv/bin/activate && pip install --upgrade pip && pip install awscli
+            - export PATH="/opt/venv/bin:$PATH"
+            - aws --version
+            - node -v && npm -v
+
+            # --- OIDC: Assume AWS Role ---
+            - echo "🔑 Assuming AWS OIDC Role..."
+            - export AWS_ROLE_ARN="${AWS_ROLE_ARN}"
+            - export AWS_WEB_IDENTITY_TOKEN_FILE="$(pwd)/web-identity-token"
+            - export AWS_DEFAULT_REGION="ap-south-1"
+            - printf "%s" "$BITBUCKET_STEP_OIDC_TOKEN" > "$AWS_WEB_IDENTITY_TOKEN_FILE"
+            - aws sts get-caller-identity
+
+            # --- Build & Deploy ---
+            - npm ci
+            - chmod +x deploy.sh
+            - ./deploy.sh
+
+  tags:
+    "v*":
+      - step:
+          name: Deploy to AWS (Production)
+          deployment: production
+          oidc: true
+          script:
+            - set -e
+            - echo "🚀 Release tag:$BITBUCKET_TAG"
+
+            # --- python venv + awscli via pip ---
+            - apk add --no-cache python3 py3-pip bash git curl
+            - python3 -m venv /opt/venv
+            - . /opt/venv/bin/activate && pip install --upgrade pip && pip install awscli
+            - export PATH="/opt/venv/bin:$PATH"
+            - aws --version
+            - node -v && npm -v
+
+            # --- OIDC: Assume AWS Role ---
+            - export AWS_ROLE_ARN="${AWS_ROLE_ARN}"
+            - export AWS_WEB_IDENTITY_TOKEN_FILE="$(pwd)/web-identity-token"
+            - export AWS_DEFAULT_REGION="ap-south-1"
+            - printf "%s" "$BITBUCKET_STEP_OIDC_TOKEN" > "$AWS_WEB_IDENTITY_TOKEN_FILE"
+            - aws sts get-caller-identity
+
+            # --- Build & Deploy (prod) ---
+            - npm ci
+            - chmod +x deploy.sh
+            - ./deploy.sh prod
