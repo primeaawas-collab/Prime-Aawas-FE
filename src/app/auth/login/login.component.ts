@@ -19,6 +19,9 @@ export class LoginComponent implements OnInit {
   rememberMe: boolean = false;
   errorMessage: string = '';
   isLoading: boolean = false;
+  showPassword = false;
+  fieldErrors: { [key: string]: string } = {};
+  submitted = false;
 
   constructor(
     private router: Router, 
@@ -37,8 +40,23 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit(): void {
-    if (!this.email || !this.password) {
-      this.toastService.warning('Please fill in all fields', 'Validation Error');
+    this.submitted = true;
+    this.fieldErrors = {};
+    
+    // Validate email
+    if (!this.email || this.email.trim() === '') {
+      this.fieldErrors['email'] = 'Required Field';
+    } else if (!this.isValidEmail(this.email)) {
+      this.fieldErrors['email'] = 'Please enter a valid email address';
+    }
+    
+    // Validate password
+    if (!this.password || this.password.trim() === '') {
+      this.fieldErrors['password'] = 'Required Field';
+    }
+    
+    // If there are validation errors, stop here
+    if (Object.keys(this.fieldErrors).length > 0) {
       return;
     }
 
@@ -95,7 +113,12 @@ export class LoginComponent implements OnInit {
       error: (error) => {
         this.isLoading = false;
         console.error('Login error:', error);
-        this.toastService.error('An error occurred. Please try again.', 'Network Error');
+          let errorTitle = 'Login Error';
+      
+        
+       
+        
+        this.toastService.error(error.error.message, errorTitle);
       }
     });
   }
@@ -118,6 +141,29 @@ export class LoginComponent implements OnInit {
     // const mockToken = 'facebook_oauth_token_' + Date.now();
     // this.tokenService.setToken(mockToken);
     // this.router.navigate(['/owner/owner-dashboard']);
+  }
+
+  togglePasswordVisibility(): void {
+    this.showPassword = !this.showPassword;
+  }
+
+  hasFieldError(fieldName: string): boolean {
+    return !!(this.submitted && this.fieldErrors[fieldName]);
+  }
+
+  getFieldError(fieldName: string): string {
+    return this.fieldErrors[fieldName] || '';
+  }
+
+  clearFieldError(fieldName: string): void {
+    if (this.fieldErrors[fieldName]) {
+      delete this.fieldErrors[fieldName];
+    }
+  }
+
+  private isValidEmail(email: string): boolean {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
   }
   
 }

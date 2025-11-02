@@ -23,6 +23,8 @@ export class SignupComponent {
   errorMessage = '';
   isLoading: boolean = false;
   fieldErrors: { [key: string]: string } = {};
+  showPassword = false;
+  showConfirmPassword = false;
 
   constructor(
     private tokenService: TokenService, 
@@ -32,19 +34,20 @@ export class SignupComponent {
   ) {}
 
   onSubmit() {
-    if (!this.name || !this.email || !this.phone || !this.password || !this.confirmPassword) {
-      this.toastService.warning('All fields are required', 'Validation Error');
-      return;
-    }
-
-    if (this.password !== this.confirmPassword) {
-      this.toastService.warning('Passwords do not match', 'Validation Error');
+    // Validate all fields using existing validation methods
+    this.validateName();
+    this.validatePhone();
+    this.validateEmail();
+    this.validatePassword();
+    this.validateConfirmPassword();
+    
+    // If there are validation errors, stop here
+    if (Object.keys(this.fieldErrors).length > 0) {
       return;
     }
 
     this.isLoading = true;
     this.errorMessage = '';
-    this.fieldErrors = {};
 
     const signupData: SignupRequest = {
       name: this.name,
@@ -77,12 +80,23 @@ export class SignupComponent {
         this.isLoading = false;
         console.error('Signup error:', error);
         
-        // Handle HTTP error response
-        if (error.error && error.error.data) {
-          this.handleApiErrors(error.error);
-        } else {
-          this.toastService.error('An error occurred. Please try again.', 'Network Error');
+        // Extract field-specific errors from API response
+        this.fieldErrors = {};
+        
+        if (error.error && error.error.data && typeof error.error.data === 'object') {
+          Object.keys(error.error.data).forEach((field) => {
+            // Map API field names to component property names
+     
+            const fieldKey = field === 'phoneNumber' ? 'phone' : field === 'email' ? 'email' : field;
+          
+            this.fieldErrors[fieldKey] = error.error.data[field];
+          });
         }
+        
+        // Show general error message
+        const errorMessage = error.error?.message || 'Signup failed. Please try again.';
+        const errorTitle = Object.keys(this.fieldErrors).length > 0 ? 'Validation Error' : 'Signup Error';
+        this.toastService.error(errorMessage, errorTitle);
       }
     });
   }
@@ -140,5 +154,94 @@ export class SignupComponent {
     if (this.fieldErrors[fieldName]) {
       delete this.fieldErrors[fieldName];
     }
+  }
+
+  // Real-time validation methods for blur events
+  validateName(): void {
+    if (!this.name || this.name.trim() === '') {
+      this.fieldErrors['name'] = 'Required Field';
+    } else {
+      const trimmedName = this.name.trim();
+      if (!/^[a-zA-Z\s'-]+$/.test(trimmedName)) {
+        this.fieldErrors['name'] = 'Full Name must contain alphabets only';
+      } else if (trimmedName.length > 100) {
+        this.fieldErrors['name'] = 'Full Name must be under 100 characters';
+      } else {
+        this.clearFieldError('name');
+      }
+    }
+  }
+
+  validatePhone(): void {
+    if (!this.phone || this.phone.trim() === '') {
+      this.fieldErrors['phone'] = 'Required Field';
+    } else {
+      const phoneDigits = this.phone.replace(/\s+/g, '');
+      if (!/^\d+$/.test(phoneDigits)) {
+        this.fieldErrors['phone'] = 'Phone number must contain digits only';
+      } else if (phoneDigits.length !== 10) {
+        this.fieldErrors['phone'] = 'Phone number must be 10 digits';
+      } else {
+        this.clearFieldError('phone');
+      }
+    }
+  }
+
+  validateEmail(): void {
+    if (!this.email || this.email.trim() === '') {
+      this.fieldErrors['email'] = 'Required Field';
+    } else {
+      const trimmedEmail = this.email.trim();
+      if (/\s/.test(trimmedEmail)) {
+        this.fieldErrors['email'] = 'Invalid email format';
+      } else if (!trimmedEmail.includes('@')) {
+        this.fieldErrors['email'] = 'Invalid email format';
+      } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(trimmedEmail)) {
+        this.fieldErrors['email'] = 'Invalid email format';
+      } else {
+        this.clearFieldError('email');
+      }
+    }
+  }
+
+  validatePassword(): void {
+    if (!this.password || this.password.trim() === '') {
+      this.fieldErrors['password'] = 'Required Field';
+    } else {
+      const passwordErrors: string[] = [];
+      if (!/\d/.test(this.password)) {
+        passwordErrors.push('Password must include at least one number');
+      }
+      if (!/[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/.test(this.password)) {
+        passwordErrors.push('Password must include at least one special character');
+      }
+      if (passwordErrors.length > 0) {
+        this.fieldErrors['password'] = passwordErrors.join(' and ');
+      } else {
+        this.clearFieldError('password');
+        // Re-validate confirm password if password is now valid
+        if (this.confirmPassword) {
+          this.validateConfirmPassword();
+        }
+      }
+    }
+  }
+
+  validateConfirmPassword(): void {
+    if (!this.confirmPassword || this.confirmPassword.trim() === '') {
+      this.fieldErrors['confirmPassword'] = 'Required Field';
+    } else if (this.password !== this.confirmPassword) {
+      this.fieldErrors['confirmPassword'] = 'Passwords do not match';
+    } else {
+      this.clearFieldError('confirmPassword');
+    }
+  }
+
+  togglePasswordVisibility(): void {
+    this.showPassword = !this.showPassword;
+  }
+
+  toggleConfirmPasswordVisibility(): void {
+    this.showConfirmPassword = !this.showConfirmPassword;
   }
 }
