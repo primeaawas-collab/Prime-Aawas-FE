@@ -1,15 +1,16 @@
-import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { RouterModule, Router } from '@angular/router';
-import { TokenService } from '../../service/authentication/token.service';
-import { AuthService, SignupRequest } from '../../service/authentication/auth.service';
-import { ToastService } from '../../service/toast/toast.service';
+import {CommonModule} from '@angular/common';
+import {Component} from '@angular/core';
+import {FormsModule} from '@angular/forms';
+import {Router, RouterModule} from '@angular/router';
+import {TokenService} from '../../service/authentication/token.service';
+import {AuthService, SignupRequest} from '../../service/authentication/auth.service';
+import {ToastService} from '../../service/toast/toast.service';
+import {GoogleAuthService} from '../../service/authentication/google-auth.service';
 
 @Component({
   selector: 'app-signup',
   standalone: true,
- imports: [CommonModule, FormsModule, RouterModule], 
+ imports: [CommonModule, FormsModule, RouterModule],
   templateUrl: './signup.component.html',
   styleUrl: './signup.component.scss'
 })
@@ -27,10 +28,11 @@ export class SignupComponent {
   showConfirmPassword = false;
 
   constructor(
-    private tokenService: TokenService, 
-    private router: Router,
-    private authService: AuthService,
-    private toastService: ToastService
+    private readonly tokenService: TokenService,
+    private readonly router: Router,
+    private readonly authService: AuthService,
+    private readonly toastService: ToastService,
+    private readonly googleAuthService: GoogleAuthService
   ) {}
 
   onSubmit() {
@@ -40,7 +42,7 @@ export class SignupComponent {
     this.validateEmail();
     this.validatePassword();
     this.validateConfirmPassword();
-    
+
     // If there are validation errors, stop here
     if (Object.keys(this.fieldErrors).length > 0) {
       return;
@@ -79,20 +81,20 @@ export class SignupComponent {
       error: (error) => {
         this.isLoading = false;
         console.error('Signup error:', error);
-        
+
         // Extract field-specific errors from API response
         this.fieldErrors = {};
-        
+
         if (error.error && error.error.data && typeof error.error.data === 'object') {
           Object.keys(error.error.data).forEach((field) => {
             // Map API field names to component property names
-     
+
             const fieldKey = field === 'phoneNumber' ? 'phone' : field === 'email' ? 'email' : field;
-          
+
             this.fieldErrors[fieldKey] = error.error.data[field];
           });
         }
-        
+
         // Show general error message
         const errorMessage = error.error?.message || 'Signup failed. Please try again.';
         const errorTitle = Object.keys(this.fieldErrors).length > 0 ? 'Validation Error' : 'Signup Error';
@@ -103,12 +105,9 @@ export class SignupComponent {
 
   onGoogleSignup(): void {
     console.log('Google signup clicked');
-    this.toastService.info('Google signup feature coming soon!', 'Feature Notice');
-    // TODO: Implement Google OAuth signup
-    // For now, simulate successful signup
-    // const mockToken = 'google_oauth_token_' + Date.now();
-    // this.tokenService.setToken(mockToken);
-    // this.router.navigate(['/owner/owner-dashboard']);
+    this.isLoading = true;
+    this.googleAuthService.initiateGoogleSignup();
+    // The redirect will happen, and the callback component will handle the rest
   }
 
   onFacebookSignup(): void {
@@ -123,7 +122,7 @@ export class SignupComponent {
 
   private handleApiErrors(response: any): void {
     this.fieldErrors = {};
-    
+
     // Extract field-specific errors from response.data
     if (response.data && typeof response.data === 'object') {
       Object.keys(response.data).forEach((field) => {
@@ -132,7 +131,7 @@ export class SignupComponent {
         this.fieldErrors[fieldKey] = response.data[field];
       });
     }
-    
+
     // Show general error message if no field-specific errors
     if (Object.keys(this.fieldErrors).length === 0) {
       this.toastService.error(response.message || 'Signup failed. Please try again.', 'Signup Error');

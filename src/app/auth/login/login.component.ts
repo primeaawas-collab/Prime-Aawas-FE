@@ -5,6 +5,7 @@ import { RouterModule, Router } from '@angular/router';
 import { TokenService } from '../../service/authentication/token.service';
 import { AuthService, LoginRequest } from '../../service/authentication/auth.service';
 import { ToastService } from '../../service/toast/toast.service';
+import { GoogleAuthService } from '../../service/authentication/google-auth.service';
 
 @Component({
   selector: 'app-login',
@@ -24,10 +25,11 @@ export class LoginComponent implements OnInit {
   submitted = false;
 
   constructor(
-    private router: Router, 
-    private tokenService: TokenService,
-    private authService: AuthService,
-    private toastService: ToastService
+    private readonly router: Router,
+    private readonly tokenService: TokenService,
+    private readonly authService: AuthService,
+    private readonly toastService: ToastService,
+    private readonly googleAuthService: GoogleAuthService
   ) {}
 
   ngOnInit(): void {
@@ -42,19 +44,19 @@ export class LoginComponent implements OnInit {
   onSubmit(): void {
     this.submitted = true;
     this.fieldErrors = {};
-    
+
     // Validate email
     if (!this.email || this.email.trim() === '') {
       this.fieldErrors['email'] = 'Required Field';
     } else if (!this.isValidEmail(this.email)) {
       this.fieldErrors['email'] = 'Please enter a valid email address';
     }
-    
+
     // Validate password
     if (!this.password || this.password.trim() === '') {
       this.fieldErrors['password'] = 'Required Field';
     }
-    
+
     // If there are validation errors, stop here
     if (Object.keys(this.fieldErrors).length > 0) {
       return;
@@ -80,12 +82,12 @@ export class LoginComponent implements OnInit {
             const mockToken = 'api_jwt_token_' + Date.now();
             this.tokenService.setToken(mockToken);
           }
-          
+
           // Store role if provided in response.data
           if (response.data && response.data.role) {
             this.tokenService.setRole(response.data.role);
           }
-          
+
           // Store user info (name, email, role, profileImageUrl)
           if (response.data) {
             const userInfo = {
@@ -96,14 +98,14 @@ export class LoginComponent implements OnInit {
             };
             this.tokenService.setUserInfo(userInfo);
           }
-          
+
           // Handle remember me functionality
           if (this.rememberMe) {
             this.tokenService.setRememberedEmail(this.email);
           } else {
             this.tokenService.removeRememberedEmail();
           }
-          
+
           this.toastService.success('Login successful! Welcome back.', 'Success');
           this.router.navigate(['/owner/owner-dashboard']);
         } else {
@@ -114,10 +116,10 @@ export class LoginComponent implements OnInit {
         this.isLoading = false;
         console.error('Login error:', error);
           let errorTitle = 'Login Error';
-      
-        
-       
-        
+
+
+
+
         this.toastService.error(error.error.message, errorTitle);
       }
     });
@@ -125,12 +127,8 @@ export class LoginComponent implements OnInit {
 
   onGoogleLogin(): void {
     console.log('Google login clicked');
-    this.toastService.info('Google login feature coming soon!', 'Feature Notice');
-    // TODO: Implement Google OAuth login
-    // For now, simulate successful login
-    // const mockToken = 'google_oauth_token_' + Date.now();
-    // this.tokenService.setToken(mockToken);
-    // this.router.navigate(['/owner/owner-dashboard']);
+    this.isLoading = true;
+    this.googleAuthService.initiateGoogleLogin();
   }
 
   onFacebookLogin(): void {
@@ -165,5 +163,5 @@ export class LoginComponent implements OnInit {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return emailRegex.test(email);
   }
-  
+
 }
