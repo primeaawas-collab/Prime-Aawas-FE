@@ -9,14 +9,16 @@ const excludedUrls = [
   '/api/login',
   '/api/signup',
   'login',
-  'signup'
+  'signup',
+  '/api/auth/oauth2/callback/google',
+  '/api/auth/oauth2/callback/facebook',
 ];
 
 export const authInterceptor: HttpInterceptorFn = (req, next) => {
   const tokenService = inject(TokenService);
-  
+
   // Check if the request URL should be excluded from adding the auth token
-  const shouldExclude = excludedUrls.some(url => 
+  const shouldExclude = excludedUrls.some(url =>
     req.url.includes(url) || req.urlWithParams.includes(url)
   );
 
@@ -26,7 +28,7 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
 
   // Get the token from the token service
   const token = tokenService.getToken();
-  
+
   if (token) {
     // Clone the request and add the authorization header
     const authReq = req.clone({

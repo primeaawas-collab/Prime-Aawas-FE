@@ -1,6 +1,7 @@
 import { Routes } from '@angular/router';
 import { LoginComponent } from './login/login.component';
 import { SignupComponent } from './signup/signup.component';
+import { GoogleCallbackComponent } from './google-callback/google-callback.component';
 
 export const AUTH_ROUTES: Routes = [
   {
@@ -15,5 +16,9 @@ export const AUTH_ROUTES: Routes = [
   {
     path: 'signup',
     component: SignupComponent,
+  },
+  {
+    path: 'google/callback',
+    component: GoogleCallbackComponent,
   }
 ];
