@@ -68,7 +68,8 @@ export class FlatsAssociatedPropertyComponent {
   properties = [
     { id: 1, name: 'Sunrise Apartments', address: '123 MG Road, Bangalore - 560001' },
     { id: 2, name: 'Green Valley Residency', address: '456 Park Street, Mumbai - 400001' },
-    { id: 3, name: 'City Center Plaza', address: '789 Brigade Road, Bangalore - 560025' }
+    { id: 3, name: 'City Center Plaza', address: '789 Brigade Road, Bangalore - 560025' },
+    { id: 4, name: 'City Center Plaza', address: '789 Brigade Road, Bangalore - 560025' },
   ];
   
   metrics: PropertyMetrics = {
