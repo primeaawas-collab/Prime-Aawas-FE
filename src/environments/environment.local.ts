@@ -1,7 +1,7 @@
 export const environment = {
   production: false,
   environment: 'local',
-  apiUrl: 'http://localhost:8080',
+  apiUrl: 'http://localhost:8080/api',
   googleClientId: '291833976055-kklqrb0dsf42h3vh0uoh4m4i5c2qn947.apps.googleusercontent.com',
   googleRedirectUri: 'http://localhost:4200/auth/google/callback',
   apiVersion: 'v1',
