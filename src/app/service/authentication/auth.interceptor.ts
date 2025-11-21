@@ -11,7 +11,7 @@ const excludedUrls = [
   'login',
   'signup',
   '/api/auth/oauth2/callback/google',
-  '/api/auth/oauth2/callback/facebook',
+  
 ];
 
 export const authInterceptor: HttpInterceptorFn = (req, next) => {

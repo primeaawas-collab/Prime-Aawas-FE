@@ -131,15 +131,7 @@ export class LoginComponent implements OnInit {
     this.googleAuthService.initiateGoogleLogin();
   }
 
-  onFacebookLogin(): void {
-    console.log('Facebook login clicked');
-    this.toastService.info('Facebook login feature coming soon!', 'Feature Notice');
-    // TODO: Implement Facebook OAuth login
-    // For now, simulate successful login
-    // const mockToken = 'facebook_oauth_token_' + Date.now();
-    // this.tokenService.setToken(mockToken);
-    // this.router.navigate(['/owner/owner-dashboard']);
-  }
+ 
 
   togglePasswordVisibility(): void {
     this.showPassword = !this.showPassword;

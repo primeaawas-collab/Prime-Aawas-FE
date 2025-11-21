@@ -110,15 +110,7 @@ export class SignupComponent {
     // The redirect will happen, and the callback component will handle the rest
   }
 
-  onFacebookSignup(): void {
-    console.log('Facebook signup clicked');
-    this.toastService.info('Facebook signup feature coming soon!', 'Feature Notice');
-    // TODO: Implement Facebook OAuth signup
-    // For now, simulate successful signup
-    // const mockToken = 'facebook_oauth_token_' + Date.now();
-    // this.tokenService.setToken(mockToken);
-    // this.router.navigate(['/owner/owner-dashboard']);
-  }
+ 
 
   private handleApiErrors(response: any): void {
     this.fieldErrors = {};
