@@ -1,5 +1,5 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component, OnInit, OnDestroy, Inject, PLATFORM_ID } from '@angular/core';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { GoogleAuthService } from '../../service/authentication/google-auth.service';
 import { TokenService } from '../../service/authentication/token.service';
@@ -31,10 +31,7 @@ import { Subscription } from 'rxjs';
       min-height: 100vh;
       background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     }
-    .spinner-container {
-      text-align: center;
-      color: white;
-    }
+    .spinner-container { text-align: center; color: white; }
     .spinner {
       border: 4px solid rgba(255, 255, 255, 0.3);
       border-top: 4px solid white;
@@ -44,10 +41,7 @@ import { Subscription } from 'rxjs';
       animation: spin 1s linear infinite;
       margin: 0 auto 20px;
     }
-    @keyframes spin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
-    }
+    @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
     .error-container {
       text-align: center;
       background: white;
@@ -55,10 +49,7 @@ import { Subscription } from 'rxjs';
       border-radius: 10px;
       box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     }
-    .error-text {
-      color: #e74c3c;
-      margin-bottom: 20px;
-    }
+    .error-text { color: #e74c3c; margin-bottom: 20px; }
     .retry-button {
       background: #667eea;
       color: white;
@@ -67,9 +58,7 @@ import { Subscription } from 'rxjs';
       border-radius: 5px;
       cursor: pointer;
     }
-    .retry-button:hover {
-      background: #5568d3;
-    }
+    .retry-button:hover { background: #5568d3; }
   `]
 })
 export class GoogleCallbackComponent implements OnInit, OnDestroy {
@@ -79,7 +68,9 @@ export class GoogleCallbackComponent implements OnInit, OnDestroy {
   private routeSubscription?: Subscription;
   private callbackSubscription?: Subscription;
 
+  // ✅ Inject PLATFORM_ID for SSR-safe environment checks
   constructor(
+    @Inject(PLATFORM_ID) private platformId: Object,
     private readonly route: ActivatedRoute,
     private readonly router: Router,
     private readonly googleAuthService: GoogleAuthService,
@@ -101,14 +92,12 @@ export class GoogleCallbackComponent implements OnInit, OnDestroy {
       const error = params['error'];
       const errorDescription = params['error_description'];
 
-      // Handle OAuth errors from Google
       if (error) {
         const errorMsg = errorDescription || error || 'Authentication failed';
         this.handleError(`Authentication failed: ${errorMsg}`, 'OAuth Error');
         return;
       }
 
-      // Validate and process authorization code
       if (!code) {
         this.handleError('No authorization code received from Google', 'Missing Code');
         return;
@@ -119,39 +108,24 @@ export class GoogleCallbackComponent implements OnInit, OnDestroy {
         return;
       }
 
-      // Process the callback
       this.handleGoogleCallback(code.trim());
     });
   }
 
   ngOnDestroy(): void {
-    // Clean up subscriptions to prevent memory leaks
-    if (this.routeSubscription) {
-      this.routeSubscription.unsubscribe();
-    }
-    if (this.callbackSubscription) {
-      this.callbackSubscription.unsubscribe();
-    }
+    if (this.routeSubscription) this.routeSubscription.unsubscribe();
+    if (this.callbackSubscription) this.callbackSubscription.unsubscribe();
   }
 
   handleGoogleCallback(code: string): void {
-    // Use a single method since backend endpoint is the same for both login and signup
     const callback$ = this.googleAuthService.handleGoogleCallback(code);
 
     this.callbackSubscription = callback$.subscribe({
-      next: (response) => {
-        this.handleSuccessResponse(response);
-      },
-      error: (error) => {
-        this.handleErrorResponse(error);
-      }
+      next: (response) => this.handleSuccessResponse(response),
+      error: (error) => this.handleErrorResponse(error)
     });
   }
 
-  /**
-   * Handles successful authentication response
-   * Stores token, role, user info and redirects appropriately
-   */
   private handleSuccessResponse(response: AuthResponse): void {
     this.isLoading = false;
 
@@ -161,21 +135,15 @@ export class GoogleCallbackComponent implements OnInit, OnDestroy {
     }
 
     try {
-      // Store token if provided
       if (response.data?.token) {
         this.tokenService.setToken(response.data.token);
       } else {
-        // Generate a mock token if not provided by API (for development)
         const mockToken = `google_oauth_token_${Date.now()}`;
         this.tokenService.setToken(mockToken);
       }
 
-      // Store role if provided
-      if (response.data?.role) {
-        this.tokenService.setRole(response.data.role);
-      }
+      if (response.data?.role) this.tokenService.setRole(response.data.role);
 
-      // Store user info (name, email, role, profileImageUrl)
       if (response.data) {
         const userInfo = {
           name: response.data.name || '',
@@ -186,14 +154,11 @@ export class GoogleCallbackComponent implements OnInit, OnDestroy {
         this.tokenService.setUserInfo(userInfo);
       }
 
-      // Show success message and redirect
       const successMessage = this.authMode === 'signup'
         ? 'Welcome to Prime Aawas!'
         : 'Login successful! Welcome back.';
 
       this.toastService.success(successMessage, 'Success');
-
-      // Redirect to appropriate dashboard based on role or default to owner dashboard
       this.redirectToDashboard(response.data?.role);
     } catch (error) {
       console.error('Error processing authentication response:', error);
@@ -201,9 +166,6 @@ export class GoogleCallbackComponent implements OnInit, OnDestroy {
     }
   }
 
-  /**
-   * Handles error responses from the authentication API
-   */
   private handleErrorResponse(error: any): void {
     this.isLoading = false;
     console.error(`Google ${this.authMode} error:`, error);
@@ -211,7 +173,6 @@ export class GoogleCallbackComponent implements OnInit, OnDestroy {
     let errorMessage = 'An error occurred. Please try again.';
     let errorTitle = 'Authentication Error';
 
-    // Extract error message from API response
     if (error?.error) {
       if (typeof error.error === 'string') {
         errorMessage = error.error;
@@ -221,7 +182,6 @@ export class GoogleCallbackComponent implements OnInit, OnDestroy {
         errorMessage = error.error.error;
       }
 
-      // Check for specific error status codes
       if (error.status === 401) {
         errorMessage = 'Authentication failed. Please try again.';
         errorTitle = 'Unauthorized';
@@ -240,9 +200,6 @@ export class GoogleCallbackComponent implements OnInit, OnDestroy {
     this.handleError(errorMessage, errorTitle);
   }
 
-  /**
-   * Redirects to appropriate dashboard based on user role
-   */
   private redirectToDashboard(role?: string): void {
     const roleBasedRoutes: { [key: string]: string[] } = {
       'admin': ['/admin/dashboard'],
@@ -263,9 +220,7 @@ export class GoogleCallbackComponent implements OnInit, OnDestroy {
   }
 
   retry(): void {
-    // Clean up and redirect back to appropriate page
     const redirectPath = this.authMode === 'signup' ? '/auth/signup' : '/auth/login';
     this.router.navigate([redirectPath]);
   }
 }
-

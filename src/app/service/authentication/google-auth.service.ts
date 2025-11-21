@@ -64,7 +64,7 @@ export class GoogleAuthService {
   handleGoogleCallback(code: string): Observable<AuthResponse> {
     const params = new HttpParams().set('code', code);
     return this.http.get<AuthResponse>(
-      `${this.baseUrl}/api/auth/oauth2/callback/google`,
+      `${this.baseUrl}/auth/oauth2/callback/google`,
       {
         params,
         headers: {

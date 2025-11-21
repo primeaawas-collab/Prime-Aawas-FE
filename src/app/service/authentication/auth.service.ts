@@ -54,7 +54,7 @@ export class AuthService {
 
   checkEmailExists(email: string): Observable<AuthResponse> {
     const params = new HttpParams().set('email', email);
-    return this.http.get<AuthResponse>(`${this.baseUrl}/api/users/check-email`, {
+    return this.http.get<AuthResponse>(`${this.baseUrl}/users/check-email`, {
       params,
       headers: {
         'Accept': 'application/json'
@@ -64,7 +64,7 @@ export class AuthService {
 
   checkPhoneExists(phoneNumber: string): Observable<AuthResponse> {
     const params = new HttpParams().set('phoneNumber', phoneNumber);
-    return this.http.get<AuthResponse>(`${this.baseUrl}/api/users/check-phone`, {
+    return this.http.get<AuthResponse>(`${this.baseUrl}/users/check-phone`, {
       params,
       headers: {
         'Accept': 'application/json'
