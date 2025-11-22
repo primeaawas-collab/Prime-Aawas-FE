@@ -4,6 +4,13 @@
  
 }
 
+// Apply card background gradient to Bootstrap cards
+.card {
+  .card-body {
+    background: var(--card-background-gradient);
+  }
+}
+
 .logo-icon {
   width: 48px;
   height: 48px;

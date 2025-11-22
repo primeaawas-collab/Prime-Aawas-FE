@@ -26,6 +26,9 @@ $prime-aawas-theme: mat.define-theme((
 // that you are using.
 :root {
   @include mat.all-component-themes($prime-aawas-theme);
+  
+  // Card background gradient variable
+  --card-background-gradient: linear-gradient(135deg, #F0E6F0 0%, #E0F2F7 100%);
 }
 
 // Comment out the line below if you want to use the pre-defined typography utility classes.

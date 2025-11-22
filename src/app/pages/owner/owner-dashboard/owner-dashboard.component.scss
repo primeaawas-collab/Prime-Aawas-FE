@@ -15,25 +15,25 @@
   }
 
   .card-body {
-    background: linear-gradient(135deg, #F0E6F0 0%, #E0F2F7 100%);
+    background: var(--card-background-gradient);
     padding: 1.5rem;
   }
 
   // Variation gradients for different cards
   &.card-properties .card-body {
-    background: linear-gradient(135deg, #F0E6F0 0%, #E0F2F7 100%);
+    background: var(--card-background-gradient);
   }
 
   &.card-tenants .card-body {
-    background: linear-gradient(135deg, #E8F4F8 0%, #F0E6F0 100%);
+    background: var(--card-background-gradient);
   }
 
   &.card-revenue .card-body {
-    background: linear-gradient(135deg, #F5E6F0 0%, #E0EFF7 100%);
+    background: var(--card-background-gradient);
   }
 
   &.card-payments .card-body {
-    background: linear-gradient(135deg, #E6F0F7 0%, #F0E6F0 100%);
+    background: var(--card-background-gradient);
   }
 
   .icon {
